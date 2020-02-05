@@ -82,11 +82,13 @@ class Answer(models.Model):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
+    rank = models.IntegerField(default=0)
 
     gold_list = models.TextField(default="[]")  # list 형식으로
 
-    def set_gold_list(self, x):
-        self.gold_list = json.dumps(x)
+    def append_gold_list(self, x):
+        self.gold_list = json.dumps(json.loads(self.gold_list).append(x))
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
 
     def get_gold_list(self):
         return json.loads(self.gold_list)
@@ -98,8 +100,9 @@ class Profile(models.Model):
 
     silver_list = models.TextField(default="[]")
 
-    def set_silver_list(self, x):
-        self.silver_list= json.dumps(x)
+    def append_silver_list(self, x):
+        self.silver_list = json.dumps(json.loads(self.silver_list).append(x))
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
 
     def get_silver_list(self):
         return json.loads(self.silver_list)
@@ -111,8 +114,9 @@ class Profile(models.Model):
 
     bronze_list = models.TextField(default="[]")
 
-    def set_bronze_list(self, x):
-        self.bronze_list = json.dumps(x)
+    def append_bronze_list(self, x):
+        self.bronze_list = json.dumps(json.loads(self.bronze_list).append(x))
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
 
     def get_bronze_list(self):
         return json.loads(self.bronze_list)
@@ -121,13 +125,19 @@ class Profile(models.Model):
         bronze_list = self.get_bronze_list()
         return len(bronze_list)
 
-    badge = models.IntegerField(default=0)
 
-    rank = models.IntegerField(default=0)
+    badge_list = models.TextField(default="[]")
 
-    def get_rank(self, x):
-        result = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
-        return result
+    def append_badge_list(self, x):
+        self.bronze_list = json.dumps(json.loads(self.badge_list).append(x))
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
+
+    def get_badge_list(self):
+        return json.loads(self.badge_list)
+
+    def count_badge(self):
+        badge_list = self.get_badge_list()
+        return len(badge_list)
 
     email = models.EmailField(null=True, blank=True, unique=True)
     is_id = models.IntegerField(default=0)  # 0 == id, 1 == co
