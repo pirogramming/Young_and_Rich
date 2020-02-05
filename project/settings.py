@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'community',
-    'compt_co',
-    'compt_id',
+    'comp',
+
 ]
 
 MIDDLEWARE = [
