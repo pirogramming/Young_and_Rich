@@ -22,6 +22,7 @@ class Comp(models.Model):
     overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
     data_context = models.TextField(null=True, blank=True)  # data 설명
     is_main = models.IntegerField(default=0)  # 0 == main, 1 == in class
+    team_number = models.IntegerField(default=0)  # 참여팀 수
 
 
 # 결투장 data file 업로드
