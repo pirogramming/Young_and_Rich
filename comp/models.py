@@ -5,6 +5,10 @@ from django.db import models
 
 
 # 결투장
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 class Comp(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # comp 업로드 한 기업
     title = models.CharField(max_length=255)
@@ -144,3 +148,14 @@ class Profile(models.Model):
     comp = models.ManyToManyField(Comp)
     # Profile1.comp.add(comp1, comp2)
     # for comp in Profile.comp.all()
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
