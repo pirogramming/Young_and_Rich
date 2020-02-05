@@ -1,0 +1,35 @@
+{% extends 'comp/comp_detail.html' %}
+
+{% block content %}
+    <div class="">
+    <ul style="list-style: none">
+        <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
+        <li>데이터</li>
+        <li>코드</li>
+        <li style="color: blue">게시판</li>
+        <li>순위</li>
+    </ul>
+</div>
+
+<div>
+    <form action="" method="get">
+        <input type="text" name="q" value="{{ q }}">
+        <input type="submit" value="검색">
+    </form>
+</div>
+
+<div>
+    {% for post in compost_list %}
+        <div>
+            <a href=""><div>{{ post.title }}</div></a>
+            {{ post.user.nickname }}
+            {{ post.created_at }}
+            {% for key, value in dict.items %}
+                {% if key == post.id %}
+                    {{ value }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

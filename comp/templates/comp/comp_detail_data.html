@@ -1,0 +1,17 @@
+{% extends "comp/comp_detail.html" %}
+
+{% block content %}
+<div class="">
+    <ul style="list-style: none">
+        <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
+        <li style="color: blue">데이터</li>
+        <li>코드</li>
+        <li>게시판</li>
+        <li>순위</li>
+    </ul>
+</div>
+
+<div>
+    <div>{{ comp.data_context }}</div>
+</div>
+{% endblock %}

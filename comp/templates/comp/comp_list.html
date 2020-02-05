@@ -5,14 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-{% for comp in comp_list %}
-    <form action="" method="get">
-        <input type="text" name="q" value="{{ q }}">
-        <input type="submit" value="검색">
-    </form>
+<form action="" method="get">
+    <input type="text" name="q" value="{{ q }}">
+    <input type="submit" value="검색">
+</form>
 
+{% for comp in comp_list %}
     <div>
-        <div><img src="{{ comp.profile_thumb.url }}" alt=""></div>
+        <div><img src="" alt=""></div>
         <div>{{ comp.title }}</div>
         <div>{{ comp.deadline }}</div>
         <div>{{ comp.team_number }}</div>

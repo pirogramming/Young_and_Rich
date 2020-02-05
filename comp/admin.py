@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from comp.models import Comp, ComPost, ComComment
+
+admin.site.register(Comp)
+admin.site.register(ComPost)
+admin.site.register(ComComment)
