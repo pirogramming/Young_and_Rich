@@ -6,5 +6,5 @@ app_name = 'core'
 
 urlpatterns = [
     path('accounts/login', sign_in, name='sign_in'),
-    path('rank', show_user_rank, name='show_user_rank')
+    path('rank', show_user_rank, name='show_user_rank'),
 ]
