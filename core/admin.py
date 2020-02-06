@@ -6,6 +6,7 @@ from .models import Profile
 
 
 # 이거 덕분에 admin 에서 user 볼 때 Profile 이랑 연결이 된다. 아래도 마찬가지.
+'''
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
@@ -24,3 +25,6 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+'''
+
+admin.site.register(Profile)

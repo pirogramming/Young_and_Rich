@@ -12,7 +12,7 @@ def sign_in(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return render(request, 'account/profile.html')  # change to main page
+            return redirect('core:profile')  # change to main page
         else:
             return render(request, 'account/login.html', {'error': 'username or password is incorrect'})
     else:

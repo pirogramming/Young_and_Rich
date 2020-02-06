@@ -6,5 +6,4 @@ app_name = 'core'
 
 urlpatterns = [
     path('accounts/login', sign_in, name='sign_in'),
-    path('accounts/profile', profile, name='profile'),
 ]

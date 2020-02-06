@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>유저 네임은 : {{ user.username }}</h1>
-<h2>유저 랭킹은 : {{ user.rank }}</h2>
-<h3>유저 이미지는 <img src="{{ user.profile.img.url }}"></h3>
+<h2>유저 랭킹은 : {{ user.profile.rank }}</h2>
+<h3>유저 이미지는 </h3>
+<img src="{{ user.profile.image.url }}" alt="no image">
 </body>
 </html>

@@ -11,7 +11,7 @@ from comp.models import *
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     rank = models.IntegerField(default=0)
 
@@ -73,6 +73,9 @@ class Profile(models.Model):
     comp = models.ManyToManyField(Comp, blank=True)
     # Profile1.comp.add(comp1, comp2)
     # for comp in Profile.comp.all()
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
 
 @receiver(post_save, sender=User)
