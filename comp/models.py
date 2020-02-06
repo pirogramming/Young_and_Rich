@@ -21,7 +21,8 @@ class Comp(models.Model):
     evaluation = models.TextField(null=True, blank=True)
     overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
     data_context = models.TextField(null=True, blank=True)  # data 설명
-    is_main = models.IntegerField(default=0)  # 0 == main, 1 == in class
+    not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
+    team_number = models.IntegerField(default=0)  # 참여팀 수
 
 
 # 결투장 data file 업로드
@@ -38,8 +39,8 @@ class ComPost(models.Model):
 
     title = models.CharField(max_length=255)
     context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 # 결투장 community Comment
@@ -48,8 +49,17 @@ class ComComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # comment 쓴 개인
 
     context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class ComCommComment(models.Model):
+    comment = models.ForeignKey(ComComment, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    context = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 # 결투장 code Post
