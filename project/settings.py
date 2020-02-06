@@ -32,12 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.kakao',
-    'allauth.socialaccount.providers.naver',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -47,6 +41,13 @@ INSTALLED_APPS = [
     'core',
     'community',
     'comp',
+    'allauth',
+    #allauth 가 core 아래 있어야지 뷰가 템플릿을 이 순서대로 찾는다! core 위에 하면 allauth 내의 templates 폴더를 탐색함.
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.naver',
 
 ]
 
@@ -66,7 +67,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.normpath(os.path.join(BASE_DIR, 'templates')),
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -140,13 +141,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = '/accounts/profile/'
+LOGIN_REDIRECT_URL = '/main/'
 
 ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/'
 ACCOUNT_LOGOUT_ON_GET = True
-
+ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+ACCOUNT_FORMS = {'login': 'core.forms.CustomLoginForm'}
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
