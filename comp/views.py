@@ -20,11 +20,43 @@ def comp_list(request):
 
 
 def comp_detail_overview(request, pk):
-    overview = Comp.objects.post(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "overview": overview,
+        "o": o,
+    }
+    return render(request, "comp/comp_detail_overview.html", data)
+
+
+def comp_detail_overview_description(request, pk):
+    d = Comp.objects.get(pk=pk)
+    data = {
+        "d": d,
     }
     return render(request, "comp/comp_detail_overview_description.html", data)
+
+
+def comp_detail_overview_evaluation(request, pk):
+    e = Comp.objects.get(pk=pk)
+    data = {
+        "e": e,
+    }
+    return render(request, "comp/comp_detail_overview_evaluation.html", data)
+
+
+def comp_detail_overview_timeline(request, pk):
+    t = Comp.objects.get(pk=pk)
+    data = {
+        "t": t,
+    }
+    return render(request, "comp/comp_detail_overview_timeline.html", data)
+
+
+def comp_detail_overview_prizes(request, pk):
+    p = Comp.objects.get(pk=pk)
+    data = {
+        "p": p,
+    }
+    return render(request, "comp/comp_detail_overview_prizes.html", data)
 
 
 def comp_detail_data(request, pk):

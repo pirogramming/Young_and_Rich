@@ -16,18 +16,16 @@
     <div class="wrap">
         <div class="left-bar">
             <ul>
-                <li><a href="{% url '<int:pk>/overview/' %}"></a>Description</li>
-                <li><a href="{% url '' %}"></a>Timeline</li>
-                <li><a href="{% url '' %}"></a>Prizes</li>
-                <li><a href="{% url '' %}"></a>Code Requirements</li>
-                <li><a href="{% url '' %}"></a>Getting started</li>
-                <li><a href="{% url '' %}"></a>Evaluation</li>
+                <li><a href="/comp/{{ o.id }}/overview/"></a>Description</li>
+                <li><a href=""></a>Timeline</li>
+                <li><a href=""></a>Prizes</li>
+                <li><a href=""></a>Code Requirements</li>
+                <li><a href=""></a>Getting started</li>
+                <li><a href=""></a>Evaluation</li>
             </ul>
         </div>
         <div class="right">
-            {{ Comp.overview_context }}
+            {{ o.overview_context }}
         </div>
     </div>
-{% endblock %}
-{% block content %}
 {% endblock %}

@@ -1,5 +1,31 @@
-{% extends "comp/comp_detail_overview.html" %}
+{% extends "comp/comp_detail.html" %}
 
 {% block content %}
-   {{ comp.overview_text }}
+    <nav>
+        <span><a href=""></a>overview</span>
+        <span><a href=""></a>data</span>
+        <span><a href=""></a>discussion</span>
+        <span><a href=""></a>leaderboard</span>
+        <span>
+            <form>
+                <button>join competition</button>
+            </form>
+        </span>
+    </nav>
+    <div>overview</div>
+    <div class="wrap">
+        <div class="left-bar">
+            <ul>
+                <li><a href=""></a>Description</li>
+                <li><a href=""></a>Timeline</li>
+                <li><a href=""></a>Prizes</li>
+                <li><a href=""></a>Code Requirements</li>
+                <li><a href=""></a>Getting started</li>
+                <li><a href=""></a>Evaluation</li>
+            </ul>
+        </div>
+        <div class="right">
+            {{ d.overview_context }}
+        </div>
+    </div>
 {% endblock %}

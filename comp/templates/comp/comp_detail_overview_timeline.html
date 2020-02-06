@@ -1,21 +1,31 @@
 {% extends "comp/comp_detail.html" %}
 
 {% block content %}
+    <nav>
+        <span><a href=""></a>overview</span>
+        <span><a href=""></a>data</span>
+        <span><a href=""></a>discussion</span>
+        <span><a href=""></a>leaderboard</span>
+        <span>
+            <form>
+                <button>join competition</button>
+            </form>
+        </span>
+    </nav>
     <div>overview</div>
     <div class="wrap">
         <div class="left-bar">
             <ul>
-                <li>Description</li>
-                <li>Timeline</li>
-                <li>Prizes</li>
-                <li>Code Requirements</li>
-                <li>Getting started</li>
-                <li>Evaluation</li>
+                <li><a href=""></a>Description</li>
+                <li><a href=""></a>Timeline</li>
+                <li><a href=""></a>Prizes</li>
+                <li><a href=""></a>Code Requirements</li>
+                <li><a href=""></a>Getting started</li>
+                <li><a href=""></a>Evaluation</li>
             </ul>
         </div>
         <div class="right">
-            {{ Comp.deadline }}
-            {{ Comp. }}
+            {{ t.deadline }}
         </div>
     </div>
 {% endblock %}
