@@ -1,0 +1,28 @@
+{% extends "comp/comp_detail.html" %}
+
+{% block content %}
+    <div>overview</div>
+    <div class="wrap">
+        <div class="left-bar">
+            <ul>
+                <li>Description</li>
+                <li>Timeline</li>
+                <li>Prizes</li>
+                <li>Code Requirements</li>
+                <li>Getting started</li>
+                <li>Evaluation</li>
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+                {% if prize_list %}
+                    {% for prize in prize_list %}
+                        <li>{{ Comp.prize }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Sorry, no prize in this competition.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

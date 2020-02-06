@@ -19,8 +19,12 @@ def comp_list(request):
     return render(request, "comp/comp_list.html", ctx)
 
 
-def comp_detail_overview(request):
-    return render(request, "comp/comp_detail_overview.html")
+def comp_detail_overview(request, pk):
+    overview = Comp.objects.post(pk=pk)
+    data = {
+        "overview": overview,
+    }
+    return render(request, "comp/comp_detail_overview_description.html", data)
 
 
 def comp_detail_data(request, pk):
@@ -48,6 +52,8 @@ def comp_detail_community_list(request, pk):
         "dict": dict,
     }
     return render(request, "comp/comp_detail_community.html", ctx)
+
+
 from datetime import datetime
 
 from django.utils.dateformat import DateFormat

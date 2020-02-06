@@ -1,8 +1,8 @@
 import json
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-
 
 # 결투장
 from django.db.models.signals import post_save
@@ -18,8 +18,8 @@ class Comp(models.Model):
     back_thumb = models.ImageField(null=True, blank=True)
     prize = models.IntegerField()
 
-    created_at = models.DateField()
-    updated_at = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     deadline = models.DateTimeField()
 
     evaluation = models.TextField(null=True, blank=True)
@@ -73,8 +73,8 @@ class CodePost(models.Model):
 
     title = models.CharField(max_length=255)
     context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
 
 
@@ -84,10 +84,10 @@ class CodeComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # code에 comment 단 개인
 
     context = models.TextField()
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Answer(models.Model):
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    accuracy = models.FloatField()g
+    accuracy = models.FloatField()

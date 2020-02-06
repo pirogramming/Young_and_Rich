@@ -1,0 +1,20 @@
+{% extends "comp/comp_detail.html" %}
+
+{% block content %}
+    <div>overview</div>
+    <div class="wrap">
+        <div class="left-bar">
+            <ul>
+                <li>Description</li>
+                <li>Timeline</li>
+                <li>Prizes</li>
+                <li>Code Requirements</li>
+                <li>Getting started</li>
+                <li>Evaluation</li>
+            </ul>
+        </div>
+        <div class="right">
+            {{ Comp.evaluation }}
+        </div>
+    </div>
+{% endblock %}
