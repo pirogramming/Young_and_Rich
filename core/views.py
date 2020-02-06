@@ -24,6 +24,7 @@ def sign_in(request):
 def profile(request):
     user = get_object_or_404(User)
     stars = user.profile.star.all()
+
     data = {
         'stars': stars
     }
