@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from comp.models import Comp, ComPost, ComComment
+from comp.models import Comp
 
 
 # comp code 추가시 comp.team_number +1
@@ -47,3 +48,21 @@ def comp_detail_community_list(request, pk):
         "dict": dict,
     }
     return render(request, "comp/comp_detail_community.html", ctx)
+from datetime import datetime
+
+from django.utils.dateformat import DateFormat
+
+
+def progressbar(request, pk):
+    comp = get_object_or_404(Comp, pk=pk)
+
+    today = int(DateFormat(datetime.now()).format('Ymd'))
+
+    created_date = int(DateFormat(comp.created_at).format('Ymd'))
+    dead_date = int(DateFormat(comp.deadline.date()).format('Ymd'))
+    total = dead_date - created_date
+
+    context = {
+        'comp': comp
+    }
+    return render(request, 'comp/progressbar.html', context)
