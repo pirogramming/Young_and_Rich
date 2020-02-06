@@ -14,7 +14,7 @@ def sign_in(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('core:profile')  # change to main page
+            return redirect('profile')  # change to main page
         else:
             return render(request, 'account/login.html', {'error': 'username or password is incorrect'})
     else:
@@ -22,7 +22,7 @@ def sign_in(request):
 
 
 def profile(request):
-    user = get_object_or_404(User)
+    user = User.objects.get(username=request.user.get_username())
     stars = user.profile.star.all()
     data = {
         'stars': stars
