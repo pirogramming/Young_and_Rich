@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render
 
 from comp.models import Comp, ComPost, ComComment
@@ -19,13 +18,16 @@ def comp_list(request):
     return render(request, "comp/comp_list.html", ctx)
 
 
-def comp_detail_overview(request, pk):
-    return render(request, "comp/comp_detail_overvie.html")
+def comp_detail_overview(request):
+    return render(request, "comp/comp_detail_overview.html")
 
 
 def comp_detail_data(request, pk):
     comp = Comp.objects.get(pk=pk)
-    return render(request, "comp/comp_detail_data.html", {"comp":comp})
+    ctx = {
+        "comp": comp,
+    }
+    return render(request, "comp/comp_detail_data.html", ctx)
 
 
 def comp_detail_community_list(request, pk):
