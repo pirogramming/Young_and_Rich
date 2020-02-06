@@ -143,7 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = '/main/'
+LOGIN_REDIRECT_URL = '/accounts/profile'
 
 ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/'
 ACCOUNT_LOGOUT_ON_GET = True
