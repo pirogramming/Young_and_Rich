@@ -16,7 +16,7 @@
     <div class="wrap">
         <div class="left-bar">
             <ul>
-                <li><a href="/comp/{{ o.id }}/overview/"></a>Description</li>
+                <li><a href=""></a>Description</li>
                 <li><a href=""></a>Timeline</li>
                 <li><a href=""></a>Prizes</li>
                 <li><a href=""></a>Code Requirements</li>
@@ -25,7 +25,17 @@
             </ul>
         </div>
         <div class="right">
-            {{ o.overview_context }}
+
+            <ul>
+                {% if prize_list %}
+                    {% for prize in prize_list %}
+                        <li>{{ p.prize }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Sorry, no prize in this competition.</li>
+                {% endif %}
+            </ul>
         </div>
+
     </div>
 {% endblock %}
