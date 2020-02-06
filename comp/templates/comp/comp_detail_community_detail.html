@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <div>{{ post.user.profile_set.image.url }}</div>
+    <div>{{ post.title }}</div>
+    <div>{{ post.context }}</div>
+</div>
+
+<div>
+    <div>Comment ({{ count_comment }})</div>
+    <div class="comment-wrap">
+        {% for comment in comment_list %}
+            <div class="comment">
+                <img src="{{ comment.user.profile_set.image.url }}" alt="">
+                <div>
+                    <div>
+                        <div>
+                            <div>{{ comment.user.username }}</div>
+                            <div>{{ comment.created_at }}</div>
+                            <div>답변</div>
+                        </div>
+                        <div>{{ comment.context }}</div>
+                    </div>
+
+                    <div class="commcomment-wrap">
+                        {% for key, value in commcomment_dict.items %}
+                            <div class="commcomment">
+                                <img src="{{ commcomment.user.profile_set.image.url }}" alt="">
+                                <div>
+                                    <div>
+                                        <div>{{ commcomment.user.username }}</div>
+                                        <div>{{ commcomment.created_at }}</div>
+                                        <div>답변</div>
+                                    </div>
+                                    <div>{{ commcomment.context }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

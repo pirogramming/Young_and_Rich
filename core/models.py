@@ -70,7 +70,7 @@ class Profile(models.Model):
     email = models.EmailField(null=True, blank=True, unique=True)
 
     is_id = models.IntegerField(default=0)  # 0 == id, 1 == co
-    comp = models.ManyToManyField(Comp, blank=True)
+    star = models.ManyToManyField(Comp, blank=True)
     # Profile1.comp.add(comp1, comp2)
     # for comp in Profile.comp.all()
 

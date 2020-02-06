@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -18,8 +19,8 @@ class Comp(models.Model):
     back_thumb = models.ImageField(null=True, blank=True)
     prize = models.IntegerField()
 
-    created_at = models.DateField()
-    updated_at = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     deadline = models.DateTimeField()
 
     evaluation = models.TextField(null=True, blank=True)
@@ -46,10 +47,13 @@ class ComPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+
 
 # 결투장 community Comment
 class ComComment(models.Model):
-    com_post = models.ForeignKey(ComPost, on_delete=models.CASCADE)
+    compost = models.ForeignKey(ComPost, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # comment 쓴 개인
 
     context = models.TextField(null=True, blank=True)
@@ -57,8 +61,9 @@ class ComComment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+# 결투장 community Comment의 comment
 class ComCommComment(models.Model):
-    comment = models.ForeignKey(ComComment, on_delete=models.SET_NULL, null=True)
+    comcomment = models.ForeignKey(ComComment, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     context = models.TextField(null=True, blank=True)
@@ -73,8 +78,8 @@ class CodePost(models.Model):
 
     title = models.CharField(max_length=255)
     context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
 
 
@@ -84,10 +89,10 @@ class CodeComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # code에 comment 단 개인
 
     context = models.TextField()
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Answer(models.Model):
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    accuracy = models.FloatField()g
+    accuracy = models.FloatField()

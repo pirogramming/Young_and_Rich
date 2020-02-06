@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils.dateformat import DateFormat
 
-from comp.models import Comp, ComPost, ComComment
-from comp.models import Comp
+from comp.models import Comp, ComPost, ComComment, ComCommComment
+from datetime import datetime
 
 
 # comp code 추가시 comp.team_number +1
@@ -19,7 +20,7 @@ def comp_list(request):
     return render(request, "comp/comp_list.html", ctx)
 
 
-def comp_detail_overview(request):
+def comp_detail_overview(request, pk):
     return render(request, "comp/comp_detail_overview.html")
 
 
@@ -39,7 +40,7 @@ def comp_detail_community_list(request, pk):
 
     dict = {}
     for compost in qs:
-        comment = ComComment.objects.filter(com_post=compost)
+        comment = ComComment.objects.filter(compost=compost)
         dict[compost.id] = len(comment)
 
     ctx = {
@@ -47,22 +48,25 @@ def comp_detail_community_list(request, pk):
         "q": q,
         "dict": dict,
     }
-    return render(request, "comp/comp_detail_community.html", ctx)
-from datetime import datetime
-
-from django.utils.dateformat import DateFormat
+    return render(request, "comp/comp_detail_community_list.html", ctx)
 
 
-def progressbar(request, pk):
-    comp = get_object_or_404(Comp, pk=pk)
+def comp_detail_community_detail(request, pk, pk2):
+    post = ComPost.objects.filter(comp=Comp.objects.get(pk=pk)).get(pk=pk2)
+    comment_list = ComComment.objects.filter(compost=ComPost.objects.get(pk=pk2))
 
-    today = int(DateFormat(datetime.now()).format('Ymd'))
+    dict = {}
+    for comment in comment_list:
+        commcomment = ComComment.objects.filter(comcomment=comment)
 
-    created_date = int(DateFormat(comp.created_at).format('Ymd'))
-    dead_date = int(DateFormat(comp.deadline.date()).format('Ymd'))
-    total = dead_date - created_date
+        dict[comment.id] = [c for c in commcomment]
 
-    context = {
-        'comp': comp
+    count_comment = len(comment_list) + len(dict)
+
+    ctx = {
+        "post": post,
+        "comment_list": comment_list,
+        "commcomment_dict": dict,
+        "count_comment": count_comment,
     }
-    return render(request, 'comp/progressbar.html', context)
+    return render(request, "comp/comp_detail_community_detail.html", ctx)

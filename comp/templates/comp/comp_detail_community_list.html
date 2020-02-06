@@ -21,12 +21,14 @@
 <div>
     {% for post in compost_list %}
         <div>
-            <a href=""><div>{{ post.title }}</div></a>
-            {{ post.user.nickname }}
-            {{ post.created_at }}
+            <div><img src="{{ post.user.profile_set.image.url }}" alt=""></div>
+            <a href="{% url 'comp:comp_community_detail' post.comp.pk post.pk %}"><div>{{ post.title }}</div></a>
+            <div>{{ post.user.username }}</div>
+            <div>{{ post.created_at }}</div>
+
             {% for key, value in dict.items %}
                 {% if key == post.id %}
-                    {{ value }}
+                    <div>{{ value }}</div>
                 {% endif %}
             {% endfor %}
         </div>
