@@ -90,6 +90,4 @@ class CodeComment(models.Model):
 
 class Answer(models.Model):
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    accuracy = models.FloatField()
-
-
+    accuracy = models.FloatField()g
