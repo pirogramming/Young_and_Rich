@@ -3,6 +3,7 @@ import json
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
 
 
 # 결투장
@@ -14,7 +15,6 @@ class Comp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # comp 업로드 한 기업
     title = models.CharField(max_length=255)
     context = models.TextField(null=True, blank=True)
-
     profile_thumb = models.ImageField(null=True, blank=True)
     back_thumb = models.ImageField(null=True, blank=True)
     prize = models.IntegerField()

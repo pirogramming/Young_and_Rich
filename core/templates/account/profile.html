@@ -6,7 +6,19 @@
 </head>
 <body>
 <h1>유저 네임은 : {{ user.username }}</h1>
-<h2>유저 랭킹은 : {{ user.rank }}</h2>
-<h3>유저 이미지는 <img src="{{ user.profile.img.url }}"></h3>
+<h2>유저 랭킹은 : {{ user.profile.rank }}</h2>
+<h3>유저 이미지는 </h3>
+<img src="{{ user.profile.image.url }}" alt="no image">
+<h4>금메달 수는?{{ user.profile.count_gold }}</h4>
+<h4>금메달 어디꺼? 그냥골드리스트{{ user.profile.gold_list }}</h4>
+<h4>금메달 겟 어디꺼? 겟골드리스트{{ user.profile.get_gold_list }}</h4>
+<h4>은메달 수는?{{ user.profile.count_silver }}</h4>
+<h4>동메달 수는?{{ user.profile.count_bronze }}</h4>
+<h3>
+즐겨찾기는?
+    {% for star in stars %}
+        {{ star.title }}
+    {% endfor %}
+</h3>
 </body>
 </html>
