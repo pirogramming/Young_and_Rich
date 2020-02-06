@@ -94,5 +94,10 @@ class CodeComment(models.Model):
 
 
 class Answer(models.Model):
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     accuracy = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    rank = models.IntegerField()
+    submit_count = models.IntegerField()

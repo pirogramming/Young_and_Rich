@@ -1,12 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils.dateformat import DateFormat
 
-from comp.models import Comp, ComPost, ComComment, ComCommComment
-from datetime import datetime
+from comp.models import Comp, ComPost, ComComment, ComCommComment, Answer
 
 
 # comp code 추가시 comp.team_number +1
-
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
@@ -70,3 +68,12 @@ def comp_detail_community_detail(request, pk, pk2):
         "count_comment": count_comment,
     }
     return render(request, "comp/comp_detail_community_detail.html", ctx)
+
+
+def comp_ranking(request, pk):
+    comp = Comp.objects.get(pk=pk)
+    answers = comp.answer.order_by('rank')
+    context = {
+        "answers": answers
+    }
+    return render(request, 'comp/comp_ranking.html', context)
