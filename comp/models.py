@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -73,8 +74,8 @@ class CodePost(models.Model):
 
     title = models.CharField(max_length=255)
     context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
 
 
@@ -84,10 +85,15 @@ class CodeComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # code에 comment 단 개인
 
     context = models.TextField()
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Answer(models.Model):
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    accuracy = models.FloatField()g
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    accuracy = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    rank = models.IntegerField()
+    submit_count = models.IntegerField()

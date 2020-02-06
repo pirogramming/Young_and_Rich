@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% for answer in answers %}
+        <hr/>
+        랭킹: {{ answer.rank }}
+        제출자: {{ answer.user.username }}
+        제출수: {{ answer.submit_count }}
+        정확도: {{ answer.accuracy }}
+        등록일: {{ answer.updated_at }}
+        <hr/>
+    {% endfor %}
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from comp.models import Comp, ComPost, ComComment
+from comp.models import Comp, ComPost, ComComment, Answer
 from comp.models import Comp
 
 
@@ -48,6 +48,8 @@ def comp_detail_community_list(request, pk):
         "dict": dict,
     }
     return render(request, "comp/comp_detail_community.html", ctx)
+
+
 from datetime import datetime
 
 from django.utils.dateformat import DateFormat
@@ -66,3 +68,12 @@ def progressbar(request, pk):
         'comp': comp
     }
     return render(request, 'comp/progressbar.html', context)
+
+
+def comp_ranking(request, pk):
+    comp = Comp.objects.get(pk=pk)
+    answers = comp.answer.order_by('rank')
+    context = {
+        "answers": answers
+    }
+    return render(request, 'comp/comp_ranking.html', context)
