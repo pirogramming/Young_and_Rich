@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Profile
 
 
 # Create your views here.
@@ -18,5 +19,11 @@ def sign_in(request):
     else:
         return render(request, 'account/login.html')
 
+
 def profile(request):
-    return render(request, 'account/profile.html')
+    user = get_object_or_404(User)
+    stars = user.profile.star.all()
+    data = {
+        'stars': stars
+    }
+    return render(request, 'account/profile.html', data)
