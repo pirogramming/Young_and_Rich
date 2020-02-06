@@ -98,6 +98,7 @@ class Profile(models.Model):
     image = models.ImageField(null=True, blank=True)
     rank = models.IntegerField(default=0)
 
+    # gold
     gold_list = models.TextField(default="[]")  # list 형식으로
 
     def append_gold_list(self, x):
@@ -111,7 +112,7 @@ class Profile(models.Model):
         gold_list = self.get_gold_list()
         return len(gold_list)
 
-
+    # silver
     silver_list = models.TextField(default="[]")
 
     def append_silver_list(self, x):
@@ -125,7 +126,7 @@ class Profile(models.Model):
         silver_list = self.get_silver_list()
         return len(silver_list)
 
-
+    # bronze
     bronze_list = models.TextField(default="[]")
 
     def append_bronze_list(self, x):
@@ -139,7 +140,7 @@ class Profile(models.Model):
         bronze_list = self.get_bronze_list()
         return len(bronze_list)
 
-
+    # badge
     badge_list = models.TextField(default="[]")
 
     def append_badge_list(self, x):
