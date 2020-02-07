@@ -10,6 +10,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+
+
 class Comp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # comp 업로드 한 기업
     title = models.CharField(max_length=255)
@@ -29,7 +31,7 @@ class Comp(models.Model):
     team_number = models.IntegerField(default=0)  # 참여팀 수
 
 
-# 결투장 data file 업로드
+# 결투장 data file 업로드-----
 class FileUp(models.Model):
     file = models.FileField()
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE)  # data 올리는 comp
@@ -95,8 +97,13 @@ class CodeComment(models.Model):
 class Answer(models.Model):
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    accuracy = models.FloatField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    rank = models.IntegerField()
-    submit_count = models.IntegerField()
+
+    accuracy = models.FloatField(null=True, blank=True)
+    rank = models.IntegerField( null=True, blank=True)
+
+    file = models.FileField()
+
+

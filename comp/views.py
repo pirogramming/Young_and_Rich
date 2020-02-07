@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.dateformat import DateFormat
 
 from comp.models import Comp, ComPost, ComComment, ComCommComment, Answer
@@ -113,3 +114,29 @@ def comp_ranking(request, pk):
         "answers": answers
     }
     return render(request, 'comp/comp_ranking.html', context)
+
+
+def comp_submit_answer(request, pk):
+    if request.method == 'POST':
+
+        if 1: #valid 파악
+
+
+            answer = Answer()
+            #answer.accuracy=
+            #answer.rank=
+            answer.user = request.user
+            answer.comp = Comp.objects.get(pk=pk)
+            answer.file = request.FILES.get('')
+            answer.save()
+
+        return redirect(reverse('comp_answerlist',kwargs={'pk': pk}))
+    return render(request, 'comp/comp_submit_answer.html',)
+
+
+def comp_answerlist(request,pk):
+
+    ctx={
+        'answer_list': Answer.objects.filter(user=request.user)
+    }
+    return render(request,'comp/comp_answerlist.html', ctx)
