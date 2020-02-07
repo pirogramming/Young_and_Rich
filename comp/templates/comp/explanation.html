@@ -1,0 +1,16 @@
+{% extends mainpage.html %} #수현이 만들고!
+{% block content %}
+    <div class="wrap">
+        <div class="left-bar">
+            <ul>
+                <li><a href="/comp/{{ o.id }}/overview/description">페이지 설명</a></li>
+                <li><a href="/comp/{{ o.id }}/overview/timeline">Competition이란?</a></li>
+                <li><a href="/comp/{{ o.id }}/overview/prizes">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="right">
+            {{ o.overview_context }}
+        </div>
+    </div>
+
+{% endblock %}
