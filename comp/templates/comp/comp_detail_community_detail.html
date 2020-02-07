@@ -5,45 +5,85 @@
     <title>Title</title>
 </head>
 <body>
-<div>
-    <div>{{ post.user.profile_set.image.url }}</div>
-    <div>{{ post.title }}</div>
-    <div>{{ post.context }}</div>
+<div class="post-wrap">
+    <div>{{ compost.user.profile_set.image.url }}</div>
+    <div>
+        <div>{{ compost.title }}</div>
+        <div>{{ compost.context }}</div>
+        <div>{{ compost.updated_at }}</div>
+
+        {% if is_post_user == 0 %}
+            <form action="{% url 'comp:comp_community_post_update' comp.pk compost.pk %}">
+                <input type="submit" value="수정">
+            </form>
+            <form action="{% url 'comp:comp_community_post_delete' comp.pk compost.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="삭제">
+            </form>
+        {% endif %}
+    </div>
 </div>
 
 <div>
-    <div>Comment ({{ count_comment }})</div>
+    <div>댓글 ({{ count_comment }})</div>
+    <form action="{% url 'comp:comp_community_comment_create' comp.pk compost.pk %}">
+        <input type="submit" value="댓글 남기기">
+    </form>
+
     <div class="comment-wrap">
         {% for comment in comment_list %}
             <div class="comment">
                 <img src="{{ comment.user.profile_set.image.url }}" alt="">
                 <div>
                     <div>
-                        <div>
+                        <div style="display: flex">
                             <div>{{ comment.user.username }}</div>
-                            <div>{{ comment.created_at }}</div>
+                            <div>{{ comment.updated_at }}</div>
                             <div>답변</div>
                         </div>
+
+                        {% if is_post_user == 0 %}
+                            <form action="{% url 'comp:comp_community_comment_update' comp.pk compost.pk comment.pk %}">
+                                <input type="submit" value="수정">
+                            </form>
+                            <form action="{% url 'comp:comp_community_comment_delete' comp.pk compost.pk comment.pk %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="삭제">
+                            </form>
+                        {% endif %}
+
+                        <form action="{% url 'comp:comp_community_commcomment_create' comp.pk compost.pk comment.pk %}">
+                            <input type="submit" value="대댓글 남기기">
+                        </form>
                         <div>{{ comment.context }}</div>
+                        <div>-------------------</div>
                     </div>
 
                     <div class="commcomment-wrap">
-                        {% for key, value in commcomment_dict.items %}
-                            <div class="commcomment">
-                                <img src="{{ commcomment.user.profile_set.image.url }}" alt="">
-                                <div>
-                                    <div>
+                        {% for commcomment in commcomment_list  %}
+                            {% if commcomment.commcomment == comment %}
+                                <div class="comment">
+                                    <img src="{{ commcomment.user.profile_set.image.url }}" alt="">
+                                    <div style="display: flex">
                                         <div>{{ commcomment.user.username }}</div>
-                                        <div>{{ commcomment.created_at }}</div>
+                                        <div>{{ commcomment.updated_at }}</div>
                                         <div>답변</div>
                                     </div>
+
+                                    {% if is_post_user == 0 %}
+                                        <form action="{% url 'comp:comp_community_commcomment_delete' comp.pk compost.pk comment.pk commcomment.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="submit" value="삭제">
+                                        </form>
+                                    {% endif %}
                                     <div>{{ commcomment.context }}</div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             </div>
+            <div>====================</div>
         {% endfor %}
     </div>
 </div>
