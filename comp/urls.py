@@ -14,4 +14,6 @@ urlpatterns = [
     path("<int:pk>/community/", views.comp_detail_community_list, name="comp_community_list"),
     path("<int:pk>/community/<int:pk2>/", views.comp_detail_community_detail, name="comp_community_detail"),
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
+    path("<int:pk>/submit/", views.submit_answer, name="comp_submit_answer"),
+    path("<int:pk>/answerlist/", views.answer, name="comp_answerlist")
 ]
