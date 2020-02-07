@@ -30,6 +30,9 @@ class Comp(models.Model):
     not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
     team_number = models.IntegerField(default=0)  # 참여팀 수
 
+    def __str__(self):
+        return self.title
+
 
 # 결투장 data file 업로드-----
 class FileUp(models.Model):
@@ -61,21 +64,13 @@ class ComComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-# 결투장 community Comment의 comment
-class ComCommComment(models.Model):
-    comcomment = models.ForeignKey(ComComment, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
 
 
 # 결투장 code Post
 class CodePost(models.Model):
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # code 업로드 한 개인
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # code 업로드 한 개인
 
     title = models.CharField(max_length=255)
     context = models.TextField(null=True, blank=True)
