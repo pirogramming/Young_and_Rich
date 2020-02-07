@@ -113,3 +113,7 @@ def comp_ranking(request, pk):
         "answers": answers
     }
     return render(request, 'comp/comp_ranking.html', context)
+
+
+def comp_explanation(request):
+    return render(request, 'comp/explanation.html')
