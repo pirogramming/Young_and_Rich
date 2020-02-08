@@ -2,6 +2,13 @@
 
 {% block content %}
 <div class="">
+<<<<<<< HEAD
+    <a href="/comp/{{ comp.id }}/overview/"><div>개요</div></a>
+    <li>데이터</li>
+    <li>코드</li>
+    <li style="color: blue">게시판</li>
+    <li>순위</li>
+=======
     <ul>
         <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
         <li>데이터</li>
@@ -12,6 +19,7 @@
     <form action="{% url 'comp:comp_community_post_create' comp.pk %}">
         <input type="submit" value="작성">
     </form>
+>>>>>>> 264769728df10fc43af37b5fbc1f31fc6facf467
 </div>
 
 <div>{{ compost_number }}개</div>
