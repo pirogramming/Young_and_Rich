@@ -12,7 +12,7 @@ def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
     if q:
-        qs = qs.filter(title__icontains=q)
+        qs = Comp.objects.filter(title__icontains=q)
 
     ctx = {
         "comp_list": qs,
