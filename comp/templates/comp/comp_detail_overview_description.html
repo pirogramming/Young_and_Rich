@@ -2,11 +2,10 @@
 
 {% block content %}
     <nav>
-        <span><a href="/comp/{{ o.id }}/overview"></a>개요</span>
-        <span><a href=""></a>메모</span>
-        <span><a href=""></a>데이터</span>
-        <span><a href=""></a>커뮤니티</span>
-        <span><a href=""></a>랭킹</span>
+        <span><a href=""></a>overview</span>
+        <span><a href=""></a>data</span>
+        <span><a href=""></a>discussion</span>
+        <span><a href=""></a>leaderboard</span>
         <span>
             <form>
                 <button>join competition</button>
@@ -17,7 +16,7 @@
     <div class="wrap">
         <div class="left-bar">
             <ul>
-                <li><a href="/comp/{{ o.id }}/overview/"></a>Description</li>
+                <li><a href=""></a>Description</li>
                 <li><a href=""></a>Timeline</li>
                 <li><a href=""></a>Prizes</li>
                 <li><a href=""></a>Code Requirements</li>
@@ -26,7 +25,7 @@
             </ul>
         </div>
         <div class="right">
-            {{ o.overview_context }}
+            {{ d.overview_context }}
         </div>
     </div>
 {% endblock %}

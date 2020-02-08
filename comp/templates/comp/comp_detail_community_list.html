@@ -1,15 +1,20 @@
 {% extends 'comp/comp_detail.html' %}
 
 {% block content %}
-    <div class="">
-    <ul style="list-style: none">
+<div class="">
+    <ul>
         <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
         <li>데이터</li>
         <li>코드</li>
-        <li style="color: blue">게시판</li>
+        <li>게시판</li>
         <li>순위</li>
     </ul>
+    <form action="{% url 'comp:comp_community_post_create' comp.pk %}">
+        <input type="submit" value="작성">
+    </form>
 </div>
+
+<div>{{ compost_number }}개</div>
 
 <div>
     <form action="" method="get">
@@ -21,12 +26,14 @@
 <div>
     {% for post in compost_list %}
         <div>
-            <a href=""><div>{{ post.title }}</div></a>
-            {{ post.user.nickname }}
-            {{ post.created_at }}
+            <div><img src="{{ post.user.profile_set.image.url }}" alt=""></div>
+            <a href="{% url 'comp:comp_community_detail' post.comp.pk post.pk %}"><div>{{ post.title }}</div></a>
+            <div>{{ post.user.username }}</div>
+            <div>{{ post.updated_at }}</div>
+
             {% for key, value in dict.items %}
                 {% if key == post.id %}
-                    {{ value }}
+                    <div>{{ value }}</div>
                 {% endif %}
             {% endfor %}
         </div>
