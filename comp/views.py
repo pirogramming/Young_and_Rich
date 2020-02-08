@@ -30,33 +30,33 @@ def comp_detail_overview(request, pk):
 
 
 def comp_detail_overview_description(request, pk):
-    d = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "d": d,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_description.html", data)
 
 
 def comp_detail_overview_evaluation(request, pk):
-    e = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "e": e,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
 
 def comp_detail_overview_timeline(request, pk):
-    t = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "t": t,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
 
 def comp_detail_overview_prizes(request, pk):
-    p = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "p": p,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 
@@ -323,3 +323,7 @@ def comp_answerlist(request,pk):
     }
     return render(request,'comp/comp_answerlist.html', ctx)
 
+
+
+def comp_explanation(request):
+    return render(request, 'comp/explanation.html')
