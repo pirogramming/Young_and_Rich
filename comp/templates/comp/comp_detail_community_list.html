@@ -1,14 +1,12 @@
 {% extends 'comp/comp_detail.html' %}
 
 {% block content %}
-    <div class="">
-    <ul style="list-style: none">
-        <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
-        <li>데이터</li>
-        <li>코드</li>
-        <li style="color: blue">게시판</li>
-        <li>순위</li>
-    </ul>
+<div class="">
+    <a href="/comp/{{ comp.id }}/overview/"><div>개요</div></a>
+    <li>데이터</li>
+    <li>코드</li>
+    <li style="color: blue">게시판</li>
+    <li>순위</li>
 </div>
 
 <div>

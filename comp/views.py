@@ -92,7 +92,6 @@ def comp_detail_community_detail(request, pk, pk2):
     dict = {}
     for comment in comment_list:
         commcomment = ComComment.objects.filter(comcomment=comment)
-
         dict[comment.id] = [c for c in commcomment]
 
     count_comment = len(comment_list) + len(dict)
