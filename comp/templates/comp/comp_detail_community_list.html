@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="">
-    <ul style="list-style: none">
+    <ul>
         <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
         <li>데이터</li>
         <li>코드</li>
-        <li style="color: blue">게시판</li>
+        <li>게시판</li>
         <li>순위</li>
     </ul>
     <form action="{% url 'comp:comp_community_post_create' comp.pk %}">
