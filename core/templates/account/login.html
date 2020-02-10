@@ -55,9 +55,22 @@
                             <a class="button secondaryAction"
                                href="{% url 'account_reset_password' %}">{% trans "비밀번호 잊음?" %}</a>
                         </div>
+                        <div>
+                            <a class="button secondaryAction"
+                               href="{% url 'account_signup' %}">{% trans "회원가입 하실래요??" %}</a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{# 아래는 각종 url 입니다! #}
+{#        {% if user.is_authenticated %}#}
+{#        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>#}
+{#        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>#}
+{#        {% else %}#}
+{#        <li><a href="{% url 'account_login' %}">Sign In</a></li>#}
+{#        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>#}
+{#        {% endif %}#}
