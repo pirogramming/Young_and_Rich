@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from comp.forms import ComPostForm, ComCommentForm
-from comp.models import Comp, ComPost, ComComment, Answer
+from comp.models import Comp, ComPost, ComComment, CodePost  # Answer
 
 from datetime import date
 
@@ -12,7 +12,7 @@ def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
     if q:
-        qs = qs.filter(title__icontains=q)
+        qs = Comp.objects.filter(title__icontains=q)
 
     ctx = {
         "comp_list": qs,
@@ -30,33 +30,33 @@ def comp_detail_overview(request, pk):
 
 
 def comp_detail_overview_description(request, pk):
-    d = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "d": d,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_description.html", data)
 
 
 def comp_detail_overview_evaluation(request, pk):
-    e = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "e": e,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
 
 def comp_detail_overview_timeline(request, pk):
-    t = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "t": t,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
 
 def comp_detail_overview_prizes(request, pk):
-    p = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "p": p,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 
@@ -292,34 +292,56 @@ def comp_ranking(request, pk):
     }
     return render(request, 'comp/comp_ranking.html', context)
 
+
+# ===========================코드===================================
+
+
+def comp_detail_code_list(request, pk):
+    comp = Comp.objects.get(pk=pk)
+    codepost = CodePost.objects.filter(comp=comp)
+
+    qs_number = len(codepost)
+
+    ctx = {
+        "comp": comp,
+        "compost_list": codepost,
+        "codepost_number": qs_number,
+    }
+    return render(request, "comp/comp_detail_code_list.html", ctx)
+
+
 # 대회 deadline 날짜가 되면 대회를 완료 대회로 바꾸고, 순위에 따라 user 에게 메달을 부여한다.
 # 1. if문으로 deadline날짜 판별
 # 2. deadline == today 이면 대회를 완료 상태로 내리기
 # + comp의 answer의 rank로 필터를 걸어서 해당 user 가져온다
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
-def comp_submit_answer(request, pk):
-    if request.method == 'POST':
 
-        if 1: #valid 파악
+<<<<<<< HEAD
+# def comp_submit_answer(request, pk):
+#     if request.method == 'POST':
+#
+#         if 1:  # valid 파악
+#             answer = Answer()
+#             # answer.accuracy=
+#             # answer.rank=
+#             answer.user = request.user
+#             answer.comp = Comp.objects.get(pk=pk)
+#             answer.file = request.FILES.get('')
+#             answer.save()
+#
+#         return redirect(reverse('comp_answerlist', kwargs={'pk': pk}))
+#     return render(request, 'comp/comp_submit_answer.html', )
+#
+#
+# def comp_answerlist(request, pk):
+#     ctx = {
+#         'answer_list': Answer.objects.filter(user=request.user)
+#     }
+#     return render(request, 'comp/comp_answerlist.html', ctx)
+=======
 
 
-            answer = Answer()
-            #answer.accuracy=
-            #answer.rank=
-            answer.user = request.user
-            answer.comp = Comp.objects.get(pk=pk)
-            answer.file = request.FILES.get('')
-            answer.save()
-
-        return redirect(reverse('comp_answerlist',kwargs={'pk': pk}))
-    return render(request, 'comp/comp_submit_answer.html',)
-
-
-def comp_answerlist(request,pk):
-
-    ctx={
-        'answer_list': Answer.objects.filter(user=request.user)
-    }
-    return render(request,'comp/comp_answerlist.html', ctx)
-
+def comp_explanation(request):
+    return render(request, 'comp/explanation.html')
+>>>>>>> 6853346c726647f6cf7bbbd9e0520df6aef2bacc

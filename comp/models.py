@@ -87,16 +87,16 @@ class CodeComment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class Answer(models.Model):
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    accuracy = models.FloatField(null=True, blank=True)
-    rank = models.IntegerField( null=True, blank=True)
-
-    file = models.FileField()
+# class Answer(models.Model):
+#     comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     accuracy = models.FloatField(null=True, blank=True)
+#     rank = models.IntegerField(null=True, blank=True)
+#
+#     file = models.FileField()
 
 

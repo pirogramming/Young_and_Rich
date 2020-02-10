@@ -1,8 +1,8 @@
 <tbody>
-{% for user in posts %}
+{% for post in posts %}
     <tr>
     <td>
-        {{ user.username }} <-이사람은 {{ user.profile.rank }}등 입니다
+        {{ post.username }} <-이사람은 {{ post.profile.rank }}등 입니다
     </td>
 {% endfor %}
 </tbody>
