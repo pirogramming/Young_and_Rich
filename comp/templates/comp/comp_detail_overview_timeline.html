@@ -2,11 +2,11 @@
 
 {% block content %}
     <nav>
-        <span><a href="/comp/{{ o.id }}/overview">개요</a></span>
-        <span><a href=""></a>메모</span>
+        <span><a href="/comp/{{ comp.id }}/overview">개요</a></span>
+        <span><a href=""></a>코드</span>
         <span><a href=""></a>데이터</span>
         <span><a href=""></a>커뮤니티</span>
-        <span><a href=""></a>랭킹</span>
+        <span><a href="/comp/{{ comp.id }}/ranking">랭킹</a></span>
         <span>
             <form>
                 <button>join competition</button>
@@ -17,16 +17,14 @@
     <div class="wrap">
         <div class="left-bar">
             <ul>
-                <li><a href="/comp/{{ o.id }}/overview/description">설명</a></li>
-                <li><a href="/comp/{{ o.id }}/overview/timeline">마감기한</a></li>
-                <li><a href="/comp/{{ o.id }}/overview/prizes">상금</a></li>
-                <li><a href=""></a>Code Requirements</li>
-                <li><a href=""></a>Getting started</li>
-                <li><a href="/comp/{{ o.id }}/overview/evaluation">평가기준</a></li>
+                <li><a href="/comp/{{ comp.id }}/overview/description">설명</a></li>
+                <li><a href="/comp/{{ comp.id }}/overview/timeline">마감기한</a></li>
+                <li><a href="/comp/{{ comp.id }}/overview/prizes">상금</a></li>
+                <li><a href="/comp/{{ comp.id }}/overview/evaluation">평가기준</a></li>
             </ul>
         </div>
         <div class="right">
-            {{ o.timeline }}
+            {{ comp.timeline }}
         </div>
     </div>
 {% endblock %}

@@ -22,41 +22,49 @@ def comp_list(request):
 
 
 def comp_detail_overview(request, pk):
-    o = Comp.objects.get(pk=pk)
+    comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline.date()
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
     data = {
-        "o": o,
+        "comp": comp,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview.html", data)
 
 
 def comp_detail_overview_description(request, pk):
-    o = Comp.objects.get(pk=pk)
+    comp = Comp.objects.get(pk=pk)
     data = {
-        "o": o,
+        "comp": comp,
     }
     return render(request, "comp/comp_detail_overview_description.html", data)
 
 
 def comp_detail_overview_evaluation(request, pk):
-    o = Comp.objects.get(pk=pk)
+    comp = Comp.objects.get(pk=pk)
     data = {
-        "o": o,
+        "comp": comp,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
 
 def comp_detail_overview_timeline(request, pk):
-    o = Comp.objects.get(pk=pk)
+    comp = Comp.objects.get(pk=pk)
     data = {
-        "o": o,
+        "comp": comp,
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
 
 def comp_detail_overview_prizes(request, pk):
-    o = Comp.objects.get(pk=pk)
+    comp = Comp.objects.get(pk=pk)
     data = {
-        "o": o,
+        "comp": comp,
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 
@@ -533,5 +541,13 @@ def comp_detail_code_commcomment_delete(request, comp_id, codepost_id, codecomme
 #     return render(request, 'comp/comp_answerlist.html', ctx)
 
 
-def comp_explanation(request):
-    return render(request, 'comp/explanation.html')
+def comp_explanation_page(request):
+    return render(request, 'comp/explanation_page.html')
+
+
+def comp_explanation_competition(request):
+    return render(request, 'comp/explanation_competition.html')
+
+
+def comp_explanation_faq(request):
+    return render(request, 'comp/explanation_faq.html')
