@@ -10,8 +10,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-
-
 class Comp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # comp 업로드 한 기업
     title = models.CharField(max_length=255)

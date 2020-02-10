@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
-from .utils import progressbar
-
+from .views import progressbar
 
 app_name = 'comp'
 
@@ -20,20 +19,27 @@ urlpatterns = [
     path("<int:pk>/community/<int:pk2>/", views.comp_detail_community_detail, name="comp_community_detail"),
 
     path("<int:pk>/community/create/", views.comp_detail_community_post_create, name="comp_community_post_create"),
-    path("<int:pk>/community/<int:pk2>/update/", views.comp_detail_community_post_update, name="comp_community_post_update"),
-    path("<int:pk>/community/<int:pk2>/delete/", views.comp_detail_community_post_delete, name="comp_community_post_delete"),
+    path("<int:pk>/community/<int:pk2>/update/", views.comp_detail_community_post_update,
+         name="comp_community_post_update"),
+    path("<int:pk>/community/<int:pk2>/delete/", views.comp_detail_community_post_delete,
+         name="comp_community_post_delete"),
 
-    path("<int:pk>/community/<int:pk2>/create/", views.comp_detail_community_comment_create, name="comp_community_comment_create"),
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/update/", views.comp_detail_community_comment_update, name="comp_community_comment_update"),
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/delete/", views.comp_detail_community_comment_delete, name="comp_community_comment_delete"),
+    path("<int:pk>/community/<int:pk2>/create/", views.comp_detail_community_comment_create,
+         name="comp_community_comment_create"),
+    path("<int:pk>/community/<int:pk2>/<int:pk3>/update/", views.comp_detail_community_comment_update,
+         name="comp_community_comment_update"),
+    path("<int:pk>/community/<int:pk2>/<int:pk3>/delete/", views.comp_detail_community_comment_delete,
+         name="comp_community_comment_delete"),
 
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/create/", views.comp_detail_community_commcomment_create, name="comp_community_commcomment_create"),
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_community_commcomment_delete, name="comp_community_commcomment_delete"),
+    path("<int:pk>/community/<int:pk2>/<int:pk3>/create/", views.comp_detail_community_commcomment_create,
+         name="comp_community_commcomment_create"),
+    path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_community_commcomment_delete,
+         name="comp_community_commcomment_delete"),
 
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
 
-    path("<int:pk>/submit/", views.submit_answer, name="comp_submit_answer"),
+    #   path("<int:pk>/submit/", views.submit_answer, name="comp_submit_answer"),
     path("<int:pk>/answerlist/", views.answer, name="comp_answerlist"),
     path('<int:pk>/progressbar/', progressbar, name='progressbar'),
-    ]
+]
