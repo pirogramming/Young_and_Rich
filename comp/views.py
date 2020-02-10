@@ -12,7 +12,7 @@ def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
     if q:
-        qs = qs.filter(title__icontains=q)
+        qs = Comp.objects.filter(title__icontains=q)
 
     ctx = {
         "comp_list": qs,
@@ -30,33 +30,33 @@ def comp_detail_overview(request, pk):
 
 
 def comp_detail_overview_description(request, pk):
-    d = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "d": d,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_description.html", data)
 
 
 def comp_detail_overview_evaluation(request, pk):
-    e = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "e": e,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
 
 def comp_detail_overview_timeline(request, pk):
-    t = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "t": t,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
 
 def comp_detail_overview_prizes(request, pk):
-    p = Comp.objects.get(pk=pk)
+    o = Comp.objects.get(pk=pk)
     data = {
-        "p": p,
+        "o": o,
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 
@@ -317,6 +317,7 @@ def comp_detail_code_list(request, pk):
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
 
+<<<<<<< HEAD
 # def comp_submit_answer(request, pk):
 #     if request.method == 'POST':
 #
@@ -338,3 +339,9 @@ def comp_detail_code_list(request, pk):
 #         'answer_list': Answer.objects.filter(user=request.user)
 #     }
 #     return render(request, 'comp/comp_answerlist.html', ctx)
+=======
+
+
+def comp_explanation(request):
+    return render(request, 'comp/explanation.html')
+>>>>>>> 6853346c726647f6cf7bbbd9e0520df6aef2bacc
