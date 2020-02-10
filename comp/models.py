@@ -86,6 +86,8 @@ class CodeComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
+
 
 # class Answer(models.Model):
 #     comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')

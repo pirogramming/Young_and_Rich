@@ -38,6 +38,13 @@ urlpatterns = [
     path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_community_commcomment_delete,
          name="comp_community_commcomment_delete"),
 
+    # code
+    path("<int:pk>/code/", views.comp_detail_code_list, name="comp_code_list"),
+    path("<int:pk>/code/<int:pk2>/", views.comp_detail_code_detail, name="comp_code_detail"),
+
+    path("<int:pk>/code/create/", views.comp_detail_code_post_create, name="comp_code_create"),
+    path("<int:pk>/code/<int:pk2>/update/", views.comp_detail_code_post_update, name="comp_code_update"),
+
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
     path("explanation/", views.comp_explanation, name="explanation"),
