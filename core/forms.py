@@ -1,3 +1,4 @@
+from allauth.account.forms import LoginForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -47,3 +48,11 @@ class SignupForm(forms.Form):
         userprofile.save()
         user.save()
         return user
+
+class CustomLoginForm(LoginForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CustomLoginForm, self).__init__(*args, **kwargs)
+        self.fields['login'].widget = forms.TextInput(attrs={
+            'type': 'email'
+        })
