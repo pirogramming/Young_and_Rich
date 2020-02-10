@@ -1,6 +1,6 @@
 from django import forms
 
-from comp.models import ComPost, ComComment
+from comp.models import ComPost, ComComment, Answer
 
 
 class ComPostForm(forms.ModelForm):
