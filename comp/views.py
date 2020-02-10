@@ -340,5 +340,13 @@ def comp_detail_code_list(request, pk):
 #     return render(request, 'comp/comp_answerlist.html', ctx)
 
 
-def comp_explanation(request):
-    return render(request, 'comp/explanation.html')
+def comp_explanation_page(request):
+    return render(request, 'comp/explanation_page.html')
+
+
+def comp_explanation_competition(request):
+    return render(request, 'comp/explanation_competition.html')
+
+
+def comp_explanation_faq(request):
+    return render(request, 'comp/explanation_faq.html')

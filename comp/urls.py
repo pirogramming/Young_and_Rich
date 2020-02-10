@@ -40,7 +40,11 @@ urlpatterns = [
 
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
-    path("explanation/", views.comp_explanation, name="explanation"),
+
+    # explanation
+    path("explanation/page", views.comp_explanation_page, name="explanation_page"),
+    path("explanation/competition", views.comp_explanation_competition, name="explanation_competition"),
+    path("explanation/FAQ", views.comp_explanation_faq, name="explanation_faq"),
 
     # path("<int:pk>/submit/", views.submit_answer, name="comp_submit_answer"),
     # path("<int:pk>/answerlist/", views.answer, name="comp_answerlist"),
