@@ -95,5 +95,6 @@ class Answer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     accuracy = models.FloatField(null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
     rank = models.IntegerField(null=True, blank=True)
 
