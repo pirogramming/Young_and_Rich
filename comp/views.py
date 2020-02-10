@@ -80,8 +80,8 @@ def comp_detail_data(request, pk):
 # =========================커뮤니티===============================
 
 
-def comp_detail_community_list(request, comp_id):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_list(request, pk):
+    comp = Comp.objects.get(pk=pk)
     qs = ComPost.objects.filter(comp=comp)
     q = request.GET.get("q", "")
     if q:
@@ -121,8 +121,8 @@ def progressbar(request, pk):
     return render(request, 'comp/progressbar.html', context)
 
 
-def comp_detail_community_detail(request, comp_id, pk2):  # pk == comp 번호, pk2 == post 번호
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 == post 번호
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
 
     list = ComComment.objects.filter(compost=compost)
@@ -154,15 +154,15 @@ def comp_detail_community_detail(request, comp_id, pk2):  # pk == comp 번호, p
 # ----------------포스트--------------------
 
 
-def comp_detail_community_post_create(request, comp_id):
+def comp_detail_community_post_create(request, pk):
     if request.method == "POST":
         form = ComPostForm(request.POST)
         if form.is_valid():
             compost = form.save(commit=False)
             compost.user = request.user
-            compost.comp = Comp.objects.get(pk=comp_id)
+            compost.comp = Comp.objects.get(pk=pk)
             compost.save()
-            return redirect("comp:comp_community_detail", comp_id, compost.pk)
+            return redirect("comp:comp_community_detail", pk, compost.pk)
     else:
         form = ComPostForm()
         ctx = {
@@ -171,15 +171,15 @@ def comp_detail_community_post_create(request, comp_id):
         return render(request, "comp/comp_detail_community_post_create.html", ctx)
 
 
-def comp_detail_community_post_update(request, comp_id, pk2):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_post_update(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         form = ComPostForm(request.POST, instance=compost)
         if form.is_valid():
             form.save()
-        return redirect("comp:comp_community_detail", comp_id, pk2)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
         form = ComPostForm(instance=compost)
@@ -189,22 +189,22 @@ def comp_detail_community_post_update(request, comp_id, pk2):
         return render(request, "comp/comp_detail_community_post_create.html", ctx)
 
 
-def comp_detail_community_post_delete(request, comp_id, pk2):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_post_delete(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         compost.delete()
-        return redirect("comp:comp_community_detail", comp_id, pk2)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", comp_id, pk2)
+    return redirect("comp:comp_community_detail", pk, pk2)
 
 
 # ----------------댓글---------------------
 
 
-def comp_detail_community_comment_create(request, comp_id, pk2):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_comment_create(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
@@ -214,7 +214,7 @@ def comp_detail_community_comment_create(request, comp_id, pk2):
             comcomment.user = request.user
             comcomment.compost = compost
             comcomment.save()
-            return redirect("comp:comp_community_detail", comp_id, pk2)
+            return redirect("comp:comp_community_detail", pk, pk2)
     else:
         form = ComCommentForm()
         ctx = {
@@ -223,8 +223,8 @@ def comp_detail_community_comment_create(request, comp_id, pk2):
         return render(request, "comp/comp_detail_community_comment_create.html", ctx)
 
 
-def comp_detail_community_comment_update(request, comp_id, pk2, pk3):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_comment_update(request, pk, pk2, pk3):
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
     comcomment = ComComment.objects.filter(compost=compost).get(pk=pk3)
 
@@ -232,7 +232,7 @@ def comp_detail_community_comment_update(request, comp_id, pk2, pk3):
         form = ComCommentForm(request.POST, instance=comcomment)
         if form.is_valid():
             form.save()
-        return redirect("comp:comp_community_detail", comp_id, pk2)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
         form = ComCommentForm(instance=comcomment)
@@ -242,23 +242,23 @@ def comp_detail_community_comment_update(request, comp_id, pk2, pk3):
         return render(request, "comp/comp_detail_community_comment_create.html", ctx)
 
 
-def comp_detail_community_comment_delete(request, comp_id, pk2, pk3):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_comment_delete(request, pk, pk2, pk3):
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
     comcomment = ComComment.objects.filter(compost=compost).get(pk=pk3)
 
     if request.method == "POST":
         comcomment.delete()
-        return redirect("comp:comp_community_detail", comp_id, pk2)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", comp_id, pk2)
+    return redirect("comp:comp_community_detail", pk, pk2)
 
 
 # ----------------대댓글--------------------
 
 
-def comp_detail_community_commcomment_create(request, comp_id, pk2, pk3):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_community_commcomment_create(request, pk, pk2, pk3):
+    comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
     comcomment = ComComment.objects.filter(compost=compost).get(pk=pk3)  # 대댓글 남길 댓글
 
@@ -270,7 +270,7 @@ def comp_detail_community_commcomment_create(request, comp_id, pk2, pk3):
             comcommcomment.compost = compost
             comcommcomment.commcomment = comcomment
             comcommcomment.save()
-            return redirect("comp:comp_community_detail", comp_id, compost.pk)
+            return redirect("comp:comp_community_detail", pk, compost.pk)
     else:
         form = ComCommentForm()
         ctx = {
@@ -279,17 +279,17 @@ def comp_detail_community_commcomment_create(request, comp_id, pk2, pk3):
         return render(request, "comp/comp_detail_community_comment_create.html", ctx)
 
 
-def comp_detail_community_commcomment_delete(request, comp_id, compost_id, comcomment_id, comcommcomment_id):
-    comp = Comp.objects.get(pk=comp_id)
-    compost = ComPost.objects.filter(comp=comp).get(pk=compost_id)
-    comcomment = ComComment.objects.filter(compost=compost).get(pk=comcomment_id)
-    comcommcomment = ComComment.objects.filter(commcomment=comcomment).get(pk=comcommcomment_id)
+def comp_detail_community_commcomment_delete(request, pk, pk2, pk3, pk4):
+    comp = Comp.objects.get(pk=pk)
+    compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    comcomment = ComComment.objects.filter(compost=compost).get(pk=pk3)
+    comcommcomment = ComComment.objects.filter(commcomment=comcomment).get(pk=pk4)
 
     if request.method == "POST":
         comcommcomment.delete()
-        return redirect("comp:comp_community_detail", comp_id, compost_id)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", comp_id, compost_id)
+    return redirect("comp:comp_community_detail", pk, pk2)
 
 
 def comp_ranking(request, pk):
@@ -304,8 +304,8 @@ def comp_ranking(request, pk):
 # ===========================코드===================================
 
 
-def comp_detail_code_list(request, comp_id):
-    comp = Comp.objects.get(pk=comp_id)
+def comp_detail_code_list(request, pk):
+    comp = Comp.objects.get(pk=pk)
     codepost = CodePost.objects.filter(comp=comp)
 
     q = request.GET.get("q", "")  # 검색
@@ -322,9 +322,9 @@ def comp_detail_code_list(request, comp_id):
     return render(request, "comp/comp_detail_code_list.html", ctx)
 
 
-def comp_detail_code_detail(request, comp_id, codepost_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = CodePost.objects.filter(comp=comp).get(pk=codepost_id)
+def comp_detail_code_detail(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     list = CodeComment.objects.filter(codepost=codepost)
     comment_list = []
@@ -355,15 +355,15 @@ def comp_detail_code_detail(request, comp_id, codepost_id):
 # -----------------------포스트-------------------------
 
 
-def comp_detail_code_post_create(request, comp_id):
+def comp_detail_code_post_create(request, pk):
     if request.method == "POST":
         form = ComPostForm(request.POST)
         if form.is_valid():
             compost = form.save(commit=False)
             compost.user = request.user
-            compost.comp = Comp.objects.get(pk=comp_id)
+            compost.comp = Comp.objects.get(pk=pk)
             compost.save()
-            return redirect("comp:comp_community_detail", comp_id, compost.pk)
+            return redirect("comp:comp_community_detail", pk, compost.pk)
     else:
         form = ComPostForm()
         ctx = {
@@ -372,15 +372,15 @@ def comp_detail_code_post_create(request, comp_id):
         return render(request, "comp/comp_detail_community_post_create.html", ctx)
 
 
-def comp_detail_code_post_update(request, comp_id, codepost_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = CodePost.objects.filter(comp=comp).get(pk=codepost_id)
+def comp_detail_code_post_update(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         form = ComPostForm(request.POST, instance=codepost)
         if form.is_valid():
             form.save()
-        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
         form = ComPostForm(instance=codepost)
@@ -390,23 +390,23 @@ def comp_detail_code_post_update(request, comp_id, codepost_id):
         return render(request, "comp/comp_detail_community_post_create.html", ctx)
 
 
-def comp_detail_code_post_delete(request, comp_id, codepost_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
+def comp_detail_code_post_delete(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         codepost.delete()
-        return redirect("comp:comp_code_detail", comp_id, codepost_id)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
-    return redirect("comp:comp_code_detail", comp_id, codepost_id)
+    return redirect("comp:comp_code_detail", pk, pk2)
 
 
 # ------------------댓글---------------------
 
 
-def comp_detail_code_comment_create(request, comp_id, codepost_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = CodePost.objects.filter(comp=comp).get(pk=codepost_id)
+def comp_detail_code_comment_create(request, pk, pk2):
+    comp = Comp.objects.get(pk=pk)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         form = ComCommentForm(request.POST)
@@ -415,7 +415,7 @@ def comp_detail_code_comment_create(request, comp_id, codepost_id):
             comcomment.user = request.user
             comcomment.compost = codepost
             comcomment.save()
-            return redirect("comp:comp_code_detail", comp_id, codepost_id)
+            return redirect("comp:comp_code_detail", pk, pk2)
     else:
         form = ComCommentForm()
         ctx = {
@@ -424,16 +424,16 @@ def comp_detail_code_comment_create(request, comp_id, codepost_id):
         return render(request, "comp/comp_detail_code_comment_create.html", ctx)
 
 
-def comp_detail_code_comment_update(request, comp_id, codepost_id, codecomment_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
-    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=codecomment_id)
+def comp_detail_code_comment_update(request, pk, pk2, pk3):
+    comp = Comp.objects.get(pk=pk)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
 
     if request.method == "POST":
         form = ComCommentForm(request.POST, instance=codecomment)
         if form.is_valid():
             form.save()
-        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
         form = ComCommentForm(instance=codecomment)
@@ -443,25 +443,25 @@ def comp_detail_code_comment_update(request, comp_id, codepost_id, codecomment_i
         return render(request, "comp/comp_detail_code_comment_create.html", ctx)
 
 
-def comp_detail_code_comment_delete(request, comp_id, codepost_id, codecomment_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
-    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=codecomment_id)
+def comp_detail_code_comment_delete(request, pk, pk2, pk3):
+    comp = Comp.objects.get(pk=pk)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
 
     if request.method == "POST":
         codecomment.delete()
-        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", comp_id, codepost_id)
+    return redirect("comp:comp_community_detail", pk, pk2)
 
 
 # ----------------대댓글--------------------
 
 
-def comp_detail_code_commcomment_create(request, comp_id, codepost_id, codecomment_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
-    codecomment = ComComment.objects.filter(compost=codepost).get(pk=codecomment_id)  # 대댓글 남길 댓글
+def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
+    comp = Comp.objects.get(pk=pk)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = ComComment.objects.filter(compost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
 
     if request.method == "POST":
         form = ComCommentForm(request.POST)
@@ -471,7 +471,7 @@ def comp_detail_code_commcomment_create(request, comp_id, codepost_id, codecomme
             comcommcomment.compost = codepost
             comcommcomment.commcomment = codecomment
             comcommcomment.save()
-            return redirect("comp:comp_community_detail", comp_id, codepost.pk)
+            return redirect("comp:comp_community_detail", pk, codepost.pk)
     else:
         form = ComCommentForm()
         ctx = {
@@ -480,17 +480,17 @@ def comp_detail_code_commcomment_create(request, comp_id, codepost_id, codecomme
         return render(request, "comp/comp_detail_code_comment_create.html", ctx)
 
 
-def comp_detail_code_commcomment_delete(request, comp_id, codepost_id, codecomment_id, codecommcomment_id):
-    comp = Comp.objects.get(pk=comp_id)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
-    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=codecomment_id)
-    codecommcomment = ComComment.objects.filter(commcomment=codecomment).get(pk=codecommcomment_id)
+def comp_detail_code_commcomment_delete(request, pk, pk2, pk3, pk4):
+    comp = Comp.objects.get(pk=pk)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
+    codecommcomment = ComComment.objects.filter(commcomment=codecomment).get(pk=pk4)
 
     if request.method == "POST":
         codecommcomment.delete()
-        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+        return redirect("comp:comp_community_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", comp_id, codepost_id)
+    return redirect("comp:comp_community_detail", pk, pk2)
 
 
 
