@@ -23,8 +23,16 @@ def comp_list(request):
 
 def comp_detail_overview(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline.date()
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
     data = {
         "comp": comp,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview.html", data)
 
