@@ -79,12 +79,14 @@ class CodePost(models.Model):
 
 # 결투장 code에 comment
 class CodeComment(models.Model):
-    code_post = models.ForeignKey(CodePost, on_delete=models.CASCADE)
+    codepost = models.ForeignKey(CodePost, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # code에 comment 단 개인
 
     context = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
 
 
 # class Answer(models.Model):

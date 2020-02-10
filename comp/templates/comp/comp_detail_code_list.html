@@ -1,0 +1,31 @@
+{% extends 'comp/comp_detail.html' %}
+
+{% block content %}
+<div>
+    <div>개요</div>
+    <div>데이터</div>
+    <div>코드</div>
+    <div>게시판</div>
+    <div>순위</div>
+</div>
+
+<div>{{ codepost_number }}개</div>
+
+<div>
+    <form action="" method="get">
+        <input type="text" name="q" value="{{ q }}">
+        <input type="submit" value="검색">
+    </form>
+</div>
+
+<div>
+    {% for code in code_list %}
+        <div>
+            <div><img src="{{ code.user.profile_set.image.url }}" alt=""></div>
+            <a href="{% url 'comp:comp_code_detail' comp.pk code.pk %}"><div>{{ code.title }}</div></a>
+            <div>{{ code.user.username }}</div>
+            <div>{{ code.updated_at }}</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

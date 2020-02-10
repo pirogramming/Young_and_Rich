@@ -1,7 +1,7 @@
 {% extends 'comp/comp_detail.html' %}
 
 {% block content %}
-<div id="comcomment-form">
+<div class="codecomment-form">
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
