@@ -1,3 +1,7 @@
+{% extends 'comp/comp_detail.html' %}
+
+
+{% block content %}
 <div class="post-wrap">
     <div>{{ codepost.user.profile_set.image.url }}</div>
     <div>
@@ -6,10 +10,10 @@
         <div>{{ codepost.updated_at }}</div>
         
         {% if is_post_user == 0 %}
-            <form action="">
+            <form action="{% url 'comp:comp_code_update' comp.pk codepost.pk %}">
                 <input type="submit" value="수정">
             </form>
-            <form action="" method="post">
+            <form action="{% url 'comp:comp_code_delete' comp.pk codepost.pk %}" method="post">
                 {% csrf_token %}
                 <input type="submit" value="삭제">
             </form>
@@ -19,7 +23,7 @@
 
 <div>
     <div>댓글 ({{ count_comment }})</div>
-    <form action="">
+    <form action="{% url 'comp:comp_code_comment_create' comp.pk codepost.pk %}">
         <input type="submit" value="댓글 남기기">
     </form>
     
@@ -36,16 +40,16 @@
                         </div>
                         
                         {% if is_post_user == 0 %}
-                            <form action="">
+                            <form action="{% url 'comp:comp_code_comment_update' comp.pk codepost.pk comment.pk %}">
                                 <input type="submit" value="수정">
                             </form>
-                            <form action="" method="post">
+                            <form action="{% url 'comp:comp_code_comment_delete' comp.pk codepost.pk comment.pk %}" method="post">
                                 {% csrf_token %}
                                 <input type="submit" value="삭제">
                             </form>
                         {% endif %}
 
-                        <form action="">
+                        <form action="{% url 'comp:comp_code_comcomment_create' comp.pk codepost.pk comment.pk %}">
                             <input type="submit" value="대댓글 남기기">
                         </form>
                         <div>{{ comment.context }}</div>
@@ -64,7 +68,7 @@
                                     </div>
 
                                     {% if is_post_user == 0 %}
-                                        <form action="" method="post">
+                                        <form action="{% url 'comp:comp_code_commcomment_delete' comp.pk codepost.pk codecomment.pk comment.pk commcomment.pk %}" method="post">
                                             {% csrf_token %}
                                             <input type="submit" value="삭제">
                                         </form>
@@ -80,3 +84,4 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}

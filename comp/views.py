@@ -393,6 +393,105 @@ def comp_detail_code_post_delete(request, comp_id, codepost_id):
     return redirect("comp:comp_code_detail", comp_id, codepost_id)
 
 
+# ------------------댓글---------------------
+
+
+def comp_detail_code_comment_create(request, comp_id, codepost_id):
+    comp = Comp.objects.get(pk=comp_id)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=codepost_id)
+
+    if request.method == "POST":
+        form = ComCommentForm(request.POST)
+        if form.is_valid():
+            comcomment = form.save(commit=False)
+            comcomment.user = request.user
+            comcomment.compost = codepost
+            comcomment.save()
+            return redirect("comp:comp_code_detail", comp_id, codepost_id)
+    else:
+        form = ComCommentForm()
+        ctx = {
+            "form": form,
+        }
+        return render(request, "comp/comp_detail_code_comment_create.html", ctx)
+
+
+def comp_detail_code_comment_update(request, comp_id, codepost_id, codecomment_id):
+    comp = Comp.objects.get(pk=comp_id)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=codecomment_id)
+
+    if request.method == "POST":
+        form = ComCommentForm(request.POST, instance=codecomment)
+        if form.is_valid():
+            form.save()
+        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+
+    else:
+        form = ComCommentForm(instance=codecomment)
+        ctx = {
+            "form": form,
+        }
+        return render(request, "comp/comp_detail_code_comment_create.html", ctx)
+
+
+def comp_detail_code_comment_delete(request, comp_id, codepost_id, codecomment_id):
+    comp = Comp.objects.get(pk=comp_id)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=codecomment_id)
+
+    if request.method == "POST":
+        codecomment.delete()
+        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+
+    return redirect("comp:comp_community_detail", comp_id, codepost_id)
+
+
+# ----------------대댓글--------------------
+
+
+def comp_detail_code_commcomment_create(request, comp_id, codepost_id, codecomment_id):
+    comp = Comp.objects.get(pk=comp_id)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
+    codecomment = ComComment.objects.filter(compost=codepost).get(pk=codecomment_id)  # 대댓글 남길 댓글
+
+    if request.method == "POST":
+        form = ComCommentForm(request.POST)
+        if form.is_valid():
+            comcommcomment = form.save(commit=False)
+            comcommcomment.user = request.user
+            comcommcomment.compost = codepost
+            comcommcomment.commcomment = codecomment
+            comcommcomment.save()
+            return redirect("comp:comp_community_detail", comp_id, codepost.pk)
+    else:
+        form = ComCommentForm()
+        ctx = {
+            "form": form,
+        }
+        return render(request, "comp/comp_detail_code_comment_create.html", ctx)
+
+
+def comp_detail_code_commcomment_delete(request, comp_id, codepost_id, codecomment_id, codecommcomment_id):
+    comp = Comp.objects.get(pk=comp_id)
+    codepost = ComPost.objects.filter(comp=comp).get(pk=codepost_id)
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=codecomment_id)
+    codecommcomment = ComComment.objects.filter(commcomment=codecomment).get(pk=codecommcomment_id)
+
+    if request.method == "POST":
+        codecommcomment.delete()
+        return redirect("comp:comp_community_detail", comp_id, codepost_id)
+
+    return redirect("comp:comp_community_detail", comp_id, codepost_id)
+
+
+
+
+
+
+
+
+
 
 
 
