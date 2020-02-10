@@ -20,10 +20,10 @@ class ComCommentForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = [ 'comp','user', 'file', 'rank','accuracy']
+        fields = ['comp', 'user', 'file', 'rank', 'accuracy']
         widgets = {
 
-            'comp':forms.HiddenInput,
+            'comp': forms.HiddenInput,
             'user': forms.HiddenInput,
             'rank': forms.HiddenInput,
             'accuracy': forms.HiddenInput,
