@@ -66,9 +66,11 @@ urlpatterns = [
     path("explanation/competition", views.comp_explanation_competition, name="explanation_competition"),
     path("explanation/FAQ", views.comp_explanation_faq, name="explanation_faq"),
 
-    # path("<int:pk>/submit/", views.submit_answer, name="comp_submit_answer"),
-    # path("<int:pk>/answerlist/", views.answer, name="comp_answerlist"),
+    path("<int:pk>/submit/", views.user_upload_csv, name="user_upload_csv"),
+    path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
     path('<int:pk>/progressbar/', progressbar, name='progressbar'),
 
     path('createcomp/',views.create_comp, name="create_comp"),
+    
+    # 아래가 답안 제출
 ]

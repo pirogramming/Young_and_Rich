@@ -5,14 +5,15 @@ import json
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from comp.models import *
-
+from comp.utils import user_profile_image_path
 
 # Create your models here.
 
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to=user_profile_image_path)
     rank = models.IntegerField(default=0)
 
     gold_list = models.TextField(default="[]")  # list 형식으로

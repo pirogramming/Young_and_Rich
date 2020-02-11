@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>방금 {{ user }}님이 제출하신 답변의 정확도는 {{ accuracy }} 입니다. </div>
+<br>
+<div>아래는 {{ user }}님의 과거 기록입니다!
+<br>
+    <ul>
+        {% for answer in file_list %}
+        <li>{{ answer.created_at }} 에 제출하신 답변의 정확도는 {{ answer.accuracy }}였습니다. <a href="{{ answer.file.url }}">다운받기</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+</body>
+</html>

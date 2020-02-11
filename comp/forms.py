@@ -15,28 +15,20 @@ class ComCommentForm(forms.ModelForm):
         model = ComComment
         fields = ("context",)
 
+
 # from .models import Answer
 
-class AnswerForm(forms.ModelForm):
-    class Meta:
-        model = Answer
-        fields = [ 'comp','user', 'file', 'rank','accuracy']
-        widgets = {
-
-            'comp':forms.HiddenInput,
-            'user': forms.HiddenInput,
-            'rank': forms.HiddenInput,
-            'accuracy': forms.HiddenInput,
-        }
 
 
 class CompForm(forms.ModelForm):
     class Meta:
-        model=Comp
-        fields = ['title', 'context','profile_thumb', 'back_thumb', 'prize', 'deadline', 'evaluation','overview_context', 'data_context','comp_answer',]
+        model = Comp
+        fields = ['title', 'context', 'profile_thumb', 'back_thumb', 'prize', 'deadline', 'evaluation',
+                  'overview_context', 'data_context', 'comp_answer', ]
         widgets = {
             'deadline': widgets.AdminSplitDateTime,
         }
+
 
 class FileFieldForm(forms.Form):
     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))

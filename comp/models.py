@@ -9,6 +9,8 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from comp.utils import user_answer_upload_to
+
 
 class Comp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # comp 업로드 한 기업
@@ -27,7 +29,6 @@ class Comp(models.Model):
     overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
     data_context = models.TextField(null=True, blank=True)  # data 설명
     not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
-
 
     def __str__(self):
         return self.title
@@ -85,15 +86,12 @@ class CodeComment(models.Model):
     context = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
 
 
 class Answer(models.Model):
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    accuracy = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    accuracy = models.FloatField(null=True, blank=True)
-    file = models.FileField(null=True, blank=True)
-    rank = models.IntegerField(null=True, blank=True)
+    file = models.FileField(upload_to=user_answer_upload_to)
