@@ -33,10 +33,9 @@ class Comp(models.Model):
 
 
 # 결투장 data file 업로드-----
-class FileUp(models.Model):
+class Comp_File(models.Model):
     file = models.FileField()
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)  # data 올리는 comp
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # data 올리는 기업
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
 
 
 # 결투장 community Post
@@ -97,6 +96,3 @@ class Answer(models.Model):
     accuracy = models.FloatField(null=True, blank=True)
     file = models.FileField(null=True, blank=True)
     rank = models.IntegerField(null=True, blank=True)
-
-
-
