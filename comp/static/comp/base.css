@@ -63,10 +63,3 @@ html, body {
 .nav-login a:hover {
     background-color: #454545;
 }
-
-/*=================베이스 바디==============*/
-
-#base-body-wrap {
-    width: 1200px;
-    margin: 0 auto;
-}
