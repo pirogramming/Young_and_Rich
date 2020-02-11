@@ -1,8 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from comp.forms import ComPostForm, ComCommentForm
-from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment  # Answer
+from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm
+from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment, Comp_File  # Answer
 
 from datetime import date
 
@@ -551,3 +552,30 @@ def comp_explanation_competition(request):
 
 def comp_explanation_faq(request):
     return render(request, 'comp/explanation_faq.html')
+
+
+def create_comp(request):
+    if request.method == 'POST':
+        fileform = FileFieldForm(request.POST, request.FILES)
+        compform=CompForm(request.POST,request.FILES)
+
+        if fileform.is_valid() and compform.is_valid():
+            files=request.FILES.getlist('file_field')
+
+            comp = compform.save
+            comp.user = request.user
+            comp.save
+
+            for f in files:
+                file=Comp_File()
+                file.file=f
+                file.comp=comp
+                file.save()
+            return HttpResponseRedirect('')
+    else:
+        fileform = FileFieldForm
+        compform = CompForm
+    return render(request, 'comp/create_comp.html', {'fileform': fileform,'compform':compform})
+
+
+
