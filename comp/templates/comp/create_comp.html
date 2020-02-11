@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
- <form action="/upload/" method="post" accept-charset="utf-8" class="form" role="form" >
+ <form action="{% url 'comp:create_comp' %}" method="post" accept-charset="utf-8" class="form" role="form" >
  {% csrf_token %}
     <div class="col-12">
         제목:{{ compform.title}}

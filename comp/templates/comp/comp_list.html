@@ -1,22 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="" method="get">
-    <input type="text" name="q" value="{{ q }}">
-    <input type="submit" value="검색">
-</form>
+{% extends 'comp/base.html' %}
+{% load static %}
 
-{% for comp in comp_list %}
-    <div>
-        <div><img src="" alt=""></div>
-        <div>{{ comp.title }}</div>
-        <div>{{ comp.deadline }}</div>
-        <div>{{ comp.team_number }}</div>
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}">
+{% endblock %}
+
+
+{% block main-content %}
+
+    <div id="comp-main">
+        <div class="comp-main-title">공모전</div>
+        <div class="comp-main-sub">기업이 제공하는 데이터로 진행되는 공모전입니다.</div>
+        <div class="comp-main-icons">
+            <div class="team">
+                <div class="icon-wrap">
+
+                </div>
+                <div class="team-text">1,329팀</div> <!--view에서 넘겨줘야함-->
+            </div>
+        </div>
     </div>
-{% endfor %}
-</body>
-</html>
+
+    <form action="" method="get">
+        <input type="text" name="q" value="{{ q }}">
+        <input type="submit" value="검색">
+    </form>
+
+    {% for comp in comp_list %}
+        <div>
+            <div><img src="" alt=""></div>
+            <div><a href="{% url 'comp:comp_overview' comp.pk %}">{{ comp.title }}</a></div>
+            <div>{{ comp.deadline }}</div>
+            <div>{{ comp.team_number }}</div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

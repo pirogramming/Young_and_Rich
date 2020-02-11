@@ -15,9 +15,12 @@ def comp_list(request):
     if q:
         qs = Comp.objects.filter(title__icontains=q)
 
+    qs_number = len(qs)
+
     ctx = {
         "comp_list": qs,
         "q": q,
+        "comp_number": qs_number,
     }
     return render(request, "comp/comp_list.html", ctx)
 
