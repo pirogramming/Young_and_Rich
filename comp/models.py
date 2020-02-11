@@ -17,6 +17,7 @@ class Comp(models.Model):
     profile_thumb = models.ImageField(null=True, blank=True)
     back_thumb = models.ImageField(null=True, blank=True)
     prize = models.IntegerField()
+    comp_answer = models.FileField(null=True)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

@@ -33,7 +33,7 @@ class AnswerForm(forms.ModelForm):
 class CompForm(forms.ModelForm):
     class Meta:
         model=Comp
-        fields = ['title', 'context','profile_thumb', 'back_thumb', 'prize', 'deadline', 'evaluation','overview_context', 'data_context','answer',]
+        fields = ['title', 'context','profile_thumb', 'back_thumb', 'prize', 'deadline', 'evaluation','overview_context', 'data_context','comp_answer',]
         widgets = {
             'deadline': widgets.AdminSplitDateTime,
         }
