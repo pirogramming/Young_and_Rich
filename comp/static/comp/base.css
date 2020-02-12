@@ -3,6 +3,51 @@
 /*    box-sizing: border-box;*/
 /*}*/
 
+@font-face {
+    font-family: 'S-CoreDream-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-8Heavy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-7ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-4Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+/*==================CSS======================*/
+
+
 html, body {
     margin: 0; padding: 0;
 }
@@ -38,7 +83,7 @@ html, body {
 .nav-list a {
     color: white;
     text-decoration: none;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: S-CoreDream-4Regular, sans-serif;
     font-size: 14px;
 }
 
@@ -54,9 +99,8 @@ html, body {
     border: 1px solid #b6d5e1;
 
     color: #b6d5e1;
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
     font-size: 14px;
-    font-weight: 700;
     text-decoration: none;
 }
 
