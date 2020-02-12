@@ -28,7 +28,6 @@ class Comp(models.Model):
     data_context = models.TextField(null=True, blank=True)  # data 설명
     not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
 
-
     def __str__(self):
         return self.title
 

@@ -70,5 +70,5 @@ urlpatterns = [
     # path("<int:pk>/answerlist/", views.answer, name="comp_answerlist"),
     path('<int:pk>/progressbar/', progressbar, name='progressbar'),
 
-    path('createcomp/',views.create_comp, name="create_comp"),
+    path('createcomp/', views.create_comp, name="create_comp"),
 ]
