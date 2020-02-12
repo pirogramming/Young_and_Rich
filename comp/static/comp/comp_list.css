@@ -220,20 +220,31 @@
 
 
 
-/*-----------------------------------------*/
+/*---------------프로그레스 바---------------*/
 
-.percent {
-    /* deletable */
-    margin-top: 100px;
-    margin-left: 100px;
-    /* -------- */
-
-    width: 300px;
-    height: 30px;
-    border: 1px solid black;
+.deadline {
+    margin-top: 10px;
 }
 
-.bar {
-    height: 30px;
-    background-color: black;
+#percent-value, #percent-sign {
+    display: none;
+}
+
+.list-percent {
+    width: 500px;
+    height: 5px;
+    background-color: #eeeeee;
+    border-radius: 100px;
+}
+
+.list-bar {
+    height: 5px;
+    background-color: #b6d5e1;
+    border-radius: 100px;
+}
+
+.deadline-text {
+    text-align: right;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 11px;
 }

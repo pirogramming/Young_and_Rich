@@ -21,7 +21,7 @@ class Comp(models.Model):
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    deadline = models.DateTimeField()
+    deadline = models.DateField()
 
     evaluation = models.TextField(null=True, blank=True)
     overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
