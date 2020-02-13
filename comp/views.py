@@ -18,9 +18,24 @@ def comp_list(request):
     if q:
         qs = Comp.objects.filter(title__icontains=q)
 
+    qs_number = len(qs)
+
+    today = date.today()
+    comp_deadline_dict = {}
+    for comp in qs:
+        created_date = comp.updated_at
+        dead_date = comp.deadline.date()
+        total = (dead_date - created_date).days
+        interval = (today - created_date).days
+        percent = round(interval / total, 2) * 100
+
+        comp_deadline_dict[comp.id] = percent
+
     ctx = {
         "comp_list": qs,
         "q": q,
+        "comp_number": qs_number,
+        "comp_deadline_dict": comp_deadline_dict,
     }
     return render(request, "comp/comp_list.html", ctx)
 

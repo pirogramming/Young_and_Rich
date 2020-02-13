@@ -1,22 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="" method="get">
-    <input type="text" name="q" value="{{ q }}">
-    <input type="submit" value="검색">
-</form>
+{% extends 'comp/base.html' %}
+{% load static %}
 
-{% for comp in comp_list %}
-    <div>
-        <div><img src="" alt=""></div>
-        <div>{{ comp.title }}</div>
-        <div>{{ comp.deadline }}</div>
-        <div>{{ comp.team_number }}</div>
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?ver">
+{% endblock %}
+
+
+{% block main-content %}
+
+    <div id="comp-main-wrap">
+        <div id="comp-main">
+            <div class="comp-main-title">공모전</div>
+            <div class="comp-main-sub">기업이 제공하는 데이터로 진행되는 공모전입니다.</div>
+
+            <div class="comp-main-icons">
+                <div class="team">
+                    <div class="icon-wrap">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="icon-text">1,329팀</div> <!--view에서 넘겨줘야함-->
+                </div>
+                <div class="prize">
+                    <div class="icon-wrap">
+                        <i class="fas fa-won-sign"></i>
+                    </div>
+                    <div class="icon-text">상금 320만원</div>
+                </div>
+            </div>
+        </div>
     </div>
-{% endfor %}
-</body>
-</html>
+
+    <div id="comp-main-nav-wrap">
+        <div class="comp-main-nav">
+            <div class="comp-main-checked"><a href="">전체</a></div>
+            <div><a href="">진행</a></div>
+            <div><a href="">완료</a></div>
+        </div>
+        <div class="comp-main-count">
+            총 {{ comp_number }}개의 공모전
+        </div>
+    </div>
+
+{#    <form action="" method="get">#}
+{#        <input type="text" name="q" value="{{ q }}">#}
+{#        <input type="submit" value="검색">#}
+{#    </form>#}
+
+    <div id="comp-list-wrap">
+        {% for comp in comp_list %}
+
+            <div class="comp-unit">
+                <div class="comp-unit-left">
+                    <div class="comp-thumb"><img src="" alt=""></div>
+
+                    <div class="comp-unit-text">
+                        <div class="comp-unit-title"><a href="{% url 'comp:comp_overview' comp.pk %}">{{ comp.title }}</a></div>
+                        <div class="comp-unit-context">{{ comp.context }}</div>
+
+                        <div class="comp-unit-icons">
+                            <div class="comp-unit-team">
+                                <i class="fas fa-user"></i>
+                                <div class="comp-unit-icon-text">30팀 참여 중</div> <!--view-->
+                            </div>
+                            <div class="comp-unit-prize">
+                                <i class="fas fa-won-sign"></i>
+                                <div class="comp-unit-icon-text">상금 {{ comp.prize }}만원</div>
+                            </div>
+                        </div>
+
+                        {% for key, percent in comp_deadline_dict.items %}
+                            <div class="deadline">
+                                <div class="list-percent">
+                                    <div class="list-bar"></div>
+                                    {% if key == comp.pk %}
+                                    <div>
+                                        <span id="percent-value">{{ percent }}</span><span id="percent-sign">%</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <script>
+                                    const percentValue = parseFloat(document.querySelector("#percent-value").innerText);
+                                    const percentBar = document.querySelector(".list-bar");
+
+                                    percentBar.style = `width : ${percentValue}%`;
+                                </script>
+                                <div class="deadline-text">{{ comp.deadline }} 마감</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="comp-unit-right">
+                    <a href="">
+                        <div class="comp-unit-button">참여하기</div>
+                    </a>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
