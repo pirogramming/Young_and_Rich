@@ -1,7 +1,7 @@
-/*div {*/
-/*    border: 1px solid #4f4f4f;*/
-/*    box-sizing: border-box;*/
-/*}*/
+div {
+    border: 1px solid #4f4f4f;
+    box-sizing: border-box;
+}
 
 @font-face {
     font-family: 'S-CoreDream-9Black';
@@ -97,6 +97,7 @@ html, body {
     padding: 5px 17px;
     border-radius: 100px;
     border: 1px solid #b6d5e1;
+    box-sizing: border-box;
 
     color: #b6d5e1;
     font-family: S-CoreDream-7ExtraBold, sans-serif;
