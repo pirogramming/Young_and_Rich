@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'S-CoreDream-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-8Heavy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-7ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-4Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+/*=========================CSS==========================*/
+
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*----------------------------------*/
+
+html, body {
+    margin: 0; padding: 0;
+}
+
+#main-main-banner {
+    width: 100%; height: 600px;
+    background-color: #65799b;
+}
+
+#main-nav-wrap {
+    width: 100%; height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+#main-nav {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+#main-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list div {
+    margin-left: 40px;
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 14px;
+}
+
+/*==============로그인 버튼==============*/
+
+.nav-login {
+    margin-left: 40px;
+}
+
+.nav-login a {
+    padding: 5px 17px;
+    border-radius: 100px;
+    border: 1px solid white;
+    box-sizing: border-box;
+
+    color: white;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav-login a:hover {
+    background-color: #5c7194;
+}
+
+
+
+/*==================MAIN BANNER===================*/
+
+#main-text-wrap {
+    width: 100%; height: 540px;
+    display: flex;
+    justify-content: center;
+}
+
+#main-text {
+    width: 1200px;
+}
+
+.main-title {
+    font-family: S-CoreDream-9Black, sans-serif;
+    font-size: 36px;
+    color: white;
+    margin-top: 200px;
+}
+
+.main-sub {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 13px;
+    color: white;
+    margin-top: 5px;
+}
+
+#main-buttons {
+    display: flex;
+    margin-top: 50px;
+}
+
+#main-buttons a {
+    text-decoration: none;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 18px;
+}
+
+#main-buttons div {
+    width: 130px; height: 40px;
+    border-radius: 100px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.button-login {
+    border: 1px solid white;
+    box-sizing: border-box;
+    color: white;
+    transition-duration: 0.3s;
+}
+
+.button-signup {
+    background-color: white;
+    color: #65799b;
+    margin-left: 20px;
+    transition-duration: 0.3s;
+}
+
+.button-login:hover, .button-signup:hover {
+    transform: scale(1.07);
+}
+

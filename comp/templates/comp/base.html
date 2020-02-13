@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'comp/base.css' %}?ver">
+    <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
+
+    {% block extra-head %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="base-nav-wrap">
+        <div id="base-nav">
+            <div id="base-left"></div>
+
+            <div id="base-right">
+                <div class="nav-list">
+                    <div><a href="{% url 'comp:comp_list' %}">공모전</a></div>
+                    <div><a href="">토론방</a></div>
+                    <div><a href="">랭킹</a></div>
+                    <div><a href="">사용설명서</a></div>
+                    <div><a href="">공지</a></div>
+                </div>
+                <div class="nav-login">
+                    <a href="">로그인</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block main-content %}
+    {% endblock %}
+
+    <div id="footer"></div>
+</body>
+</html>

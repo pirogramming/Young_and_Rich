@@ -1,27 +1,51 @@
+from allauth.account.forms import LoginForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import Profile
-from allauth.account.forms import LoginForm
+
 
 # 회원가입 폼
 class SignupForm(forms.Form):
-    class Meta:
-        model = User
+    username1 = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '유저의 닉네임은 무엇?'
+        }))
+
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control input-lg'
+        }
+    ))
 
     image = forms.ImageField()
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=20)
-    last_name = forms.CharField(max_length=20)
-
+    email1 = forms.EmailField(widget=forms.EmailInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '이메일 형태로 입력을 하세요!'
+        }))
+    first_name = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '이름은 무엇?'
+        }))
+    last_name = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '성은 무엇?'
+        }))
 
     def signup(self, request, user):
-        userProfile = Profile
-        userProfile.user = user
+        User.username = self.cleaned_data['username1']
+        User.email = self.cleaned_data['email1']
+        User.password = self.cleaned_data['password']
+        userprofile = Profile
+        userprofile.user = user
         User.first_name = self.cleaned_data['first_name']
         User.last_name = self.cleaned_data['last_name']
-        userProfile.image = self.cleaned_data['image']
-        userProfile.email = self.cleaned_data['email']
-        userProfile.save()
+        userprofile.image = self.cleaned_data['image']
+        userprofile.save()
         user.save()
         return user
 
@@ -32,5 +56,3 @@ class CustomLoginForm(LoginForm):
         self.fields['login'].widget = forms.TextInput(attrs={
             'type': 'email'
         })
-
-

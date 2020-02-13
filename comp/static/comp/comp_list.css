@@ -1,0 +1,250 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+
+#comp-main-wrap {
+    width: 100%; height: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+#comp-main {
+    width: 1200px;
+}
+
+.comp-main-title {
+    font-family: S-CoreDream-9Black, sans-serif;
+    font-size: 32px;
+    color: #333333;
+    margin: 50px 0 5px 40px;
+}
+
+.comp-main-sub {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 16px;
+    color: #333333;
+    margin-left: 40px;
+}
+
+/*-----------메인 아이콘-----------*/
+
+.comp-main-icons {
+    display: flex;
+    margin: 20px 0 0 40px;
+}
+
+.comp-main-icons .team {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-wrap {
+    width: 25px; height: 25px;
+    margin-right: 5px;
+    background-color: #333333;
+    border-radius: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-wrap i {
+    color: #b6d5e1;
+    font-size: 12px;
+}
+
+.icon-text {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 14px;
+    color: #333333;
+}
+
+.comp-main-icons .prize {
+    display: flex;
+    align-items: center;
+}
+
+
+/*================NAV==================*/
+
+
+#comp-main-nav-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.comp-main-nav {
+    display: flex;
+}
+
+.comp-main-nav div {
+    margin-right: 50px;
+}
+
+.comp-main-nav div:nth-child(1) {
+    margin-left: 10px;
+}
+
+.comp-main-nav a {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    color: #707070;
+}
+
+.comp-main-checked {
+    border-bottom: 5px solid #b6d5e1;
+}
+
+.comp-main-checked a {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+}
+
+.comp-main-count {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    margin-right: 3px;
+    color: #808080;
+}
+
+
+/*==============COMP-LIST==============*/
+
+
+#comp-list-wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.comp-unit {
+    width: 100%;
+    height: 170px;
+    margin-top: 15px;
+    padding: 15px 20px;
+    border: 1px solid #eeeeee;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comp-unit-left {
+    display: flex;
+    align-items: center;
+}
+
+.comp-unit-left .comp-thumb {
+    width: 140px; height: 140px;
+}
+
+.comp-unit-text {
+    margin-left: 15px;
+}
+
+.comp-unit-title a {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: #333333;
+}
+
+.comp-unit-context {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 13px;
+    color: #707070;
+    margin-top: 2px;
+}
+
+.comp-unit-icons {
+    display: flex;
+    margin-top: 20px;
+    color: #333333;
+    font-size: 13px;
+}
+
+.comp-unit-team {
+    display: flex;
+    align-items: center;
+}
+
+.comp-unit-icon-text {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    margin-left: 5px;
+}
+
+.comp-unit-prize {
+    display: flex;
+    align-items: center;
+    color: #333333;
+    margin-left: 40px;
+}
+
+
+/*----------참여하기 버튼--------------*/
+
+.comp-unit-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.comp-unit-right a {
+    text-decoration: none;
+}
+
+.comp-unit-button {
+    width: 135px; height: 45px;
+    border-radius: 100px;
+    box-sizing: border-box;
+    background-color: #e2eff1;
+
+    text-align: center;
+    line-height: 45px;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+    font-size: 16px;
+}
+
+.comp-unit-button:hover {
+    background-color: #d7e8eb;
+}
+
+
+
+
+/*---------------프로그레스 바---------------*/
+
+.deadline {
+    margin-top: 10px;
+}
+
+#percent-value, #percent-sign {
+    display: none;
+}
+
+.list-percent {
+    width: 500px;
+    height: 5px;
+    background-color: #eeeeee;
+    border-radius: 100px;
+}
+
+.list-bar {
+    height: 5px;
+    background-color: #b6d5e1;
+    border-radius: 100px;
+}
+
+.deadline-text {
+    text-align: right;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 11px;
+}

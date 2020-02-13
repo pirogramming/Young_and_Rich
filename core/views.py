@@ -45,3 +45,6 @@ def show_user_rank(request):
 
     return render(request, 'core/userrank.html', {
         'user': request.user, 'posts': posts})
+
+
+

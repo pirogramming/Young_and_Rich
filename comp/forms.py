@@ -1,6 +1,7 @@
 from django import forms
+from django.contrib.admin import widgets
 
-from comp.models import ComPost, ComComment
+from comp.models import ComPost, ComComment, Answer, Comp
 
 
 class ComPostForm(forms.ModelForm):
@@ -18,15 +19,16 @@ class ComCommentForm(forms.ModelForm):
 # from .models import Answer
 
 
-# class AnswerForm(forms.ModelForm):
-#     class Meta:
-#         model = Answer
-#         fields = [ 'comp','user', 'file', 'nth_submit', 'rank','accuracy']
-#         widgets = {
-#
-#             'comp':forms.HiddenInput,
-#             'nth_submit': forms.HiddenInput,
-#             'user': forms.HiddenInput,
-#             'rank': forms.HiddenInput,
-#             'accuracy': forms.HiddenInput,
-#         }
+
+class CompForm(forms.ModelForm):
+    class Meta:
+        model = Comp
+        fields = ['title', 'context', 'profile_thumb', 'back_thumb', 'prize', 'deadline', 'evaluation',
+                  'overview_context', 'data_context', 'comp_answer', ]
+        widgets = {
+            'deadline': widgets.AdminSplitDateTime,
+        }
+
+
+class FileFieldForm(forms.Form):
+    file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))

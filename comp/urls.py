@@ -38,11 +38,37 @@ urlpatterns = [
     path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_community_commcomment_delete,
          name="comp_community_commcomment_delete"),
 
+    # code
+    path("<int:pk>/code/", views.comp_detail_code_list, name="comp_code_list"),
+    path("<int:pk>/code/<int:pk2>/", views.comp_detail_code_detail, name="comp_code_detail"),
+
+    path("<int:pk>/code/create/", views.comp_detail_code_post_create, name="comp_code_create"),
+    path("<int:pk>/code/<int:pk2>/update/", views.comp_detail_code_post_update, name="comp_code_update"),
+    path("<int:pk>/code/<int:pk2>/delete/", views.comp_detail_code_detail, name="comp_code_delete"),
+
+    path("<int:pk>/code/<int:pk2>/create/", views.comp_detail_code_comment_create,
+         name="comp_code_comment_create"),
+    path("<int:pk>/code/<int:pk2>/<int:pk3>/update/", views.comp_detail_code_comment_update,
+         name="comp_code_comment_update"),
+    path("<int:pk>/code/<int:pk2>/<int:pk3>/delete/", views.comp_detail_code_comment_delete,
+         name="comp_code_comment_delete"),
+
+    path("<int:pk>/community/<int:pk2>/<int:pk3>/create/", views.comp_detail_code_commcomment_create,
+         name="comp_code_commcomment_create"),
+    path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_code_commcomment_delete,
+         name="comp_code_commcomment_delete"),
+
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
-    path("explanation/", views.comp_explanation, name="explanation"),
 
-    # path("<int:pk>/submit/", views.submit_answer, name="comp_submit_answer"),
-    # path("<int:pk>/answerlist/", views.answer, name="comp_answerlist"),
-    #path('<int:pk>/progressbar/', progressbar, name='progressbar'),
+    # explanation
+    path("explanation/page", views.comp_explanation_page, name="explanation_page"),
+    path("explanation/competition", views.comp_explanation_competition, name="explanation_competition"),
+    path("explanation/FAQ", views.comp_explanation_faq, name="explanation_faq"),
+
+    path("<int:pk>/submit/", views.user_upload_csv, name="user_upload_csv"),
+    path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
+    path('<int:pk>/progressbar/', progressbar, name='progressbar'),
+
+    path('createcomp/', views.create_comp, name="create_comp"),
 ]
