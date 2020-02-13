@@ -36,7 +36,7 @@ class Comp(models.Model):
 
 # 결투장 data file 업로드-----
 class Comp_File(models.Model):
-    file = models.FileField()
+    file = models.FileField(null=True)
     comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
 
 
@@ -94,4 +94,4 @@ class Answer(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     accuracy = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(upload_to=user_answer_upload_to)
+    file = models.FileField(upload_to=user_answer_upload_to, null=True)

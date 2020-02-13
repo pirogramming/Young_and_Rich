@@ -39,6 +39,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'S-CoreDream-1Thin';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-1Thin.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /*=========================CSS==========================*/
 
@@ -108,10 +115,11 @@ html, body {
     font-family: S-CoreDream-7ExtraBold, sans-serif;
     font-size: 14px;
     text-decoration: none;
+    transition-duration: 0.5s;
 }
 
 .nav-login a:hover {
-    background-color: #5c7194;
+    background-color: #7385a3;
 }
 
 
@@ -133,6 +141,11 @@ html, body {
     font-size: 36px;
     color: white;
     margin-top: 200px;
+}
+
+.main-title span {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 20px;
 }
 
 .main-sub {
@@ -176,5 +189,235 @@ html, body {
 
 .button-login:hover, .button-signup:hover {
     transform: scale(1.07);
+}
+
+
+
+/*=======================시작하기====================*/
+
+
+#main-starter {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#starter-title {
+    font-family: S-CoreDream-9Black, sans-serif;
+    font-size: 24px;
+    text-align: center;
+    color: #333333;
+    margin-top: 60px;
+}
+
+#starter-list {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+#starter-list a {
+    text-decoration: none;
+}
+
+.starter-unit {
+    width: 278px; height: 278px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.starter-img  {
+    width: 278px; height: 242px;
+    background-color: #f0f7f8;
+}
+
+.starter-text {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    color: #333333;
+}
+
+
+/*======================사용설명서=======================*/
+
+
+#main-explanation {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+#explanation-text {
+    width: 1200px;
+    padding: 30px 0 0;
+    text-align: center;
+    background-color: #e2eff1;
+}
+
+.explanation-title {
+    font-family: S-CoreDream-9Black, sans-serif;
+    font-size: 24px;
+    text-align: center;
+    color: #333333;
+}
+
+.explanation-context {
+    margin-top: 5px;
+    font-family: S-CoreDream-3Light, 'sans-serif';
+    font-size: 13px;
+    color: #333333;
+}
+
+#explanation-text a {
+    text-decoration: none;
+}
+
+.explanation-button {
+    width: 130px; height: 40px;
+    margin: 25px auto;
+    border-radius: 100px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #333333;
+    box-sizing: border-box;
+
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    color: #e2eff1;
+    transition-duration: 0.5s;
+}
+
+.explanation-button:hover {
+    background-color: #101010;
+}
+
+.explanation-img {
+    width: 1200px;
+    height: 150px;
+}
+
+
+/*=========================숫자========================*/
+
+
+#main-number {
+    width: 1200px;
+    margin: 60px auto;
+    display: flex;
+}
+
+.number-unit {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.number {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 28px;
+    color: #333333;
+}
+
+.number-text {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 16px;
+    color: #333333;
+    margin-top: 5px;
+}
+
+
+/*=======================FOOTER=====================*/
+
+
+#main-footer-wrap {
+    background: #4f4f4f;
+    display: flex;
+    justify-content: center;
+}
+
+#main-footer {
+    width: 1200px;
+    color: white;
+    margin-top: 30px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #707070;
+}
+
+.footer-left {
+    display: flex;
+}
+
+.footer-title {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 24px;
+}
+
+.footer-call {
+    font-family: S-CoreDream-3Light, 'sans-serif';
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.corp-context {
+    font-family: S-CoreDream-1Thin, 'sans-serif';
+    font-size: 10px;
+    margin: 3px 0 0 30px;
+    line-height: 18px;
+}
+
+.footer-icons {
+    display: flex;
+    margin: 20px 0 0 30px;
+}
+
+.footer-icon-wrap {
+    width: 40px; height: 40px;
+    margin-right: 20px;
+    border: 1px solid #b6d5e1;
+    border-radius: 100px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.footer-icon-wrap i {
+    font-size: 20px;
+    color: #b6d5e1;
+}
+
+.footer-right {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.footer-list {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 11px;
+}
+
+.footer-list div {
+    margin-bottom: 5px;
+}
+
+.footer-list-title {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 14px;
+    color: #b6d5e1;
+}
+
+.footer-bottom {
+    margin: 15px 0;
+    text-align: center;
+    font-family: S-CoreDream-1Thin, 'sans-serif';
+    font-size: 12px;
+    color: #b6d5e1;
 }
 

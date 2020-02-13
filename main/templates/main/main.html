@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{% static 'main/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main/main.css' %}?ver">
+    <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
 
     <div id="main-text-wrap">
         <div id="main-text">
-            <div class="main-title">사이트 이름</div>
+            <div class="main-title">데이타덕    <span>Data Duck</span></div>
             <div class="main-sub">
                 사이트 설명 어쩌구 저쩌구 이러쿵 저러쿵 블라블라라라랄<br />
                 내용 안 중요함 디자인 상 넣은 거니까 아무거나 대충 간지나는 말 두 줄로 적기
@@ -50,30 +51,30 @@
 </div>
 
 <div id="main-starter">
-    <div id="starter-title">사이트 이름 시작하기</div>
+    <div id="starter-title">데이타덕 시작하기</div>
     <div id="starter-list">
         <a href="{% url 'comp:comp_list' %}">
             <div class="starter-unit starter-comp">
-                <img src="" alt="">
-                <div>공모전</div>
+                <div class="starter-img"><img src="" alt=""></div>
+                <div class="starter-text">공모전</div>
             </div>
         </a>
         <a href="">
             <div class="starter-unit starter-code">
-                <img src="" alt="">
-                <div>코드</div>
+                <div class="starter-img"><img src="" alt=""></div>
+                <div class="starter-text">코드</div>
             </div>
         </a>
         <a href="">
             <div class="starter-unit starter-community">
-                <img src="" alt="">
-                <div>토론방</div>
+                <div class="starter-img"><img src="" alt=""></div>
+                <div class="starter-text">토론방</div>
             </div>
         </a>
         <a href="">
             <div class="starter-unit starter-ranking">
-                <img src="" alt="">
-                <div>랭킹</div>
+                <div class="starter-img"><img src="" alt=""></div>
+                <div class="starter-text">랭킹</div>
             </div>
         </a>
     </div>
@@ -81,38 +82,98 @@
 
 <div id="main-explanation">
     <div id="explanation-text">
-        <div class="explanation-title">사이트 이름 사용설명서</div>
+        <div class="explanation-title">데이타덕 사용설명서</div>
         <div class="explanation-context">
             쉽게 시작하는 방법 블라블라 대충 뭐 이런 거다 설명<br />
             두 줄은 돼야 할 듯 말은 나중에 머리 돌아갈 때 정할 거다 지금은 말고
         </div>
-        <a href="">
+        <a href="{% url 'comp:explanation_page' %}">
             <div class="explanation-button">바로가기</div>
         </a>
+        <div class="explanation-img"><img src="" alt=""></div>
     </div>
 </div>
 
 <div id="main-number">
     <div class="number-unit number-user">
-        <div>432</div> <!--view에서 넘겨줘라-->
-        <div>회원</div>
+        <div class="number">432</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">회원</div>
+    </div>
+    <div class="number-unit number-corp">
+        <div class="number">28</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">기업</div>
     </div>
     <div class="number-unit number-data">
-        <div>72</div> <!--view에서 넘겨줘라-->
-        <div>데이터</div>
+        <div class="number">72</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">데이터</div>
     </div>
     <div class="number-unit number-code">
-        <div>1,493</div> <!--view에서 넘겨줘라-->
-        <div>코드</div>
+        <div class="number">1,493</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">코드</div>
     </div>
     <div class="number-unit number-prize">
-        <div>94,120</div> <!--view에서 넘겨줘라-->
-        <div>상금</div>
+        <div class="number">94,120</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">상금</div>
     </div>
 </div>
 
-<div id="main-footer">
-    여기는 푸터 여기는 푸터 내용은 생각 좀 해보겟숨
+<div id="main-footer-wrap">
+    <div id="main-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <div class="corp-name">
+                    <div class="footer-title">데이터덕</div>
+                    <div class="footer-call">문의 02-612-0746</div>
+                </div>
+
+                <div class="corp-overview">
+                    <div class="corp-context">
+                        세상이 넓다지만 지구는 좁고 나라가 많다해도 모두가 이웃. <br />
+                        가슴을 활짝 열고 대화 해보세 인류의 번영위해 행복을 위해 겨례의 앞길은 내가 <br />
+                        밝히리 희망과 꿈의 전당 외국어고교 부산외국어고교 부산외국어고교 <br />
+                        동해물과 백두산이 마르고 닮도록 하나님이 보우하사 우리 나라 만세 <br />
+                    </div>
+                    <div class="footer-icons">
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="footer-list">
+                    <div class="footer-list-title">개발자 알아보기</div>
+                    <div>무언가</div>
+                    <div>아무거나</div>
+                    <div>적당히</div>
+                    <div>들어가야함</div>
+                </div>
+                <div class="footer-list">
+                    <div class="footer-list-title">서포터즈</div>
+                    <div>기업이름</div>
+                    <div>적당히</div>
+                    <div>넣으면됨</div>
+                </div>
+                <div class="footer-list">
+                    <div class="footer-list-title">리스트 이름</div>
+                    <div>뭐가 될지는</div>
+                    <div>모르겠지만 일단</div>
+                    <div>하나 더</div>
+                    <div>필요할 듯</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright &copy;2020 Young and Rich
+        </div>
+    </div>
 </div>
 </body>
 </html>
