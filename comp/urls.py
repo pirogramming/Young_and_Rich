@@ -70,7 +70,5 @@ urlpatterns = [
     path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
     path('<int:pk>/progressbar/', progressbar, name='progressbar'),
 
-    path('createcomp/',views.create_comp, name="create_comp"),
-    
-    # 아래가 답안 제출
+    path('createcomp/', views.create_comp, name="create_comp"),
 ]
