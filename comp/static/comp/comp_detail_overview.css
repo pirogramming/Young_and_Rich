@@ -28,6 +28,10 @@
     color: #707070;
 }
 
+.comp-detail-nav a:hover {
+    color: #333333;
+}
+
 .comp-detail-checked {
     border-bottom: 5px solid #b6d5e1;
 }
@@ -111,7 +115,7 @@
 }
 
 .left-bar a:hover {
-    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-family: S-CoreDream-5Medium, sans-serif;
     color: #333333;
 }
 
