@@ -24,7 +24,7 @@ def comp_list(request):
     comp_deadline_dict = {}
     for comp in qs:
         created_date = comp.updated_at
-        dead_date = comp.deadline.date()
+        dead_date = comp.deadline
         total = (dead_date - created_date).days
         interval = (today - created_date).days
         percent = round(interval / total, 2) * 100
@@ -45,7 +45,7 @@ def comp_detail_overview(request, pk):
     today = date.today()
 
     created_date = comp.created_at
-    dead_date = comp.deadline.date()
+    dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
     percent = round(interval / total, 2) * 100

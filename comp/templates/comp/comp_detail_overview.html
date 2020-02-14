@@ -1,18 +1,17 @@
 {% extends "comp/comp_detail.html" %}
+{% load static %}
 
 {% block content %}
-    <nav>
-        <span><a href="/comp/{{ comp.id }}/overview">개요</a></span>
-        <span><a href="/comp/{{ comp.id }}/code">코드</a></span>
-        <span><a href=""></a>데이터</span>
-        <span><a href="/comp/{{ comp.id }}/community">커뮤니티</a></span>
-        <span><a href="/comp/{{ comp.id }}/ranking">랭킹</a></span>
-        <span>
-            <form>
-                <button>join competition</button>
-            </form>
-        </span>
-    </nav>
+    <div class="comp-detail-nav">
+        <div><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
+        <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
+        <div><a href="{% url 'comp:comp_data' comp.pk %}"></a>데이터</div>
+        <div><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
+        <div><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
+        <form action="">
+            <button type="submit">join competition</button>
+        </form>
+    </div>
     <div>overview</div>
 
     <div class="percent">

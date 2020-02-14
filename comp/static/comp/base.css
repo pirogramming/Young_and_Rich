@@ -108,3 +108,95 @@ html, body {
 .nav-login a:hover {
     background-color: #454545;
 }
+
+/*=================FOOTER================*/
+
+#main-footer-wrap {
+    margin-top: 60px;
+    background: #4f4f4f;
+    display: flex;
+    justify-content: center;
+}
+
+#main-footer {
+    width: 1200px;
+    color: white;
+    margin-top: 30px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #707070;
+}
+
+.footer-left {
+    display: flex;
+}
+
+.footer-title {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 24px;
+}
+
+.footer-call {
+    font-family: S-CoreDream-3Light, 'sans-serif';
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.corp-context {
+    font-family: S-CoreDream-1Thin, 'sans-serif';
+    font-size: 10px;
+    margin: 3px 0 0 30px;
+    line-height: 18px;
+}
+
+.footer-icons {
+    display: flex;
+    margin: 20px 0 0 30px;
+}
+
+.footer-icon-wrap {
+    width: 40px; height: 40px;
+    margin-right: 20px;
+    border: 1px solid #b6d5e1;
+    border-radius: 100px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.footer-icon-wrap i {
+    font-size: 20px;
+    color: #b6d5e1;
+}
+
+.footer-right {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.footer-list {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 11px;
+}
+
+.footer-list div {
+    margin-bottom: 5px;
+}
+
+.footer-list-title {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 14px;
+    color: #b6d5e1;
+}
+
+.footer-bottom {
+    margin: 15px 0;
+    text-align: center;
+    font-family: S-CoreDream-1Thin, 'sans-serif';
+    font-size: 12px;
+    color: #b6d5e1;
+}
