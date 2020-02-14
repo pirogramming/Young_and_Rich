@@ -23,13 +23,14 @@ def comp_list(request):
     today = date.today()
     comp_deadline_dict = {}
     for comp in qs:
-        created_date = comp.updated_at
+        created_date = comp.created_at
         dead_date = comp.deadline
         total = (dead_date - created_date).days
         interval = (today - created_date).days
         percent = round(interval / total, 2) * 100
 
-        comp_deadline_dict[comp.id] = percent
+        comp_deadline_dict[comp.pk] = percent
+    print(comp_deadline_dict)
 
     ctx = {
         "comp_list": qs,
@@ -49,6 +50,8 @@ def comp_detail_overview(request, pk):
     total = (dead_date - created_date).days
     interval = (today - created_date).days
     percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
         "percent": percent,
@@ -56,34 +59,56 @@ def comp_detail_overview(request, pk):
     return render(request, "comp/comp_detail_overview.html", data)
 
 
-def comp_detail_overview_description(request, pk):
-    comp = Comp.objects.get(pk=pk)
-    data = {
-        "comp": comp,
-    }
-    return render(request, "comp/comp_detail_overview_description.html", data)
-
-
 def comp_detail_overview_evaluation(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
+        "percent":percent,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
 
 def comp_detail_overview_timeline(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
 
 def comp_detail_overview_prizes(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 

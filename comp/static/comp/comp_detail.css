@@ -6,12 +6,16 @@
 
 .comp-header {
     width: 1200px; height: 250px;
-    margin: 30px auto;
+    margin: 30px auto 50px;
     padding: 30px 40px;
     box-sizing: border-box;
     background-color: #e2eff1;
     color: #333333;
+    display: flex;
+    justify-content: space-between;
+}
 
+.comp-header-left {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -36,7 +40,7 @@
 }
 
 .comp-header-context {
-    font-family: S-CoreDream-4Regular, sans-serif;
+    font-family: S-CoreDream-3Light, sans-serif;
     font-size: 16px;
 }
 
@@ -71,4 +75,35 @@
 .comp-header-icon-text {
     font-family: S-CoreDream-7ExtraBold, sans-serif;
     font-size: 14px;
+}
+
+
+/*============참여하기=================*/
+
+.comp-header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.comp-header-right a {
+    text-decoration: none;
+}
+
+.comp-header-button {
+    width: 135px; height: 45px;
+    border-radius: 100px;
+    box-sizing: border-box;
+    background-color: #333333;
+
+    text-align: center;
+    line-height: 45px;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #e2eff1;
+    font-size: 16px;
+    transition-duration: 0.5s;
+}
+
+.comp-header-button:hover {
+    background-color: #101010;
 }
