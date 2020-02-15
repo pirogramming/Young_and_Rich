@@ -8,19 +8,17 @@ def main(request):
     user = count_user()
     company = count_company()
     competition = count_competition()
+    code = count_code()
 
     ctx = {
         'user': user,
         'prize': prize,
         'company': company,
         'competition': competition,
+        'code': code,
     }
 
     return render(request, 'main/main.html', ctx)
-
-
-def explanation(request):
-    return render(request, 'main/explanation.html')
 
 
 def explanation_page(request):

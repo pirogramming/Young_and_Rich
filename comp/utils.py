@@ -1,5 +1,6 @@
 import os
 from uuid import uuid4
+from comp.models import *
 
 
 def user_profile_image_path(instance, filename):
@@ -15,6 +16,5 @@ def user_answer_upload_to(instance, filename):
 
 
 def count_join():
-    # 결투장에 들어온 사람
-
-    return
+    Comp.objects.all()
+    return Comp.user.count()

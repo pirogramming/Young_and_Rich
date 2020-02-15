@@ -17,13 +17,7 @@ def count_competition():
 
 
 def count_code():
-    all_code_list = Comp.objects.all()
-    code_list = ComPost.objects.all()
-    a = len(code_list)
-    for i in all_code_list:
-        a += 1
-
-        return a
+    return len(CodePost.objects.all())
 
 
 def count_prize():
