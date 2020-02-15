@@ -546,21 +546,22 @@ def user_upload_csv(request, pk):
     }
     if request.method == 'GET':
         return render(request, "comp/comp_csv_upload.html", data)
-    if request.method == 'POST':
 
+    if request.method == 'POST':
         submit_answer_list = []
         submit_problem_list = []
-        try:
 
+        try:
             submit_answer = request.FILES["csv_file"]
             # csv 파일이 맞는지 검사하는 validation
             if not submit_answer.name.endswith('.csv'):
-                messages.error(request, 'CSV파일이 아닙ㅂ니다.')
+                messages.error(request, 'CSV파일이 아닙니다.')
                 return redirect("comp:user_upload_csv")
-            # 파일이 너무 큰지 검사하는 과정
-            if submit_answer.multiple_chunks():
-                messages.error(request, "파일이 너무 큽니다")
-                return redirect("comp:user_upload_csv")
+
+            # # 파일이 너무 큰지 검사하는 과정
+            # if submit_answer.multiple_chunks():
+            #     messages.error(request, "파일이 너무 큽니다")
+            #     return redirect("comp:user_upload_csv")
 
             submit_answer_data = submit_answer.read().decode("utf-8")
             lines = submit_answer_data.split("\n")[:-1]
@@ -611,7 +612,7 @@ def user_upload_csv(request, pk):
         return render(request, "comp/comp_csv_result.html", {
             'accuracy': accuracy,
             'user': request.user,
-            'file_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by('created_at'),
+            'answer_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by('created_at'),
             'pk': pk
         })
 
@@ -619,6 +620,7 @@ def user_upload_csv(request, pk):
 def show_csv_result(request, pk):
     return render(request, "comp/comp_csv_result.html", {
         'answer_list': Answer.objects.filter(comp=Comp.objects.get(pk=pk)).order_by('created_at'),
+        "pk": pk,
     })
 
 
@@ -629,30 +631,9 @@ def show_csv_result(request, pk):
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
 
-# def comp_submit_answer(request, pk):
-#     if request.method == 'POST':
-#
-#         if 1:  # valid 파악
-#             answer = Answer()
-#             # answer.accuracy=
-#             # answer.rank=
-#             answer.user = request.user
-#             answer.comp = Comp.objects.get(pk=pk)
-#             answer.file = request.FILES.get('')
-#             answer.save()
-#
-#         return redirect(reverse('comp_answerlist', kwargs={'pk': pk}))
-#     return render(request, 'comp/comp_submit_answer.html', )
-#
-#
-# def comp_answerlist(request, pk):
-#     ctx = {
-#         'answer_list': Answer.objects.filter(user=request.user)
-#     }
-#     return render(request, 'comp/comp_answerlist.html', ctx)
-
 def comp_explanation(request):
     return render(request, 'comp/explanation.html')
+
 
 def comp_explanation_page(request):
     return render(request, 'comp/explanation_page.html')

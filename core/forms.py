@@ -49,6 +49,7 @@ class SignupForm(forms.Form):
         user.save()
         return user
 
+
 class CustomLoginForm(LoginForm):
 
     def __init__(self, *args, **kwargs):
