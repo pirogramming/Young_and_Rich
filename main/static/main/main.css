@@ -130,10 +130,10 @@ html, body {
     width: 100%; height: 540px;
     display: flex;
     justify-content: center;
-    background-image: url("00_main_banner.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center right;
+    /*background-image: url("00_main_banner.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*background-position: center right;*/
 }
 
 #main-text {

@@ -1,33 +1,49 @@
-{% extends 'comp/comp_detail.html' %}
+{% extends "comp/comp_detail.html" %}
+{% load static %}
 
 {% block content %}
-    <nav>
-        <span><a href="/comp/{{ comp.id }}/overview">개요</a></span>
-        <span><a href="/comp/{{ comp.id }}/code">코드</a></span>
-        <span><a href=""></a>데이터</span>
-        <span><a href="/comp/{{ comp.id }}/community">커뮤니티</a></span>
-        <span><a href="/comp/{{ comp.id }}/ranking">랭킹</a></span>
-    </nav>
+    <div class="comp-detail-nav-wrap">
+        <div class="comp-detail-nav-with-button">
+            <div><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
+            <div><a href="{% url 'comp:comp_data' comp.pk %}">데이터</a></div>
+            <div class="comp-detail-checked"><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
+            <div><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
+            <div><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
+        </div>
+        <div class="comp-code-count">
+            총 {{ codepost_number }}개의 코드
+        </div>
+    </div>
 
-    <div>{{ codepost_number }}개</div>
-
-    <div>
+    <div class="comp-code-nav">
+        <a href="{% url 'comp:comp_code_create' comp.pk %}" class="create-code">
+            <div>작성하기</div>
+        </a>
         <form action="" method="get">
-            <input type="text" name="q" value="{{ q }}">
-            <input type="submit" value="검색">
+            <input type="text" name="q" value="{{ q }}" class="text">
+            <input type="submit" value="검색" class="push">
         </form>
     </div>
 
-    <div>
+    <div class="code-list">
         {% for code in code_list %}
-            <div>
-                <div><img src="{{ code.user.profile_set.image.url }}" alt=""></div>
-                <a href="{% url 'comp:comp_code_detail' comp.pk code.pk %}">
-                    <div>{{ code.title }}</div>
-                </a>
-                <div>{{ code.user.username }}</div>
-                <div>{{ code.updated_at }}</div>
-            </div>
+            {% if code.comp == comp %}
+                <div class="code-unit">
+                    <div class="code-img">{{ code.user.profile_set.image }}</div>
+                    <div class="code-text">
+                        <div class="code-title">
+                            <a href="{% url 'comp:comp_code_detail' comp.pk code.pk %}">{{ code.title }}</a>
+                        </div>
+                        <div class="code-sub">
+                            <div>{{ code.user }}</div>
+                            <div>|</div>
+                            <div>{{ code.updated_at }}</div>
+                            <div>|</div>
+                            <div>2개 댓글</div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}

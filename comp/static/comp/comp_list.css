@@ -134,6 +134,7 @@
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 1px 3px #eeeeee;
 }
 
 .comp-unit-left {

@@ -4,8 +4,8 @@
 {% block content %}
     <div class="comp-detail-nav">
         <div class="comp-detail-checked"><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
-        <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
         <div><a href="{% url 'comp:comp_data' comp.pk %}">데이터</a></div>
+        <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
         <div><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
         <div><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
     </div>

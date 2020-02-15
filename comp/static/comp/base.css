@@ -1,5 +1,5 @@
 /*div {*/
-/*    border: 1px solid #4f4f4f;*/
+/*    border: 1px solid #cccccc;*/
 /*    box-sizing: border-box;*/
 /*}*/
 
@@ -64,6 +64,17 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-content: center;
+}
+
+#base-left {
+    display: flex;
+    align-items: center;
+}
+
+#name {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: #b6d5e1;
 }
 
 #base-right {

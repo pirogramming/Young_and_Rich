@@ -1,0 +1,167 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+
+/*======================CSS===================*/
+
+.comp-detail-nav-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.comp-detail-nav-with-button {
+    display: flex;
+}
+
+.comp-detail-nav-with-button div {
+    margin-right: 50px;
+}
+
+.comp-detail-nav-with-button div:nth-child(1) {
+    margin-left: 10px;
+}
+
+.comp-detail-nav-with-button a {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    color: #707070;
+}
+
+.comp-detail-nav-with-button a:hover {
+    color: #333333;
+}
+
+.comp-detail-checked {
+    border-bottom: 5px solid #b6d5e1;
+}
+
+.comp-detail-checked a {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+}
+
+.comp-code-count {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    margin: 0 3px 5px;
+    color: #808080;
+}
+
+
+
+/*===================code nav==================*/
+
+.comp-code-nav {
+    width: 1200px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+/*----------작성하기 버튼--------------*/
+
+.create-code {
+    text-decoration: none;
+    color: white;
+}
+
+.create-code div {
+    width: 100px; height: 35px;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 3px;
+
+    background: #65799b; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #65799b 0%, #555273 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #65799b 0%,#555273 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #65799b 0%,#555273 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65799b', endColorstr='#555273',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+/*----------검색------------*/
+
+.comp-code-nav form {
+    display: flex;
+}
+
+.comp-code-nav .text {
+    width: 200px; height: 30px;
+    border: 1px solid #dddddd;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-left: 5px;
+}
+
+.comp-code-nav .push {
+    width: 50px; height: 30px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: #707070;
+    color: white;
+
+    font-family: S-CoreDream-5Medium, sans-serif;
+    font-size: 14px;
+}
+
+
+
+/*======================CODE-LIST====================*/
+
+.code-list {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.code-unit {
+    width: 1200px;
+    border: 1px solid #eeeeee;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    display: flex;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: 1px 1px 3px #eeeeee;
+}
+
+.code-img {
+    width: 100px; height: 100px;
+    margin-right: 10px;
+}
+
+.code-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.code-title a {
+    text-decoration: none;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 20px;
+    color: #333333;
+}
+
+.code-sub {
+    display: flex;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 12px;
+    margin-top: 20px;
+    color: #333333;
+}
+
+.code-sub div {
+    margin-right: 5px;
+}
+
