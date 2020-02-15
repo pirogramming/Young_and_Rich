@@ -12,9 +12,11 @@
     <a href="?page=1">맨 앞으로</a>
     <a href="?page={{ posts.previous_page_number }}">이전으로</a>
 {% endif %}
+
 <span>{{ posts.number }}페이쥐</span>
 <span>/</span>
 <span>{{ posts.paginator.num_pages }}페이쥐</span>
+
 {% if posts.has_next %}
         <a href="?page={{ posts.next_page_number }}">다음으로</a>
     <a href="?page={{ posts.paginator.num_pages }}">맨 뒤로</a>
