@@ -25,10 +25,13 @@ class Comp(models.Model):
     updated_at = models.DateField(auto_now=True)
     deadline = models.DateField()
 
-    evaluation = models.TextField(null=True, blank=True)
     overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
+    timeline = models.TextField(null=True, blank=True)  # 마감기한
+    prize_context = models.TextField(null=True, blank=True)  # 상금 설명
+    evaluation = models.TextField(null=True, blank=True)  # 평가기준
     data_context = models.TextField(null=True, blank=True)  # data 설명
-    not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
+
+    not_is_main = models.IntegerField(default=1)  # 0 == in class, 1 == main
 
     def __str__(self):
         return self.title
