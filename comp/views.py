@@ -24,7 +24,7 @@ def comp_list(request):
     comp_deadline_dict = {}
     for comp in qs:
         created_date = comp.updated_at
-        dead_date = comp.deadline.date()
+        dead_date = comp.deadline
         total = (dead_date - created_date).days
         interval = (today - created_date).days
         percent = round(interval / total, 2) * 100
@@ -45,7 +45,7 @@ def comp_detail_overview(request, pk):
     today = date.today()
 
     created_date = comp.created_at
-    dead_date = comp.deadline.date()
+    dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
     percent = round(interval / total, 2) * 100
@@ -128,7 +128,7 @@ def progressbar(request, pk):
     today = date.today()
 
     created_date = comp.created_at
-    dead_date = comp.deadline.date()
+    dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
     percent = round(interval / total, 2) * 100
@@ -604,43 +604,6 @@ def show_csv_result(request, pk):
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
 
-# def comp_submit_answer(request, pk):
-#     if request.method == 'POST':
-#
-#         if 1:  # valid 파악
-#             answer = Answer()
-#             # answer.accuracy=
-#             # answer.rank=
-#             answer.user = request.user
-#             answer.comp = Comp.objects.get(pk=pk)
-#             answer.file = request.FILES.get('')
-#             answer.save()
-#
-#         return redirect(reverse('comp_answerlist', kwargs={'pk': pk}))
-#     return render(request, 'comp/comp_submit_answer.html', )
-#
-#
-# def comp_answerlist(request, pk):
-#     ctx = {
-#         'answer_list': Answer.objects.filter(user=request.user)
-#     }
-#     return render(request, 'comp/comp_answerlist.html', ctx)
-
-def comp_explanation(request):
-    return render(request, 'comp/explanation.html')
-
-def comp_explanation_page(request):
-    return render(request, 'comp/explanation_page.html')
-
-
-def comp_explanation_competition(request):
-    return render(request, 'comp/explanation_competition.html')
-
-
-def comp_explanation_faq(request):
-    return render(request, 'comp/explanation_faq.html')
-
-
 def create_comp(request):
     if request.method == 'POST':
         fileform = FileFieldForm(request.POST, request.FILES)
@@ -663,3 +626,8 @@ def create_comp(request):
         fileform = FileFieldForm
         compform = CompForm
     return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
+
+
+def auto_complete(request):
+
+    return

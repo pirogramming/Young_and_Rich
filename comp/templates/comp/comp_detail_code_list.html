@@ -1,6 +1,48 @@
 {% extends 'comp/comp_detail.html' %}
 
 {% block content %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        /*$(function () {
+            var availableCompetition = [{{ comp }}];
+            console.log(comp)
+            $("#tags").autocomplete({
+                source: availableCompetition
+            });
+        });*/
+
+        $(function () {
+            $("#tags").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: 'get',
+                        url: "/autocomplete.jsp",
+                        dataType: "json",
+                        //request.term = $("#autocomplete").val()
+                        data: {value: request.term},
+                        success: function (data) {
+                            //서버에서 json 데이터 response 후 목록에 뿌려주기 위함
+                            response(
+                                $.map(data, function (item) {
+                                    return {
+                                        label: item.data,
+                                        value: item.data
+                                    }
+                                })
+                            );
+                        }
+                    });
+                },
+                //조회를 위한 최소글자수
+                minLength: 2,
+                select: function (event, ui) {
+                    // 만약 검색리스트에서 선택하였을때 선택한 데이터에 의한 이벤트발생
+                }
+            });
+        })
+    </script>
     <nav>
         <span><a href="/comp/{{ comp.id }}/overview">개요</a></span>
         <span><a href="/comp/{{ comp.id }}/code">코드</a></span>
@@ -12,10 +54,8 @@
     <div>{{ codepost_number }}개</div>
 
     <div>
-        <form action="" method="get">
-            <input type="text" name="q" value="{{ q }}">
-            <input type="submit" value="검색">
-        </form>
+        <label for="tags">코드: </label>
+        <input id="tags">
     </div>
 
     <div>
