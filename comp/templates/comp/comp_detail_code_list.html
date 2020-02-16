@@ -16,13 +16,13 @@
     </div>
 
     <div class="comp-code-nav">
-        <a href="{% url 'comp:comp_code_create' comp.pk %}" class="create-code">
-            <div>작성하기</div>
-        </a>
         <form action="" method="get">
             <input type="text" name="q" value="{{ q }}" class="text">
             <input type="submit" value="검색" class="push">
         </form>
+        <a href="{% url 'comp:comp_code_create' comp.pk %}" class="create-code">
+            <div>작성하기</div>
+        </a>
     </div>
 
     <div class="code-list">
@@ -30,6 +30,7 @@
             {% if code.comp == comp %}
                 <div class="code-unit">
                     <div class="code-img">{{ code.user.profile_set.image }}</div>
+
                     <div class="code-text">
                         <div class="code-title">
                             <a href="{% url 'comp:comp_code_detail' comp.pk code.pk %}">{{ code.title }}</a>

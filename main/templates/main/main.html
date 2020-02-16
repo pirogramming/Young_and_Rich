@@ -24,7 +24,7 @@
                     <div><a href="">공지</a></div>
                 </div>
                 <div class="nav-login">
-                    <a href="">로그인</a>
+                    <a href="{% url 'account_login' %}">로그인</a>
                 </div>
             </div>
         </div>
@@ -39,10 +39,10 @@
             </div>
 
             <div id="main-buttons">
-                <a href="">
+                <a href="{% url 'account_login' %}">
                     <div class="button-login">로그인</div>
                 </a>
-                <a href="">
+                <a href="{% url 'account_signup' %}">
                     <div class="button-signup">회원가입</div>
                 </a>
             </div>
