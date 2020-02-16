@@ -9,9 +9,12 @@ from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm
 from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment, Comp_File, Answer  # Answer
 
 from datetime import date
+from comp.utils import *
 
 
 # comp code 추가시 comp.team_number +1
+
+
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
@@ -19,7 +22,7 @@ def comp_list(request):
         qs = Comp.objects.filter(title__icontains=q)
 
     qs_number = len(qs)
-
+    join = count_join()
     today = date.today()
     comp_deadline_dict = {}
     for comp in qs:
@@ -36,6 +39,7 @@ def comp_list(request):
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
+        "join": join
     }
     return render(request, "comp/comp_list.html", ctx)
 
@@ -629,5 +633,4 @@ def create_comp(request):
 
 
 def auto_complete(request):
-
     return
