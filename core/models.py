@@ -10,7 +10,6 @@ from comp.utils import user_profile_image_path
 # Create your models here.
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to=user_profile_image_path)
@@ -20,7 +19,7 @@ class Profile(models.Model):
 
     def append_gold_list(self, x):
         self.gold_list = json.dumps(json.loads(self.gold_list).append(x))
-        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.count_badge()
 
     def get_gold_list(self):
         return json.loads(self.gold_list)
@@ -33,7 +32,7 @@ class Profile(models.Model):
 
     def append_silver_list(self, x):
         self.silver_list = json.dumps(json.loads(self.silver_list).append(x))
-        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.count_badge()
 
     def get_silver_list(self):
         return json.loads(self.silver_list)
@@ -46,7 +45,7 @@ class Profile(models.Model):
 
     def append_bronze_list(self, x):
         self.bronze_list = json.dumps(json.loads(self.bronze_list).append(x))
-        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.count_badge()
 
     def get_bronze_list(self):
         return json.loads(self.bronze_list)
@@ -58,8 +57,8 @@ class Profile(models.Model):
     badge_list = models.TextField(default="[]")
 
     def append_badge_list(self, x):
-        self.bronze_list = json.dumps(json.loads(self.badge_list).append(x))
-        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.badge
+        self.badge_list = json.dumps(json.loads(self.badge_list).append(x))
+        self.rank = self.count_gold() * 10 + self.count_silver() * 5 + self.count_bronze() * 3 + self.count_badge()
 
     def get_badge_list(self):
         return json.loads(self.badge_list)

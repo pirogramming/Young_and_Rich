@@ -39,7 +39,11 @@
                             <div>|</div>
                             <div>{{ code.updated_at }}</div>
                             <div>|</div>
-                            <div>2개 댓글</div>
+                            {% for key, value in comment_dict.items %}
+                                {% if key == code.pk %}
+                                    <div>{{ value }}개 댓글</div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

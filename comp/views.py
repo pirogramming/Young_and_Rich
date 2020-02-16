@@ -131,10 +131,10 @@ def comp_detail_community_list(request, pk):
     if q:
         qs = qs.filter(title__icontains=q)
 
-    dict = {}
+    comment_dict = {}
     for compost in qs:
         comment = ComComment.objects.filter(compost=compost)
-        dict[compost.id] = len(comment)
+        comment_dict[compost.id] = len(comment)
 
     qs_number = len(qs)
 
@@ -142,7 +142,7 @@ def comp_detail_community_list(request, pk):
         "comp": comp,
         "compost_list": qs,
         "q": q,
-        "dict": dict,
+        "comment_dict": comment_dict,
         "compost_number": qs_number,
     }
     return render(request, "comp/comp_detail_community_list.html", ctx)
@@ -350,18 +350,24 @@ def comp_ranking(request, pk):
 
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
-    codepost = CodePost.objects.filter(comp=comp)
+    codepost_list = CodePost.objects.filter(comp=comp)
 
     q = request.GET.get("q", "")  # 검색
     if q:
-        codepost = codepost.filter(title__icontains=q)
+        codepost_list = codepost_list.filter(title__icontains=q)
 
-    codepost_number = len(codepost)
+    codepost_number = len(codepost_list)
+
+    comment_dict = {}
+    for codepost in codepost_list:
+        comment = CodeComment.objects.filter(codepost=codepost)
+        comment_dict[codepost.id] = len(comment)
 
     ctx = {
         "comp": comp,
-        "code_list": codepost,
+        "code_list": codepost_list,
         "codepost_number": codepost_number,
+        "comment_dict": comment_dict,
     }
     return render(request, "comp/comp_detail_code_list.html", ctx)
 
