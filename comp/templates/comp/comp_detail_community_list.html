@@ -35,6 +35,17 @@
                 <div>{{ post.user.username }}</div>
                 <div>{{ post.updated_at }}</div>
 
+
+            <div>
+                <span id="cop-likecount-{{ post.id }}">{{ post.like.count }}</span>
+                {% if compost.id in post_likelist %}
+                    <i class="fas fa-thumbs-up like" name="cop-like-{{ post.id }}"></i>
+                {% else %}
+                    <i class="far fa-thumbs-up like" name="cop-like-{{ post.id }}"></i>
+                {% endif %}
+            </div>
+            <br/>
+
                 {% for key, value in dict.items %}
                     {% if key == post.id %}
                         <div>{{ value }}</div>

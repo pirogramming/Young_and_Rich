@@ -8,6 +8,18 @@
         <div>{{ compost.context }}</div>
         <div>{{ compost.updated_at }}</div>
 
+
+        <div>
+                <span id="cop-likecount-{{ compost.id }}">{{ compost.like.count }}</span>
+                {% if is_liked %}
+                    <i class="fas fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
+                {% else %}
+                    <i class="far fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
+                {% endif %}
+        </div>
+
+
+
         {% if is_post_user == 0 %}
             <form action="{% url 'comp:comp_community_post_update' comp.pk compost.pk %}">
                 <input type="submit" value="수정">
@@ -36,6 +48,16 @@
                             <div>{{ comment.user.username }}</div>
                             <div>{{ comment.updated_at }}</div>
                             <div>답변</div>
+
+                            <div>
+                                <span id="cop-likecount-{{ comment.id }}">{{comment.like.count }}</span>
+                                {% if comment.id in comment_likelist %}
+                                    <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                {% else %}
+                                    <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                {% endif %}
+                            </div>
+
                         </div>
 
                         {% if is_post_user == 0 %}
@@ -64,6 +86,17 @@
                                         <div>{{ commcomment.user.username }}</div>
                                         <div>{{ commcomment.updated_at }}</div>
                                         <div>답변</div>
+
+                                        <div>
+                                        <span id="cop-likecount-{{ comment.id }}">{{comment.like.count }}</span>
+                                        {% if comment.id in comment_likelist %}
+                                            <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                        {% else %}
+                                            <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                        {% endif %}
+                                        </div>
+
+
                                     </div>
 
                                     {% if is_post_user == 0 %}

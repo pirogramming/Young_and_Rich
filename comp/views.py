@@ -1,9 +1,11 @@
 import csv
 
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm
 from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment, Comp_File, Answer  # Answer
@@ -15,6 +17,7 @@ from datetime import date
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
+
     if q:
         qs = Comp.objects.filter(title__icontains=q)
 
@@ -24,18 +27,24 @@ def comp_list(request):
     comp_deadline_dict = {}
     for comp in qs:
         created_date = comp.updated_at
-        dead_date = comp.deadline.date()
+        dead_date = comp.deadline
         total = (dead_date - created_date).days
         interval = (today - created_date).days
-        percent = round(interval / total, 2) * 100
+        try:
+            percent = round(interval / total, 2) * 100
+        except:
+            percent = 100
 
         comp_deadline_dict[comp.id] = percent
+
+
 
     ctx = {
         "comp_list": qs,
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
+
     }
     return render(request, "comp/comp_list.html", ctx)
 
@@ -45,10 +54,13 @@ def comp_detail_overview(request, pk):
     today = date.today()
 
     created_date = comp.created_at
-    dead_date = comp.deadline.date()
+    dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
+    try:
+        percent = round(interval / total, 2) * 100
+    except:
+        percent = 100
     data = {
         "comp": comp,
         "percent": percent,
@@ -103,6 +115,7 @@ def comp_detail_community_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     qs = ComPost.objects.filter(comp=comp)
     q = request.GET.get("q", "")
+    post_likelist=[]
     if q:
         qs = qs.filter(title__icontains=q)
 
@@ -111,9 +124,13 @@ def comp_detail_community_list(request, pk):
         comment = ComComment.objects.filter(compost=compost)
         dict[compost.id] = len(comment)
 
+        if compost.like.filter(id = request.user.id).exists():
+            post_likelist.append(compost.id)
+
     qs_number = len(qs)
 
     ctx = {
+        "post_likelist":post_likelist,
         "comp": comp,
         "compost_list": qs,
         "q": q,
@@ -142,12 +159,23 @@ def progressbar(request, pk):
 
 def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 == post 번호
     comp = Comp.objects.get(pk=pk)
-    compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    compost = ComPost.objects.get(pk=pk2)
+    comment_likelist=[]
+
+    if compost.like.filter(id=request.user.id).exists():
+        is_liked=1
+    else:
+        is_liked=0
+
 
     list = ComComment.objects.filter(compost=compost)
     comment_list = []
     commcomment_list = []
     for comment in list:
+
+        if comment.like.filter(id = request.user.id).exists():
+            comment_likelist.append(comment.id)
+
         if not comment.commcomment:
             comment_list.append(comment)
         else:
@@ -166,6 +194,8 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
+        "is_liked":is_liked,
+        "comment_likelist": comment_likelist,
     }
     return render(request, "comp/comp_detail_community_detail.html", ctx)
 
@@ -326,6 +356,7 @@ def comp_ranking(request, pk):
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     codepost = CodePost.objects.filter(comp=comp)
+    code_likelist=[]
 
     q = request.GET.get("q", "")  # 검색
     if q:
@@ -333,9 +364,15 @@ def comp_detail_code_list(request, pk):
 
     codepost_number = len(codepost)
 
+    for code in codepost:
+
+        if code.like.filter(id=request.user.id).exists():
+            code_likelist.append(code.id)
+
     ctx = {
         "comp": comp,
         "code_list": codepost,
+        "code_likelist":code_likelist,
         "codepost_number": codepost_number,
     }
     return render(request, "comp/comp_detail_code_list.html", ctx)
@@ -343,7 +380,7 @@ def comp_detail_code_list(request, pk):
 
 def comp_detail_code_detail(request, pk, pk2):
     comp = Comp.objects.get(pk=pk)
-    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.get(pk=pk2)
 
     list = CodeComment.objects.filter(codepost=codepost)
     comment_list = []
@@ -629,6 +666,7 @@ def show_csv_result(request, pk):
 def comp_explanation(request):
     return render(request, 'comp/explanation.html')
 
+
 def comp_explanation_page(request):
     return render(request, 'comp/explanation_page.html')
 
@@ -663,3 +701,33 @@ def create_comp(request):
         fileform = FileFieldForm
         compform = CompForm
     return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
+
+
+
+@require_POST
+def like_upload(request):
+    pk = request.POST.get('pk', None)
+    liketype=request.POST.get('liketype',None)
+    request.user#로그인여부확인
+    if liketype=='cop':
+        target = get_object_or_404(ComPost, pk=pk)
+    elif liketype=='coc':
+        target = get_object_or_404(ComComment, pk=pk)
+    elif liketype=='cdp':
+        target = get_object_or_404(CodePost, pk=pk)
+    elif liketype=='cdc':
+        target = get_object_or_404(CodeComment, pk=pk)
+
+
+
+    if target.like.filter(id=request.user.id).exists():
+        target.like.remove(request.user)
+
+    else:
+        target.like.add(request.user)
+
+    ctx = {
+        'like': target.like.count(),
+    }
+
+    return JsonResponse(ctx)

@@ -29,6 +29,7 @@ class Comp(models.Model):
     overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
     data_context = models.TextField(null=True, blank=True)  # data 설명
     not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
+    star=models.ManyToManyField(User, related_name='comp_star')
 
     def __str__(self):
         return self.title
@@ -50,6 +51,8 @@ class ComPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    like=models.ManyToManyField(User, related_name='compost_likes')
+
     def __str__(self):
         return self.title
 
@@ -64,6 +67,7 @@ class ComComment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
+    like=models.ManyToManyField(User, related_name='comcomment_likes')
 
 
 # 결투장 code Post
@@ -76,6 +80,7 @@ class CodePost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
+    like=models.ManyToManyField(User, related_name='codepost_likes')
 
 
 # 결투장 code에 comment
@@ -87,6 +92,7 @@ class CodeComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
+    like=models.ManyToManyField(User, related_name='codecomment_likes')
 
 
 class Answer(models.Model):
