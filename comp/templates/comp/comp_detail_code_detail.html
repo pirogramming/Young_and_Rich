@@ -44,13 +44,16 @@
         <div class="post-bottom">
             {{ codepost.context|linebreaks }}
         </div>
-        <div>
-            {% if is_liked %}
+
+        <div class="good">
+            {% if codepost.id in like_list %}
                 <i class="fas fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
             {% else %}
                 <i class="far fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
             {% endif %}
-            <div id="cdp-likecount-{{ codepost.id }}">추천 {{ codepost.like.count }}개</div>
+            <div>추천</div>
+            <div id="cdp-likecount-{{ codepost.id }}">{{ codepost.like.count }}</div>
+            <div>개</div>
         </div>
     </div>
 
@@ -79,7 +82,17 @@
                                 <div>{{ comment.created_at }}</div>
                             </div>
 
-                            <div class="comment-unit-nav-right">
+                            <div class="comment-unit-nav-right post-top-right">
+                                {% if is_post_user == 0 %}
+                                    <form action="{% url 'comp:comp_code_comment_update' comp.pk codepost.pk comment.pk %}">
+                                        <input class="post-update" value="수정" type="submit">
+                                    </form>
+                                    <form action="{% url 'comp:comp_code_comment_delete' comp.pk codepost.pk comment.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="post-delete" value="삭제" type="submit">
+                                    </form>
+                                {% endif %}
+
                                 <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
                                     <div>답글쓰기</div>
                                 </a>
@@ -87,6 +100,17 @@
                         </div>
 
                         <div class="comment-text">{{ comment.context|linebreaks }}</div>
+
+                        <div class="good">
+                            {% if comment.id in like_list %}
+                                <i class="fas fa-thumbs-up like" name="cdc-like-{{ comment.id }}"></i>
+                            {% else %}
+                                <i class="far fa-thumbs-up like" name="cdc-like-{{ comment.id }}"></i>
+                            {% endif %}
+                            <div>추천</div>
+                            <div id="cdc-likecount-{{ comment.id }}">{{ comment.like.count }}</div>
+                            <div>개</div>
+                        </div>
 
 
                         {#------------여기부터 답글---------------#}
@@ -97,13 +121,33 @@
                                     <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}" alt=""></div>
 
                                     <div class="commcomment-main">
-                                        <div class="comment-unit-nav-left">
-                                            <div class="comment-user">{{ commcomment.user }}</div>
-                                            <div>|</div>
-                                            <div>{{ commcomment.created_at }}</div>
+                                        <div class="post-top-right">
+                                            <div class="comment-unit-nav-left">
+                                                <div class="comment-user">{{ commcomment.user }}</div>
+                                                <div>|</div>
+                                                <div>{{ commcomment.created_at }}</div>
+                                            </div>
+
+                                            {% if is_post_user == 0 %}
+                                                <form action="{% url 'comp:comp_code_commcomment_delete' comp.pk codepost.pk comment.pk commcomment.pk %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input class="post-delete" value="삭제" type="submit">
+                                                </form>
+                                            {% endif %}
                                         </div>
 
                                         <div class="comment-text">{{ commcomment.context }}</div>
+
+                                        <div class="good">
+                                            {% if commcomment.id in commcomment_likelist %}
+                                                <i class="fas fa-thumbs-up like" name="cdc-like-{{ commcomment.id }}"></i>
+                                            {% else %}
+                                                <i class="far fa-thumbs-up like" name="cdc-like-{{ commcomment.id }}"></i>
+                                            {% endif %}
+                                            <div>추천</div>
+                                            <div id="cdc-likecount-{{ commcomment.id }}">{{ commcomment.like.count }}</div>
+                                            <div>개</div>
+                                        </div>
                                     </div>
                                 </div>
                             {% endif %}

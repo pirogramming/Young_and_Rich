@@ -51,7 +51,9 @@
             {% else %}
                 <i class="far fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
             {% endif %}
-            <div id="cop-likecount-{{ compost.id }}">추천 {{ compost.like.count }}개</div>
+            <div>추천</div>
+            <div id="cop-likecount-{{ compost.id }}">{{ compost.like.count }}</div>
+            <div>개</div>
         </div>
     </div>
 
@@ -80,7 +82,17 @@
                                 <div>{{ comment.created_at }}</div>
                             </div>
 
-                            <div class="comment-unit-nav-right">
+                            <div class="comment-unit-nav-right post-top-right">
+                                {% if is_post_user == 0 %}
+                                    <form action="{% url 'comp:comp_community_comment_update' comp.pk compost.pk comment.pk %}">
+                                        <input class="post-update" value="수정" type="submit">
+                                    </form>
+                                    <form action="{% url 'comp:comp_community_comment_delete' comp.pk compost.pk comment.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="post-delete" value="삭제" type="submit">
+                                    </form>
+                                {% endif %}
+
                                 <a href="{% url 'comp:comp_community_commcomment_create' comp.pk compost.pk comment.pk %}">
                                     <div>답글쓰기</div>
                                 </a>
@@ -96,7 +108,7 @@
                                 <i class="far fa-thumbs-up like" name="coc-like-{{ comment.id }}"></i>
                             {% endif %}
                             <div>추천</div>
-                            <div id="cop-likecount-{{ comment.id }}">{{comment.like.count }}</div>
+                            <div id="coc-likecount-{{ comment.id }}">{{ comment.like.count }}</div>
                             <div>개</div>
                         </div>
 
@@ -108,10 +120,18 @@
                                     <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}" alt=""></div>
 
                                     <div class="commcomment-main">
-                                        <div class="comment-unit-nav-left">
-                                            <div class="comment-user">{{ commcomment.user }}</div>
-                                            <div>|</div>
-                                            <div>{{ commcomment.created_at }}</div>
+                                        <div class="post-top-right">
+                                            <div class="comment-unit-nav-left">
+                                                <div class="comment-user">{{ commcomment.user }}</div>
+                                                <div>|</div>
+                                                <div>{{ commcomment.created_at }}</div>
+                                            </div>
+                                            {% if is_post_user == 0 %}
+                                                <form action="{% url 'comp:comp_community_commcomment_delete' comp.pk compost.pk comment.pk commcomment.pk %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input class="post-delete" value="삭제" type="submit">
+                                                </form>
+                                            {% endif %}
                                         </div>
 
                                         <div class="comment-text">{{ commcomment.context }}</div>
