@@ -17,7 +17,7 @@
                     <h3 class="panel-title">로그인하기</h3>
                 </div>
                 <div class="panel-body">
-                    <form class="login" method="POST" action="{% url 'core:sign_in' %}">
+                    <form class="login" method="POST" action="">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="{{ form.username.id_for_label }}">닉네임</label>
@@ -28,6 +28,7 @@
                             <label for="{{ form.password.id_for_label }}">패스워드</label>
                             <input class="form-control" name="password" type="password"/>
                         </div>
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
                         <div class="checkbox">
                             <label>
                                 <input name="remember" type="checkbox" value="Remember Me"> 아이디 기억하기(미구현)

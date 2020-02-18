@@ -1,4 +1,7 @@
+import re
+
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 import json
@@ -7,15 +10,22 @@ from django.dispatch import receiver
 from comp.models import *
 from comp.utils import user_profile_image_path
 
-
 # Create your models here.
+'''
+# 정규표현식을 이용한 전화번호 validation
+def phone_number_validator(value):
+    if not re.match(r'^010[1-9]\d{7}$'):
+        raise ValidationError('{}는 올바른 전화번호의 형식이 아닐세!'.format(value))
+    '''
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to=user_profile_image_path)
+    image = models.ImageField(default='default.jpg', upload_to=user_profile_image_path, blank=True)
     rank = models.IntegerField(default=0)
+    phone_number = models.CharField(max_length=11, blank=True)
+    organization = models.CharField(max_length=255, blank=True)
 
-    gold_list = models.TextField(default="[]")  # list 형식으로
+    gold_list = models.TextField(default="[]")  # list 형식으로`
 
     def append_gold_list(self, x):
         self.gold_list = json.dumps(json.loads(self.gold_list).append(x))
@@ -67,16 +77,17 @@ class Profile(models.Model):
         badge_list = self.get_badge_list()
         return len(badge_list)
 
-    email = models.EmailField(null=True, blank=True, unique=True)
-
     is_id = models.IntegerField(default=0)  # 0 == id, 1 == co
     star = models.ManyToManyField(Comp, blank=True)
+
 
     # Profile1.comp.add(comp1, comp2)
     # for comp in Profile.comp.all()
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
 
 
 @receiver(post_save, sender=User)
