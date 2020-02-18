@@ -44,6 +44,16 @@
                         <i class="fas fa-calendar-week"></i>
                     </div>
                     <div class="comp-header-icon-text">{{ comp.deadline }} 마감</div>
+
+                    <div>
+                        {% if is_star %}
+                            <i class="fas fa-star", name="compstar-{{ comp.pk }}"></i>
+                        {% else %}
+                            <i class="far fa-star", name="compstar-{{ comp.pk }}"></i>
+                        {% endif %}
+
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -31,9 +31,16 @@ class Comp(models.Model):
     evaluation = models.TextField(null=True, blank=True)  # 평가기준
     data_context = models.TextField(null=True, blank=True)  # data 설명
     not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
-    star = models.ManyToManyField(User, null=True, blank=True, related_name='comp_star')
+    star = models.ManyToManyField(User,  blank=True, related_name='comp_star')
 
     not_is_main = models.IntegerField(default=1)  # 0 == in class, 1 == main
+
+
+    def is_star(self, request):
+        if self.star.filter(id = request.user.id).exists():
+            return 1
+        else:
+            return 0
 
     def __str__(self):
         return self.title
@@ -55,7 +62,7 @@ class ComPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    like=models.ManyToManyField(User, related_name='compost_likes', null=True, blank=True)
+    like=models.ManyToManyField(User, related_name='compost_likes',  blank=True)
 
     def __str__(self):
         return self.title
@@ -71,7 +78,7 @@ class ComComment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
-    like=models.ManyToManyField(User, related_name='comcomment_likes' , null=True, blank=True)
+    like=models.ManyToManyField(User, related_name='comcomment_likes' , blank=True)
 
 
 # 결투장 code Post
@@ -84,7 +91,7 @@ class CodePost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
-    like=models.ManyToManyField(User, related_name='codepost_likes', null=True, blank=True)
+    like=models.ManyToManyField(User, related_name='codepost_likes', blank=True)
 
 
 # 결투장 code에 comment
@@ -96,7 +103,7 @@ class CodeComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
-    like=models.ManyToManyField(User, related_name='codecomment_likes',  null=True, blank=True)
+    like=models.ManyToManyField(User, related_name='codecomment_likes', blank=True)
 
 
 class Answer(models.Model):

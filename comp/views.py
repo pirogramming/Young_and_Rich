@@ -17,6 +17,8 @@ from comp.utils import *
 # comp code 추가시 comp.team_number +1
 
 
+
+
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
@@ -40,9 +42,9 @@ def comp_list(request):
             percent = 100
         comp_deadline_dict[comp.pk] = percent
 
-        # if :
-        #     star_list.append()
-    print(comp_deadline_dict)
+        if comp.star.filter(id=request.user.id).exists():
+            star_list.append(comp.id)
+
 
 
 
@@ -51,6 +53,7 @@ def comp_list(request):
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
+        "star_list":star_list
 
     }
     return render(request, "comp/comp_list.html", ctx)
@@ -71,6 +74,7 @@ def comp_detail_overview(request, pk):
     data = {
         "comp": comp,
         "percent": percent,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_overview.html", data)
 
@@ -92,6 +96,7 @@ def comp_detail_overview_evaluation(request, pk):
     data = {
         "comp": comp,
         "percent":percent,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
@@ -110,6 +115,7 @@ def comp_detail_overview_timeline(request, pk):
     data = {
         "comp": comp,
         "percent": percent,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
@@ -128,6 +134,7 @@ def comp_detail_overview_prizes(request, pk):
     data = {
         "comp": comp,
         "percent": percent,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 
@@ -136,6 +143,7 @@ def comp_detail_data(request, pk):
     comp = Comp.objects.get(pk=pk)
     ctx = {
         "comp": comp,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_data.html", ctx)
 
@@ -168,6 +176,7 @@ def comp_detail_community_list(request, pk):
         "q": q,
         "comment_dict": comment_dict,
         "compost_number": qs_number,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_community_list.html", ctx)
 
@@ -227,6 +236,7 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
         "is_post_user": is_post_user,
         "is_liked":is_liked,
         "comment_likelist": comment_likelist,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_community_detail.html", ctx)
 
@@ -235,18 +245,21 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
 
 
 def comp_detail_community_post_create(request, pk):
+    comp = Comp.objects.get(pk=pk)
     if request.method == "POST":
         form = ComPostForm(request.POST)
+
         if form.is_valid():
             compost = form.save(commit=False)
             compost.user = request.user
-            compost.comp = Comp.objects.get(pk=pk)
+            compost.comp = comp
             compost.save()
             return redirect("comp:comp_community_detail", pk, compost.pk)
     else:
         form = ComPostForm()
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_community_post_create.html", ctx)
 
@@ -265,6 +278,7 @@ def comp_detail_community_post_update(request, pk, pk2):
         form = ComPostForm(instance=compost)
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_community_post_create.html", ctx)
 
@@ -299,6 +313,7 @@ def comp_detail_community_comment_create(request, pk, pk2):
         form = ComCommentForm()
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_community_comment_create.html", ctx)
 
@@ -318,6 +333,7 @@ def comp_detail_community_comment_update(request, pk, pk2, pk3):
         form = ComCommentForm(instance=comcomment)
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_community_comment_create.html", ctx)
 
@@ -355,6 +371,7 @@ def comp_detail_community_commcomment_create(request, pk, pk2, pk3):
         form = ComCommentForm()
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_community_comment_create.html", ctx)
 
@@ -376,7 +393,8 @@ def comp_ranking(request, pk):
     comp = Comp.objects.get(pk=pk)
     answers = comp.answer.order_by('rank')
     context = {
-        "answers": answers
+        "answers": answers,
+        "is_star": comp.is_star(request),
     }
     return render(request, 'comp/comp_ranking.html', context)
 
@@ -409,6 +427,7 @@ def comp_detail_code_list(request, pk):
         "codepost_number": codepost_number,
         "comment_dict": comment_dict,
         "post_likelist": post_likelist,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_code_list.html", ctx)
 
@@ -454,6 +473,7 @@ def comp_detail_code_detail(request, pk, pk2):
         "is_post_user": is_post_user,
         "is_liked":is_liked,
         "comment_likelist":comment_likelist,
+        "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_code_detail.html", ctx)
 
@@ -462,18 +482,20 @@ def comp_detail_code_detail(request, pk, pk2):
 
 
 def comp_detail_code_post_create(request, pk):
+    comp=Comp.objects.get(pk=pk)
     if request.method == "POST":
         form = CodePostForm(request.POST)
         if form.is_valid():
             codepost = form.save(commit=False)
             codepost.user = request.user
-            codepost.comp = Comp.objects.get(pk=pk)
+            codepost.comp = comp
             codepost.save()
             return redirect("comp:comp_code_detail", pk, codepost.pk)
     else:
         form = ComPostForm()
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_code_post_create.html", ctx)
 
@@ -492,6 +514,7 @@ def comp_detail_code_post_update(request, pk, pk2):
         form = CodePostForm(instance=codepost)
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_code_post_create.html", ctx)
 
@@ -526,6 +549,7 @@ def comp_detail_code_comment_create(request, pk, pk2):
         form = ComCommentForm()
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_code_comment_create.html", ctx)
 
@@ -545,6 +569,7 @@ def comp_detail_code_comment_update(request, pk, pk2, pk3):
         form = CodeCommentForm(instance=codecomment)
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_code_comment_create.html", ctx)
 
@@ -582,6 +607,7 @@ def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
         form = CodeCommentForm()
         ctx = {
             "form": form,
+            "is_star": comp.is_star(request),
         }
         return render(request, "comp/comp_detail_code_comment_create.html", ctx)
 
@@ -750,16 +776,17 @@ def like_upload(request):
 
 @login_required
 @require_POST
-def upload_star(request):
-    request.user로그인확인
+def star_upload(request):
+    print('r')
+
+    request.user#로그인확인
     pk = request.POST.get('pk', None)
 
     target = get_object_or_404(Comp, pk=pk)
 
     if target.star.filter(id=request.user.id).exists():
         target.star.remove(request.user)
-
     else:
         target.star.add(request.user)
 
-    return HttpResponse()
+    return JsonResponse({})

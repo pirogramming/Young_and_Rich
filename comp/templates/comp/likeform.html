@@ -59,11 +59,11 @@
 {#    {{ comcomment.user }}#}
 {#        {{ comcomment.context }}#}
 {#        {{ comcomment.created_at }}#}
-        <span id="cop-likecount-{{ comcomment.id }}">{{comcomment.like.count }}</span>
+        <span id="coc-likecount-{{ comcomment.id }}">{{comcomment.like.count }}</span>
         {% if compost.id in like_list %}
-            <i class="fas fa-thumbs-up like" name="cop-like-{{ comcomment.id }}"></i>
+            <i class="fas fa-thumbs-up like" name="coc-like-{{ comcomment.id }}"></i>
         {% else %}
-            <i class="far fa-thumbs-up like" name="cop-like-{{ comcomment.id }}"></i>
+            <i class="far fa-thumbs-up like" name="coc-like-{{ comcomment.id }}"></i>
         {% endif %}
     </div>
     {% endfor %}
