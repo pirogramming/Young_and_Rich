@@ -18,10 +18,10 @@
     <div class="comp-code-nav">
         <form action="" method="get">
             <input type="text" name="q" value="{{ q }}" class="text">
-            <input type="submit" value="검색" class="push">
+            <button type="submit"><i class="fa fa-search"></i></button>
         </form>
         <a href="{% url 'comp:comp_code_create' comp.pk %}" class="create-code">
-            <div>작성하기</div>
+            <i class="fas fa-pen"></i>
         </a>
     </div>
 

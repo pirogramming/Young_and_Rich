@@ -70,50 +70,53 @@
 
 .create-code {
     text-decoration: none;
-    color: white;
+    color: #333333;
+    transition-duration: 0.3s;
 }
 
-.create-code div {
-    width: 100px; height: 35px;
-    font-family: S-CoreDream-7ExtraBold, sans-serif;
+.create-code i {
+    width: 40px; height: 40px;
     font-size: 16px;
     text-align: center;
-    line-height: 35px;
-    border-radius: 3px;
+    line-height: 40px;
+    border-radius: 100px;
+    box-shadow: 1px 1px 3px #cccccc;
+}
 
-    background: #65799b; /* Old browsers */
-    background: -moz-linear-gradient(-45deg,  #65799b 0%, #555273 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg,  #65799b 0%,#555273 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg,  #65799b 0%,#555273 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65799b', endColorstr='#555273',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+.create-code:hover {
+    color: #b6d5e1;
 }
 
 
 /*----------검색------------*/
 
-.comp-code-nav form {
+.comp-code-nav {
     display: flex;
+    justify-content: space-between;
+}
+
+.comp-code-nav form {
+    width: 210px; height: 30px;
+    border: 1px solid #eeeeee;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
 }
 
 .comp-code-nav .text {
-    width: 200px; height: 30px;
-    border: 1px solid #dddddd;
-    box-sizing: border-box;
-    border-radius: 3px;
-    padding-left: 5px;
-}
-
-.comp-code-nav .push {
-    width: 50px; height: 30px;
-    margin-left: 5px;
+    width: 170px; height: 20px;
     border: none;
-    border-radius: 3px;
-    background-color: #707070;
-    color: white;
-
-    font-family: S-CoreDream-5Medium, sans-serif;
-    font-size: 14px;
 }
+
+.comp-code-nav button {
+    background-color: white;
+    border: none;
+    color: #333333;
+    font-size: 16px;
+}
+
+
+
 
 
 
@@ -128,7 +131,7 @@
     width: 1200px;
     border: 1px solid #eeeeee;
     box-sizing: border-box;
-    padding: 10px 20px;
+    padding: 10px 10px;
     display: flex;
     margin-top: 10px;
     background-color: white;
@@ -136,8 +139,9 @@
 }
 
 .code-img {
-    width: 100px; height: 100px;
+    width: 80px; height: 80px;
     margin-right: 10px;
+    background-color: #f7f7f7;
 }
 
 .code-text {
@@ -149,7 +153,7 @@
 .code-title a {
     text-decoration: none;
     font-family: S-CoreDream-7ExtraBold, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: #333333;
 }
 
@@ -157,7 +161,7 @@
     display: flex;
     font-family: S-CoreDream-3Light, sans-serif;
     font-size: 12px;
-    margin-top: 20px;
+    margin-top: 10px;
     color: #333333;
 }
 
