@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views import progressbar
 
+
 # from .utils import progressbar
 
 app_name = 'comp'
@@ -43,7 +44,7 @@ urlpatterns = [
 
     path("<int:pk>/code/create/", views.comp_detail_code_post_create, name="comp_code_create"),
     path("<int:pk>/code/<int:pk2>/update/", views.comp_detail_code_post_update, name="comp_code_update"),
-    path("<int:pk>/code/<int:pk2>/delete/", views.comp_detail_code_detail, name="comp_code_delete"),
+    path("<int:pk>/code/<int:pk2>/delete/", views.comp_detail_code_post_delete, name="comp_code_delete"),
 
     path("<int:pk>/code/<int:pk2>/create/", views.comp_detail_code_comment_create,
          name="comp_code_comment_create"),
@@ -52,22 +53,19 @@ urlpatterns = [
     path("<int:pk>/code/<int:pk2>/<int:pk3>/delete/", views.comp_detail_code_comment_delete,
          name="comp_code_comment_delete"),
 
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/create/", views.comp_detail_code_commcomment_create,
+    path("<int:pk>/code/<int:pk2>/<int:pk3>/create/", views.comp_detail_code_commcomment_create,
          name="comp_code_commcomment_create"),
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_code_commcomment_delete,
+    path("<int:pk>/code/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_code_commcomment_delete,
          name="comp_code_commcomment_delete"),
 
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
 
-    # explanation
-    path("explanation/page", views.comp_explanation_page, name="explanation_page"),
-    path("explanation/competition", views.comp_explanation_competition, name="explanation_competition"),
-    path("explanation/FAQ", views.comp_explanation_faq, name="explanation_faq"),
 
     path("<int:pk>/submit/", views.user_upload_csv, name="user_upload_csv"),
     path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
     path('<int:pk>/progressbar/', progressbar, name='progressbar'),
+    path('like_upload/', views.like_upload, name="uploadlike"),
 
     path('createcomp/', views.create_comp, name="create_comp"),
 ]

@@ -1,12 +1,18 @@
 from django import forms
 from django.contrib.admin import widgets
 
-from comp.models import ComPost, ComComment, Answer, Comp
+from comp.models import ComPost, ComComment, Answer, Comp, CodePost, CodeComment
 
 
 class ComPostForm(forms.ModelForm):
     class Meta:
         model = ComPost
+        fields = ("title", "context",)
+
+
+class CodePostForm(forms.ModelForm):
+    class Meta:
+        model = CodePost
         fields = ("title", "context",)
 
 
@@ -16,8 +22,13 @@ class ComCommentForm(forms.ModelForm):
         fields = ("context",)
 
 
-# from .models import Answer
+class CodeCommentForm(forms.ModelForm):
+    class Meta:
+        model = CodeComment
+        fields = ("context",)
 
+
+# from .models import Answer
 
 
 class CompForm(forms.ModelForm):

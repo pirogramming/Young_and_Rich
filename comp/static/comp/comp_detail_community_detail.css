@@ -1,0 +1,222 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+
+
+/*========================CSS=========================*/
+
+.post-wrap {
+    width: 1200px;
+    margin: 30px auto 0;
+    border: 1px solid #e7e7e7;
+    padding: 30px 40px;
+    box-sizing: border-box;
+}
+
+.post-top {
+    box-sizing: border-box;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-title {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.post-sub {
+    display: flex;
+    align-items: center;
+}
+
+.post-user-profile {
+    width: 18px; height: 18px;
+    border-radius: 2px;
+    background-color: #707070;
+}
+
+.post-sub div {
+    display: flex;
+    margin-right: 5px;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 13px;
+    color: #707070;
+}
+
+.post-top-right {
+    display: flex;
+}
+
+.post-top-right input {
+    text-decoration: none;
+    font-family: S-CoreDream-5Medium, sans-serif;
+    font-size: 14px;
+
+    width: 50px; height: 30px;
+    margin-left: 5px;
+    padding: 0;
+    border-radius: 3px;
+    background-color: white;
+    text-align: center;
+    line-height: 30px;
+    transition-duration: 0.3s;
+}
+
+.post-update {
+    border: 1px solid #88c5dc;
+    color: #88c5dc;
+}
+
+.post-update:hover {
+    background-color: #f8fdff;
+    cursor: pointer;
+}
+
+.post-delete {
+    border: 1px solid #df7861;
+    color: #df7861;
+}
+
+.post-delete:hover {
+    background-color: #fffaf9;
+    cursor: pointer;
+}
+
+.post-bottom p {
+    box-sizing: border-box;
+    margin: 20px 0;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: justify;
+    color: #333333;
+}
+
+/*-------------좋아요---------------*/
+
+.good {
+    padding-top: 10px;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.good div {
+    font-family: S-CoreDream-5Medium, sans-serif;
+    font-size: 13px;
+    color: #707070;
+    margin-left: 3px;
+}
+
+.good i {
+    color: #707070;
+    font-size: 14px;
+}
+
+
+
+/*===============================댓글============================*/
+
+
+.comment-wrap {
+    width: 1200px;
+    margin: 30px auto 0;
+}
+
+.comment-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.count_comment {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    color: #808080;
+}
+
+
+/*---------------댓글 내용--------------*/
+
+
+.comment-unit {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.comment-profile {
+    width: 50px; height: 50px;
+    border-radius: 3px;
+    background-color: #707070;
+}
+
+.comment-main {
+    background-color: #f7f7f7;
+    width: 1130px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.comment-unit-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.comment-unit-nav-left {
+    display: flex;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 12px;
+    color: #333333;
+}
+
+.comment-unit-nav-left div {
+    margin-right: 5px;
+}
+
+.comment-user {
+    font-family: S-CoreDream-5Medium, sans-serif;
+}
+
+.comment-unit-nav-right a {
+    text-decoration: none;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+    font-size: 14px;
+}
+
+.comment-text, .comment-text p {
+    box-sizing: border-box;
+    margin: 10px 0 0;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: justify;
+    color: #333333;
+}
+
+
+/*-----------답글--------------*/
+
+.commcomment-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.commcomment-main {
+    width: 1020px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fdfdfd;
+}
+

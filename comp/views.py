@@ -1,20 +1,27 @@
 import csv
 
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
-from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm
+from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm, CodePostForm, CodeCommentForm
 from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment, Comp_File, Answer  # Answer
 
 from datetime import date
+from comp.utils import *
 
 
 # comp code 추가시 comp.team_number +1
+
+
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
+    star_list=[]
+
     if q:
         qs = Comp.objects.filter(title__icontains=q)
 
@@ -23,20 +30,28 @@ def comp_list(request):
     today = date.today()
     comp_deadline_dict = {}
     for comp in qs:
-        created_date = comp.created_at
+        created_date = comp.updated_at
         dead_date = comp.deadline
         total = (dead_date - created_date).days
         interval = (today - created_date).days
-        percent = round(interval / total, 2) * 100
-
+        try:
+            percent = round(interval / total, 2) * 100
+        except:
+            percent = 100
         comp_deadline_dict[comp.pk] = percent
+
+        # if :
+        #     star_list.append()
     print(comp_deadline_dict)
+
+
 
     ctx = {
         "comp_list": qs,
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
+
     }
     return render(request, "comp/comp_list.html", ctx)
 
@@ -49,9 +64,10 @@ def comp_detail_overview(request, pk):
     dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
-    print(percent)
-
+    try:
+        percent = round(interval / total, 2) * 100
+    except:
+        percent = 100
     data = {
         "comp": comp,
         "percent": percent,
@@ -67,7 +83,10 @@ def comp_detail_overview_evaluation(request, pk):
     dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
+    try:
+        percent = round(interval / total, 2) * 100
+    except:
+        percent = 100
     print(percent)
 
     data = {
@@ -128,6 +147,7 @@ def comp_detail_community_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     qs = ComPost.objects.filter(comp=comp)
     q = request.GET.get("q", "")
+    post_likelist=[]
     if q:
         qs = qs.filter(title__icontains=q)
 
@@ -136,9 +156,13 @@ def comp_detail_community_list(request, pk):
         comment = ComComment.objects.filter(compost=compost)
         comment_dict[compost.id] = len(comment)
 
+        if compost.like.filter(id = request.user.id).exists():
+            post_likelist.append(compost.id)
+
     qs_number = len(qs)
 
     ctx = {
+        "post_likelist":post_likelist,
         "comp": comp,
         "compost_list": qs,
         "q": q,
@@ -167,12 +191,22 @@ def progressbar(request, pk):
 
 def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 == post 번호
     comp = Comp.objects.get(pk=pk)
-    compost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    compost = ComPost.objects.get(pk=pk2)
+    comment_likelist=[]
+
+    if compost.like.filter(id=request.user.id).exists():
+        is_liked=1
+    else:
+        is_liked=0
 
     list = ComComment.objects.filter(compost=compost)
     comment_list = []
     commcomment_list = []
     for comment in list:
+
+        if comment.like.filter(id = request.user.id).exists():
+            comment_likelist.append(comment.id)
+
         if not comment.commcomment:
             comment_list.append(comment)
         else:
@@ -191,6 +225,8 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
+        "is_liked":is_liked,
+        "comment_likelist": comment_likelist,
     }
     return render(request, "comp/comp_detail_community_detail.html", ctx)
 
@@ -239,7 +275,7 @@ def comp_detail_community_post_delete(request, pk, pk2):
 
     if request.method == "POST":
         compost.delete()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_community_list", pk)
 
     return redirect("comp:comp_community_detail", pk, pk2)
 
@@ -351,6 +387,7 @@ def comp_ranking(request, pk):
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     codepost_list = CodePost.objects.filter(comp=comp)
+    post_likelist=[]
 
     q = request.GET.get("q", "")  # 검색
     if q:
@@ -363,18 +400,32 @@ def comp_detail_code_list(request, pk):
         comment = CodeComment.objects.filter(codepost=codepost)
         comment_dict[codepost.id] = len(comment)
 
+        if codepost.like.filter(id=request.user.id).exists():
+            post_likelist.append(codepost.id)
+
     ctx = {
         "comp": comp,
         "code_list": codepost_list,
         "codepost_number": codepost_number,
         "comment_dict": comment_dict,
+        "post_likelist": post_likelist,
     }
     return render(request, "comp/comp_detail_code_list.html", ctx)
 
 
 def comp_detail_code_detail(request, pk, pk2):
     comp = Comp.objects.get(pk=pk)
-    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.get(pk=pk2)
+
+    comment_likelist=[]
+
+    if codepost.like.filter(id=request.user.id).exists():
+        is_liked=1
+    else:
+        is_liked=0
+
+
+
 
     list = CodeComment.objects.filter(codepost=codepost)
     comment_list = []
@@ -384,6 +435,9 @@ def comp_detail_code_detail(request, pk, pk2):
             comment_list.append(comment)
         else:
             commcomment_list.append(comment)
+
+        if comment.like.filter(id=request.user.id).exists():
+            comment_likelist.append(comment.id)
 
     count_comment = len(comment_list) + len(commcomment_list)
     is_post_user = 1
@@ -398,6 +452,8 @@ def comp_detail_code_detail(request, pk, pk2):
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
+        "is_liked":is_liked,
+        "comment_likelist":comment_likelist,
     }
     return render(request, "comp/comp_detail_code_detail.html", ctx)
 
@@ -407,19 +463,19 @@ def comp_detail_code_detail(request, pk, pk2):
 
 def comp_detail_code_post_create(request, pk):
     if request.method == "POST":
-        form = ComPostForm(request.POST)
+        form = CodePostForm(request.POST)
         if form.is_valid():
-            compost = form.save(commit=False)
-            compost.user = request.user
-            compost.comp = Comp.objects.get(pk=pk)
-            compost.save()
-            return redirect("comp:comp_community_detail", pk, compost.pk)
+            codepost = form.save(commit=False)
+            codepost.user = request.user
+            codepost.comp = Comp.objects.get(pk=pk)
+            codepost.save()
+            return redirect("comp:comp_code_detail", pk, codepost.pk)
     else:
         form = ComPostForm()
         ctx = {
             "form": form,
         }
-        return render(request, "comp/comp_detail_community_post_create.html", ctx)
+        return render(request, "comp/comp_detail_code_post_create.html", ctx)
 
 
 def comp_detail_code_post_update(request, pk, pk2):
@@ -427,26 +483,26 @@ def comp_detail_code_post_update(request, pk, pk2):
     codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
-        form = ComPostForm(request.POST, instance=codepost)
+        form = CodePostForm(request.POST, instance=codepost)
         if form.is_valid():
             form.save()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
     else:
-        form = ComPostForm(instance=codepost)
+        form = CodePostForm(instance=codepost)
         ctx = {
             "form": form,
         }
-        return render(request, "comp/comp_detail_community_post_create.html", ctx)
+        return render(request, "comp/comp_detail_code_post_create.html", ctx)
 
 
 def comp_detail_code_post_delete(request, pk, pk2):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         codepost.delete()
-        return redirect("comp:comp_code_detail", pk, pk2)
+        return redirect("comp:comp_code_list", pk)
 
     return redirect("comp:comp_code_detail", pk, pk2)
 
@@ -459,12 +515,12 @@ def comp_detail_code_comment_create(request, pk, pk2):
     codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
-        form = ComCommentForm(request.POST)
+        form = CodeCommentForm(request.POST)
         if form.is_valid():
-            comcomment = form.save(commit=False)
-            comcomment.user = request.user
-            comcomment.compost = codepost
-            comcomment.save()
+            codecomment = form.save(commit=False)
+            codecomment.user = request.user
+            codecomment.codepost = codepost
+            codecomment.save()
             return redirect("comp:comp_code_detail", pk, pk2)
     else:
         form = ComCommentForm()
@@ -480,13 +536,13 @@ def comp_detail_code_comment_update(request, pk, pk2, pk3):
     codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
 
     if request.method == "POST":
-        form = ComCommentForm(request.POST, instance=codecomment)
+        form = CodeCommentForm(request.POST, instance=codecomment)
         if form.is_valid():
             form.save()
         return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
-        form = ComCommentForm(instance=codecomment)
+        form = CodeCommentForm(instance=codecomment)
         ctx = {
             "form": form,
         }
@@ -495,14 +551,14 @@ def comp_detail_code_comment_update(request, pk, pk2, pk3):
 
 def comp_detail_code_comment_delete(request, pk, pk2, pk3):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
     codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
 
     if request.method == "POST":
         codecomment.delete()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", pk, pk2)
+    return redirect("comp:comp_code_detail", pk, pk2)
 
 
 # ----------------대댓글--------------------
@@ -510,20 +566,20 @@ def comp_detail_code_comment_delete(request, pk, pk2, pk3):
 
 def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
-    codecomment = ComComment.objects.filter(compost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = CodeComment.objects.filter(codepost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
 
     if request.method == "POST":
-        form = ComCommentForm(request.POST)
+        form = CodeCommentForm(request.POST)
         if form.is_valid():
-            comcommcomment = form.save(commit=False)
-            comcommcomment.user = request.user
-            comcommcomment.compost = codepost
-            comcommcomment.commcomment = codecomment
-            comcommcomment.save()
-            return redirect("comp:comp_community_detail", pk, codepost.pk)
+            codecommcomment = form.save(commit=False)
+            codecommcomment.user = request.user
+            codecommcomment.codepost = codepost
+            codecommcomment.commcomment = codecomment
+            codecommcomment.save()
+            return redirect("comp:comp_code_detail", pk, codepost.pk)
     else:
-        form = ComCommentForm()
+        form = CodeCommentForm()
         ctx = {
             "form": form,
         }
@@ -532,15 +588,15 @@ def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
 
 def comp_detail_code_commcomment_delete(request, pk, pk2, pk3, pk4):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
-    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
-    codecommcomment = ComComment.objects.filter(commcomment=codecomment).get(pk=pk4)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = CodeComment.objects.filter(codepost=codepost).get(pk=pk3)
+    codecommcomment = CodeComment.objects.filter(codecomment=codecomment).get(pk=pk4)
 
     if request.method == "POST":
         codecommcomment.delete()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", pk, pk2)
+    return redirect("comp:comp_code_detail", pk, pk2)
 
 
 # ----------------답안제출 및 채점--------------------
@@ -637,22 +693,6 @@ def show_csv_result(request, pk):
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
 
-def comp_explanation(request):
-    return render(request, 'comp/explanation.html')
-
-
-def comp_explanation_page(request):
-    return render(request, 'comp/explanation_page.html')
-
-
-def comp_explanation_competition(request):
-    return render(request, 'comp/explanation_competition.html')
-
-
-def comp_explanation_faq(request):
-    return render(request, 'comp/explanation_faq.html')
-
-
 def create_comp(request):
     if request.method == 'POST':
         fileform = FileFieldForm(request.POST, request.FILES)
@@ -675,3 +715,51 @@ def create_comp(request):
         fileform = FileFieldForm
         compform = CompForm
     return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
+
+
+@login_required
+@require_POST
+def like_upload(request):
+
+    pk = request.POST.get('pk', None)
+    liketype=request.POST.get('liketype',None)
+    request.user#로그인여부확인
+    if liketype=='cop':
+        target = get_object_or_404(ComPost, pk=pk)
+    elif liketype=='coc':
+        target = get_object_or_404(ComComment, pk=pk)
+    elif liketype=='cdp':
+        target = get_object_or_404(CodePost, pk=pk)
+    elif liketype=='cdc':
+        target = get_object_or_404(CodeComment, pk=pk)
+
+
+
+    if target.like.filter(id=request.user.id).exists():
+        target.like.remove(request.user)
+
+    else:
+        target.like.add(request.user)
+
+    ctx = {
+        'like': target.like.count(),
+    }
+
+    return JsonResponse(ctx)
+
+
+@login_required
+@require_POST
+def upload_star(request):
+    request.user로그인확인
+    pk = request.POST.get('pk', None)
+
+    target = get_object_or_404(Comp, pk=pk)
+
+    if target.star.filter(id=request.user.id).exists():
+        target.star.remove(request.user)
+
+    else:
+        target.star.add(request.user)
+
+    return HttpResponse()
