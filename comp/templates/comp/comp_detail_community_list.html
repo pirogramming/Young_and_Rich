@@ -21,7 +21,7 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
 
-        {% if user.authenticated %}
+        {% if user.is_authenticated %}
         <a href="{% url 'comp:comp_community_post_create' comp.pk %}" class="create-code">
             <i class="fas fa-pen"></i>
         </a>
@@ -32,22 +32,33 @@
         {% for post in compost_list %}
             {% if post.comp == comp %}
                 <div class="code-unit">
-                    <div class="code-img">{{ post.user.profile_set.image }}</div>
-                    <div class="code-text">
-                        <div class="code-title">
-                            <a href="{% url 'comp:comp_community_detail' comp.pk post.pk %}">{{ post.title }}</a>
+                    <div class="code-unit-left">
+                        <div class="code-img">{{ post.user.profile_set.image }}</div>
+                        <div class="code-text">
+                            <div class="code-title">
+                                <a href="{% url 'comp:comp_community_detail' comp.pk post.pk %}">{{ post.title }}</a>
+                            </div>
+                            <div class="code-sub">
+                                <div>{{ post.user }}</div>
+                                <div>|</div>
+                                <div>{{ post.updated_at }}</div>
+                                <div>|</div>
+                                {% for key, value in comment_dict.items %}
+                                    {% if key == post.pk %}
+                                        <div>{{ value }}개 댓글</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="code-sub">
-                            <div>{{ post.user }}</div>
-                            <div>|</div>
-                            <div>{{ post.updated_at }}</div>
-                            <div>|</div>
-                            {% for key, value in comment_dict.items %}
-                                {% if key == post.pk %}
-                                    <div>{{ value }}개 댓글</div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                    </div>
+
+                    <div class="good list-good">
+                        {% if post.id in post_likelist %}
+                            <i class="fas fa-thumbs-up like" name="cop-like-{{ post.id }}"></i>
+                        {% else %}
+                            <i class="far fa-thumbs-up like" name="cop-like-{{ post.id }}"></i>
+                        {% endif %}
+                        <div id="cop-likecount-{{ post.id }}">{{ post.like.count }}</div>
                     </div>
                 </div>
             {% endif %}

@@ -35,9 +35,8 @@ class Comp(models.Model):
 
     not_is_main = models.IntegerField(default=1)  # 0 == in class, 1 == main
 
-
     def is_star(self, request):
-        if self.star.filter(id = request.user.id).exists():
+        if self.star.filter(id=request.user.id).exists():
             return 1
         else:
             return 0

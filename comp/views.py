@@ -443,9 +443,6 @@ def comp_detail_code_detail(request, pk, pk2):
     else:
         is_liked=0
 
-
-
-
     list = CodeComment.objects.filter(codepost=codepost)
     comment_list = []
     commcomment_list = []
@@ -471,8 +468,8 @@ def comp_detail_code_detail(request, pk, pk2):
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
-        "is_liked":is_liked,
-        "comment_likelist":comment_likelist,
+        "is_liked": is_liked,
+        "comment_likelist": comment_likelist,
         "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_code_detail.html", ctx)

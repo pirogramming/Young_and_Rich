@@ -61,7 +61,6 @@ urlpatterns = [
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
 
-
     path("<int:pk>/submit/", views.user_upload_csv, name="user_upload_csv"),
     path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
     path('<int:pk>/progressbar/', progressbar, name='progressbar'),

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra-head %}
-    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?7">
+    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?8">
 {% endblock %}
 
 
@@ -53,17 +53,6 @@
                 <div class="comp-unit-left">
                     <div class="comp-thumb"><img src="" alt=""></div>
 
-
-                    <div>
-                        {% if comp.id in star_list %}
-                            <i class="fas fa-star", name="compstar-{{ comp.pk }}"></i>
-                        {% else %}
-                            <i class="far fa-star", name="compstar-{{ comp.pk }}"></i>
-                        {% endif %}
-
-                    </div>
-
-
                     <div class="comp-unit-text">
                         <div class="comp-unit-title"><a href="{% url 'comp:comp_overview' comp.pk %}">{{ comp.title }}</a></div>
                         <div class="comp-unit-context">{{ comp.context }}</div>
@@ -106,6 +95,15 @@
                 </div>
 
                 <div class="comp-unit-right">
+                    <div class="stars">
+                        {% if comp.id in star_list %}
+                            <i class="fas fa-star" name="compstar-{{ comp.pk }}"></i>
+                        {% else %}
+                            <i class="far fa-star" name="compstar-{{ comp.pk }}"></i>
+                        {% endif %}
+
+                    </div>
+
                     <a href="">
                         <div class="comp-unit-button">참여하기</div>
                     </a>

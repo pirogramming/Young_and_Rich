@@ -1,0 +1,22 @@
+div {
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+}
+
+/*---------------------------------------*/
+
+.login-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 5px;
+}
+
+.login-box {
+    width: 500px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.login-title-wrap

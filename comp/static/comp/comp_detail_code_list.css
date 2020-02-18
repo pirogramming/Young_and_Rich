@@ -119,8 +119,6 @@
 
 
 
-
-
 /*======================CODE-LIST====================*/
 
 .code-list {
@@ -133,10 +131,17 @@
     border: 1px solid #eeeeee;
     box-sizing: border-box;
     padding: 10px 10px;
+
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-top: 10px;
     background-color: white;
     box-shadow: 1px 1px 3px #eeeeee;
+}
+
+.code-unit-left {
+    display: flex;
 }
 
 .code-img {
@@ -170,3 +175,10 @@
     margin-right: 5px;
 }
 
+.list-good {
+    padding-top: 0;
+}
+
+.list-good div:last-child {
+    margin-left: 5px;
+}

@@ -95,9 +95,11 @@
                                     </form>
                                 {% endif %}
 
+                                {% if user.is_authenticated %}
                                 <a href="{% url 'comp:comp_community_commcomment_create' comp.pk compost.pk comment.pk %}">
                                     <div>답글쓰기</div>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
 

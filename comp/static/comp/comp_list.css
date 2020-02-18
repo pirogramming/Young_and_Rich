@@ -189,13 +189,20 @@
 }
 
 
-/*----------참여하기 버튼--------------*/
+/*--------------스크랩--------------*/
 
 .comp-unit-right {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
 }
+
+.comp-unit-right i {
+    color: #b6d5e1;
+}
+
+/*----------참여하기 버튼--------------*/
 
 .comp-unit-right a {
     text-decoration: none;
@@ -217,7 +224,6 @@
 .comp-unit-button:hover {
     background-color: #d7e8eb;
 }
-
 
 
 
