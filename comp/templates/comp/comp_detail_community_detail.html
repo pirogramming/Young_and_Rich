@@ -85,6 +85,14 @@
                                     <div>답글쓰기</div>
                                 </a>
                             </div>
+                            <div>
+                                <span id="coc-likecount-{{ comment.id }}">{{comment.like.count }}</span>
+                                {% if comment.id in comment_likelist %}
+                                    <i class="fas fa-thumbs-up like" name="coc-like-{{ comment.id }}"></i>
+                                {% else %}
+                                    <i class="far fa-thumbs-up like" name="coc-like-{{ comment.id }}"></i>
+                                {% endif %}
+                            </div>
                         </div>
 
                         <div class="comment-text">{{ comment.context|linebreaks }}</div>
@@ -114,14 +122,13 @@
                                         </div>
 
                                         <div class="comment-text">{{ commcomment.context }}</div>
-
-                                        <div class="good">
-                                            {% if comment.id in comment_likelist %}
-                                                <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                                            {% else %}
-                                                <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                                            {% endif %}
-                                            <div id="cop-likecount-{{ comment.id }}">추천 {{comment.like.count }}개</div>
+                                        <div>
+                                        <span id="cop-likecount-{{ comment.id }}">{{comment.like.count }}</span>
+                                        {% if comment.id in comment_likelist %}
+                                            <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                        {% else %}
+                                            <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                        {% endif %}
                                         </div>
                                     </div>
                                 </div>

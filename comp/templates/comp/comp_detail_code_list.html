@@ -1,5 +1,5 @@
 {% extends "comp/comp_detail.html" %}
-{% load staticfiles %}
+{% load static %}
 
 {% block content %}
     <div class="comp-detail-nav-wrap">
@@ -50,57 +50,16 @@
                 </div>
             {% endif %}
 
-            <div>
-                <span id="cdp-likecount-{{ code.id }}">{{ code.like.count }}</span>
-                {% if code.id in code_likelist %}
-                    <i class="fas fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
-                {% else %}
-                    <i class="far fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
-                {% endif %}
+            {% if code.id in code_likelist %}
+                <i class="fas fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
+            {% else %}
+                <i class="far fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
+            {% endif %}
 
-            </div>
+            <span id="cdp-likecount-{{ code.id }}">{{ code.like.count }}</span>
         {% endfor %}
     </div>
-<script type="text/javascript" src="{% static 'comp/like.js' %}"/>
-
-    <script>
-      //좋아요 손가락
-    //fas: on  far:off
-        $('i.fa-thumbs-up').click(function(){
-      $(this).toggleClass("fas").toggleClass("far")
-    })
-
-     $('i.fa-star').click(function(){
-      $(this).toggleClass("fas").toggleClass("far")
-    })
-
-
-
-      $('i.like').click(function(){
-
-        var pk = $(this).attr('name').substr(9)
-        var liketype=$(this).attr('name').substr(0,3)
-
-          // cop:CodePost coc:CodeComment cdp:CodePost cdc:CodeComment
-          //ex) cop-3 cdc-30
-        $.ajax({
-         type: "POST",
-          url: "{% url 'comp:uploadlike' %}",
-          data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}', 'liketype':liketype},
-          dataType: "json",
-
-          success: function(response){
-              console.log(response)
-            $("#"+liketype+"-likecount-"+pk).html(response.like);
-          },
-
-
-      error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
-        window.location.replace("/accounts/login/")
-          //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-          },
-    })
-  })
-</script>
-
 {% endblock %}
+
+
+
