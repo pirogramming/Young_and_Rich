@@ -15,6 +15,6 @@ def user_answer_upload_to(instance, filename):
     return 'user_{}/{}/{}'.format(instance.user.id, filename, uuid_name[:2] + extension)
 
 
-def count_join():
-    Comp.objects.all()
-    return Comp.user.count()
+#def count_join():
+    #Comp.objects.all()
+    #return len(Comp.user.objects.all())

@@ -1,7 +1,7 @@
 import csv
 
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -22,7 +22,7 @@ def comp_list(request):
         qs = Comp.objects.filter(title__icontains=q)
 
     qs_number = len(qs)
-    join = count_join()
+
     today = date.today()
     comp_deadline_dict = {}
     for comp in qs:
@@ -39,7 +39,6 @@ def comp_list(request):
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
-        "join": join
     }
     return render(request, "comp/comp_list.html", ctx)
 

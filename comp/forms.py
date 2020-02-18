@@ -19,7 +19,6 @@ class ComCommentForm(forms.ModelForm):
 # from .models import Answer
 
 
-
 class CompForm(forms.ModelForm):
     class Meta:
         model = Comp
