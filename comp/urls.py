@@ -43,7 +43,7 @@ urlpatterns = [
 
     path("<int:pk>/code/create/", views.comp_detail_code_post_create, name="comp_code_create"),
     path("<int:pk>/code/<int:pk2>/update/", views.comp_detail_code_post_update, name="comp_code_update"),
-    path("<int:pk>/code/<int:pk2>/delete/", views.comp_detail_code_detail, name="comp_code_delete"),
+    path("<int:pk>/code/<int:pk2>/delete/", views.comp_detail_code_post_delete, name="comp_code_delete"),
 
     path("<int:pk>/code/<int:pk2>/create/", views.comp_detail_code_comment_create,
          name="comp_code_comment_create"),
@@ -52,9 +52,9 @@ urlpatterns = [
     path("<int:pk>/code/<int:pk2>/<int:pk3>/delete/", views.comp_detail_code_comment_delete,
          name="comp_code_comment_delete"),
 
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/create/", views.comp_detail_code_commcomment_create,
+    path("<int:pk>/code/<int:pk2>/<int:pk3>/create/", views.comp_detail_code_commcomment_create,
          name="comp_code_commcomment_create"),
-    path("<int:pk>/community/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_code_commcomment_delete,
+    path("<int:pk>/code/<int:pk2>/<int:pk3>/<int:pk4>/delete/", views.comp_detail_code_commcomment_delete,
          name="comp_code_commcomment_delete"),
 
     # rank

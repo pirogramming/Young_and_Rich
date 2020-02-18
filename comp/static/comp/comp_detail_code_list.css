@@ -104,7 +104,8 @@
 }
 
 .comp-code-nav .text {
-    width: 170px; height: 20px;
+    width: 170px; height: 25px;
+    padding-left: 10px;
     border: none;
 }
 

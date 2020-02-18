@@ -263,7 +263,7 @@ def comp_detail_community_post_delete(request, pk, pk2):
 
     if request.method == "POST":
         compost.delete()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_community_list", pk)
 
     return redirect("comp:comp_community_detail", pk, pk2)
 
@@ -454,7 +454,7 @@ def comp_detail_code_post_update(request, pk, pk2):
         form = CodePostForm(request.POST, instance=codepost)
         if form.is_valid():
             form.save()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
     else:
         form = CodePostForm(instance=codepost)
@@ -466,11 +466,11 @@ def comp_detail_code_post_update(request, pk, pk2):
 
 def comp_detail_code_post_delete(request, pk, pk2):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
         codepost.delete()
-        return redirect("comp:comp_code_detail", pk, pk2)
+        return redirect("comp:comp_code_list", pk)
 
     return redirect("comp:comp_code_detail", pk, pk2)
 
