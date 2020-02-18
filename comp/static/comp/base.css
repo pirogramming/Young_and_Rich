@@ -71,10 +71,11 @@ html, body {
     align-items: center;
 }
 
-#name {
+#name a {
     font-size: 16px;
     font-family: 'Montserrat', sans-serif;
     color: #b6d5e1;
+    text-decoration: none;
 }
 
 #base-right {
@@ -120,7 +121,7 @@ html, body {
     background-color: #454545;
 }
 
-/*=================FOOTER================*/
+/*=============================FOOTER=============================*/
 
 #main-footer-wrap {
     margin-top: 60px;

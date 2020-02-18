@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra-head %}
-    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?6">
+    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?7">
 {% endblock %}
 
 
@@ -80,14 +80,17 @@
                                     </div>
                                 </div>
                             {% endif %}
-                        {% endfor %}
-
                             <script>
-                                var percentValue = parseFloat(document.querySelector(".percent-value").innerText);
-                                var percentBar = document.querySelector(".list-bar");
-                                percentBar.style = `width : ${percentValue}%`;
-                                console.log(percentValue);
+                                //var percentValue = parseFloat(document.querySelectorAll(".percent-value").innerText);
+                                var percentValue_lst = document.querySelectorAll(".percent-value");
+                                var percentBar = document.querySelectorAll(".list-bar");
+                                var percentValue;
+                                for(var i = 0; i < percentValue_lst.length; i++){
+                                    percentValue = parseFloat(percentValue_lst[i].innerText);
+                                    percentBar[i].style = `width : ${percentValue}%`;
+                                }
                             </script>
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -97,8 +100,14 @@
                     </a>
                 </div>
             </div>
-
         {% endfor %}
     </div>
+
+<script>
+    var percentValue = parseFloat(document.querySelector(".percent-value").innerText);
+    var percentBar = document.querySelector(".list-bar");
+    percentBar.style = `width : ${percentValue}%`;
+    console.log(percentValue);
+</script>
 
 {% endblock %}

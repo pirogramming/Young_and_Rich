@@ -1,57 +1,53 @@
-{% extends 'comp/comp_detail.html' %}
+{% extends "comp/comp_detail.html" %}
+{% load static %}
 
 {% block content %}
-    <nav>
-        <span><a href="/comp/{{ comp.id }}/overview">개요</a></span>
-        <span><a href="/comp/{{ comp.id }}/code">코드</a></span>
-        <span><a href=""></a>데이터</span>
-        <span><a href="/comp/{{ comp.id }}/community">커뮤니티</a></span>
-        <span><a href="/comp/{{ comp.id }}/ranking">랭킹</a></span>
-        <span>
-            <form action="{% url 'comp:comp_community_post_create' comp.pk %}">
-                <input type="submit" value="작성">
-            </form>
-        </span>
-    </nav>
-
-
-
-    <div>{{ compost_number }}개</div>
-
-    <div>
-        <form action="" method="get">
-            <input type="text" name="q" value="{{ q }}">
-            <input type="submit" value="검색">
-        </form>
+    <div class="comp-detail-nav-wrap">
+        <div class="comp-detail-nav-with-button">
+            <div><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
+            <div><a href="{% url 'comp:comp_data' comp.pk %}">데이터</a></div>
+            <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
+            <div class="comp-detail-checked"><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
+            <div><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
+        </div>
+        <div class="comp-code-count">
+            총 {{ compost_number }}개의 글
+        </div>
     </div>
 
-    <div>
+    <div class="comp-code-nav">
+        <form action="" method="get">
+            <input type="text" name="q" value="{{ q }}" class="text">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <a href="{% url 'comp:comp_code_create' comp.pk %}" class="create-code">
+            <i class="fas fa-pen"></i>
+        </a>
+    </div>
+
+    <div class="code-list">
         {% for post in compost_list %}
-            <div>
-                <div><img src="{{ post.user.profile_set.image.url }}" alt=""></div>
-                <a href="{% url 'comp:comp_community_detail' post.comp.pk post.pk %}">
-                    <div>{{ post.title }}</div>
-                </a>
-                <div>{{ post.user.username }}</div>
-                <div>{{ post.updated_at }}</div>
-
-
-            <div>
-                <span id="cop-likecount-{{ post.id }}">{{ post.like.count }}</span>
-                {% if compost.id in post_likelist %}
-                    <i class="fas fa-thumbs-up like" name="cop-like-{{ post.id }}"></i>
-                {% else %}
-                    <i class="far fa-thumbs-up like" name="cop-like-{{ post.id }}"></i>
-                {% endif %}
-            </div>
-            <br/>
-
-                {% for key, value in dict.items %}
-                    {% if key == post.id %}
-                        <div>{{ value }}</div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+            {% if post.comp == comp %}
+                <div class="code-unit">
+                    <div class="code-img">{{ post.user.profile_set.image }}</div>
+                    <div class="code-text">
+                        <div class="code-title">
+                            <a href="{% url 'comp:comp_community_detail' comp.pk post.pk %}">{{ post.title }}</a>
+                        </div>
+                        <div class="code-sub">
+                            <div>{{ post.user }}</div>
+                            <div>|</div>
+                            <div>{{ post.updated_at }}</div>
+                            <div>|</div>
+                            {% for key, value in comment_dict.items %}
+                                {% if key == post.pk %}
+                                    <div>{{ value }}개 댓글</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
