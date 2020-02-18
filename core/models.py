@@ -7,8 +7,8 @@ from django.dispatch import receiver
 from comp.models import *
 from comp.utils import user_profile_image_path
 
-# Create your models here.
 
+# Create your models here.
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -71,6 +71,7 @@ class Profile(models.Model):
 
     is_id = models.IntegerField(default=0)  # 0 == id, 1 == co
     star = models.ManyToManyField(Comp, blank=True)
+
     # Profile1.comp.add(comp1, comp2)
     # for comp in Profile.comp.all()
 

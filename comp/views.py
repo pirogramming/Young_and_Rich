@@ -11,9 +11,12 @@ from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm, Cod
 from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment, Comp_File, Answer  # Answer
 
 from datetime import date
+from comp.utils import *
 
 
 # comp code 추가시 comp.team_number +1
+
+
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
@@ -665,22 +668,6 @@ def show_csv_result(request, pk):
 # 2. deadline == today 이면 대회를 완료 상태로 내리기
 # + comp의 answer의 rank로 필터를 걸어서 해당 user 가져온다
 # + 그 후, 해당 유저의 메달 리스트에 추가
-
-
-def comp_explanation(request):
-    return render(request, 'comp/explanation.html')
-
-
-def comp_explanation_page(request):
-    return render(request, 'comp/explanation_page.html')
-
-
-def comp_explanation_competition(request):
-    return render(request, 'comp/explanation_competition.html')
-
-
-def comp_explanation_faq(request):
-    return render(request, 'comp/explanation_faq.html')
 
 
 def create_comp(request):

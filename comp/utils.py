@@ -1,5 +1,6 @@
 import os
 from uuid import uuid4
+from comp.models import *
 
 
 def user_profile_image_path(instance, filename):
@@ -12,3 +13,8 @@ def user_answer_upload_to(instance, filename):
     uuid_name = uuid4().hex
     extension = os.path.splitext(filename)[-1].lower()  # 확장자 추출하고, 소문자로 변환
     return 'user_{}/{}/{}'.format(instance.user.id, filename, uuid_name[:2] + extension)
+
+
+#def count_join():
+    #Comp.objects.all()
+    #return len(Comp.user.objects.all())
