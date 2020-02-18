@@ -20,36 +20,52 @@
                     <div><a href="{% url 'comp:comp_list' %}">공모전</a></div>
                     <div><a href="">토론방</a></div>
                     <div><a href="">랭킹</a></div>
-                    <div><a href="{% url 'main:explanation_page' %}">사용설명서</a></div>
+                    <div><a href="{% url 'comp:explanation_page' %}">사용설명서</a></div>
                     <div><a href="">공지</a></div>
                 </div>
+
                 <div class="nav-login">
-                    <a href="{% url 'account_login' %}">로그인</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}">프로필 보기</a>
+                        <a href="{% url 'account_logout' %}?next={{ request.path }}">로그아웃</a>
+                    {% else %}
+                        <a href="{% url 'sign_in' %}?next={{ request.path }}">로그인</a>
+                    {% endif %}
                 </div>
+
             </div>
         </div>
     </div>
 
     <div id="main-text-wrap">
         <div id="main-text">
-            <div class="main-title">데이타덕    <span>Data Duck</span></div>
+            <div class="main-title">데이타덕 <span>Data Duck</span></div>
             <div class="main-sub">
-                사이트 설명 어쩌구 저쩌구 이러쿵 저러쿵 블라블라라라랄<br />
+                사이트 설명 어쩌구 저쩌구 이러쿵 저러쿵 블라블라라라랄<br/>
                 내용 안 중요함 디자인 상 넣은 거니까 아무거나 대충 간지나는 말 두 줄로 적기
             </div>
 
             <div id="main-buttons">
-                <a href="{% url 'account_login' %}">
-                    <div class="button-login">로그인</div>
-                </a>
-                <a href="{% url 'account_signup' %}">
-                    <div class="button-signup">회원가입</div>
-                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">
+                        <div class="button-login">프로필 보기</div>
+                    </a>
+                    <a href="{% url 'account_logout' %}?next={{ request.path }}">
+                        <div class="button-signup">로그아웃</div>
+                    </a>
+                {% else %}
+                    <a href="{% url 'sign_in' %}?next={{ request.path }}">
+                        <div class="button-login">로그인</div>
+                    </a>
+                    <a href="{% url 'account_signup' %}">
+                        <div class="button-signup">회원가입</div>
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-{% block content %}
+
 <div id="main-starter">
     <div id="starter-title">데이타덕 시작하기</div>
     <div id="starter-list">
@@ -84,10 +100,10 @@
     <div id="explanation-text">
         <div class="explanation-title">데이타덕 사용설명서</div>
         <div class="explanation-context">
-            쉽게 시작하는 방법 블라블라 대충 뭐 이런 거다 설명<br />
+            쉽게 시작하는 방법 블라블라 대충 뭐 이런 거다 설명<br/>
             두 줄은 돼야 할 듯 말은 나중에 머리 돌아갈 때 정할 거다 지금은 말고
         </div>
-        <a href="{% url 'main:explanation_page' %}">
+        <a href="{% url 'comp:explanation_page' %}">
             <div class="explanation-button">바로가기</div>
         </a>
         <div class="explanation-img"><img src="" alt=""></div>
@@ -96,27 +112,27 @@
 
 <div id="main-number">
     <div class="number-unit number-user">
-        <div class="number">{{ user }}</div> <!--view에서 넘겨줘라-->
+        <div class="number">432</div> <!--view에서 넘겨줘라-->
         <div class="number-text">회원</div>
     </div>
     <div class="number-unit number-corp">
-        <div class="number">{{ company }}</div> <!--view에서 넘겨줘라-->
+        <div class="number">28</div> <!--view에서 넘겨줘라-->
         <div class="number-text">기업</div>
     </div>
     <div class="number-unit number-data">
-        <div class="number">{{ competition }}</div> <!--view에서 넘겨줘라-->
+        <div class="number">72</div> <!--view에서 넘겨줘라-->
         <div class="number-text">데이터</div>
     </div>
     <div class="number-unit number-code">
-        <div class="number">{{ code }}</div> <!--view에서 넘겨줘라-->
+        <div class="number">1,493</div> <!--view에서 넘겨줘라-->
         <div class="number-text">코드</div>
     </div>
     <div class="number-unit number-prize">
-        <div class="number">{{ prize }}</div> <!--view에서 넘겨줘라-->
+        <div class="number">94,120</div> <!--view에서 넘겨줘라-->
         <div class="number-text">상금</div>
     </div>
 </div>
-{% endblock %}
+
 <div id="main-footer-wrap">
     <div id="main-footer">
         <div class="footer-top">
@@ -128,10 +144,10 @@
 
                 <div class="corp-overview">
                     <div class="corp-context">
-                        세상이 넓다지만 지구는 좁고 나라가 많다해도 모두가 이웃. <br />
-                        가슴을 활짝 열고 대화 해보세 인류의 번영위해 행복을 위해 겨례의 앞길은 내가 <br />
-                        밝히리 희망과 꿈의 전당 외국어고교 부산외국어고교 부산외국어고교 <br />
-                        동해물과 백두산이 마르고 닮도록 하나님이 보우하사 우리 나라 만세 <br />
+                        세상이 넓다지만 지구는 좁고 나라가 많다해도 모두가 이웃. <br/>
+                        가슴을 활짝 열고 대화 해보세 인류의 번영위해 행복을 위해 겨례의 앞길은 내가 <br/>
+                        밝히리 희망과 꿈의 전당 외국어고교 부산외국어고교 부산외국어고교 <br/>
+                        동해물과 백두산이 마르고 닮도록 하나님이 보우하사 우리 나라 만세 <br/>
                     </div>
                     <div class="footer-icons">
                         <div class="footer-icon-wrap">

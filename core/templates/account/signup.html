@@ -9,36 +9,15 @@
 <div class="container" id="wrap">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form action="{% url 'account_signup' %}" method="post" accept-charset="utf-8" class="form" role="form"
-                  id="signup_form">
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
-                <div>회원가입하기</div>
-                <h4>스키 타고 싶었다!.</h4>
-                <div class="row">
-                    <div class="col-12">
-                        {{ form.username1 }}
-                    </div>
-                    <div class="col-12">
-                        {{ form.password }}
-                    </div>
-                    <div class="col-12">
-                        {{ form.email1 }}
-                    </div>
-                    <div class="col-12">
-                        {{ form.image }}
-                    </div>
-                    <div class="col-12">
-                        {{ form.first_name }}
-                    </div>
-                    <div class="col-12">
-                        {{ form.last_name }}
-                    </div>
-                    <br/>
-                    <span class="help-block">회원가입 하신걸 축하드려요 뿅뿅 </span>
-                    <button class="btn btn-lg btn-primary btn-block signup-btn" type="submit">가입하기
-                    </button>
+                {{ form.as_p }}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <button type="submit">{% trans "가입하기" %} &raquo;</button>
             </form>
         </div>
     </div>
 </div>
-</div>
+
