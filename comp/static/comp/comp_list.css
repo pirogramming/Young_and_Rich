@@ -130,10 +130,11 @@
     height: 170px;
     margin-top: 15px;
     padding: 15px 20px;
-    border: 1px solid #eeeeee;
+    border: 1px solid #e7e7e7;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 1px 3px #eeeeee;
 }
 
 .comp-unit-left {
@@ -226,7 +227,7 @@
     margin-top: 10px;
 }
 
-#percent-value, #percent-sign {
+.percent-value, .percent-sign {
     display: none;
 }
 
@@ -239,8 +240,13 @@
 
 .list-bar {
     height: 5px;
-    background-color: #b6d5e1;
     border-radius: 100px;
+
+    background: #e2eff1;
+    background: -moz-linear-gradient(left,  #e2eff1 0%, #b6d5e1 47%, #65799b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #e2eff1 0%,#b6d5e1 47%,#65799b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #e2eff1 0%,#b6d5e1 47%,#65799b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2eff1', endColorstr='#65799b',GradientType=1 ); /* IE6-9 */
 }
 
 .deadline-text {

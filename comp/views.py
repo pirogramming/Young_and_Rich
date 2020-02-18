@@ -35,7 +35,8 @@ def comp_list(request):
         except:
             percent = 100
 
-        comp_deadline_dict[comp.id] = percent
+        comp_deadline_dict[comp.pk] = percent
+    print(comp_deadline_dict)
 
 
 
@@ -57,10 +58,7 @@ def comp_detail_overview(request, pk):
     dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
-    try:
-        percent = round(interval / total, 2) * 100
-    except:
-        percent = 100
+    percent = round(interval / total, 2) * 100
     data = {
         "comp": comp,
         "percent": percent,
@@ -68,34 +66,56 @@ def comp_detail_overview(request, pk):
     return render(request, "comp/comp_detail_overview.html", data)
 
 
-def comp_detail_overview_description(request, pk):
-    comp = Comp.objects.get(pk=pk)
-    data = {
-        "comp": comp,
-    }
-    return render(request, "comp/comp_detail_overview_description.html", data)
-
-
 def comp_detail_overview_evaluation(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
+        "percent":percent,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
 
 def comp_detail_overview_timeline(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview_timeline.html", data)
 
 
 def comp_detail_overview_prizes(request, pk):
     comp = Comp.objects.get(pk=pk)
+    today = date.today()
+
+    created_date = comp.created_at
+    dead_date = comp.deadline
+    total = (dead_date - created_date).days
+    interval = (today - created_date).days
+    percent = round(interval / total, 2) * 100
+    print(percent)
+
     data = {
         "comp": comp,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview_prizes.html", data)
 
@@ -119,10 +139,10 @@ def comp_detail_community_list(request, pk):
     if q:
         qs = qs.filter(title__icontains=q)
 
-    dict = {}
+    comment_dict = {}
     for compost in qs:
         comment = ComComment.objects.filter(compost=compost)
-        dict[compost.id] = len(comment)
+        comment_dict[compost.id] = len(comment)
 
         if compost.like.filter(id = request.user.id).exists():
             post_likelist.append(compost.id)
@@ -134,7 +154,7 @@ def comp_detail_community_list(request, pk):
         "comp": comp,
         "compost_list": qs,
         "q": q,
-        "dict": dict,
+        "comment_dict": comment_dict,
         "compost_number": qs_number,
     }
     return render(request, "comp/comp_detail_community_list.html", ctx)
@@ -145,7 +165,7 @@ def progressbar(request, pk):
     today = date.today()
 
     created_date = comp.created_at
-    dead_date = comp.deadline.date()
+    dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
     percent = round(interval / total, 2) * 100
@@ -356,24 +376,18 @@ def comp_ranking(request, pk):
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     codepost = CodePost.objects.filter(comp=comp)
-    code_likelist=[]
 
     q = request.GET.get("q", "")  # 검색
     if q:
-        codepost = codepost.filter(title__icontains=q)
+        codepost_list = codepost_list.filter(title__icontains=q)
 
-    codepost_number = len(codepost)
-
-    for code in codepost:
-
-        if code.like.filter(id=request.user.id).exists():
-            code_likelist.append(code.id)
+    codepost_number = len(codepost_list)
 
     ctx = {
         "comp": comp,
         "code_list": codepost,
-        "code_likelist":code_likelist,
         "codepost_number": codepost_number,
+        "comment_dict": comment_dict,
     }
     return render(request, "comp/comp_detail_code_list.html", ctx)
 
@@ -558,21 +572,22 @@ def user_upload_csv(request, pk):
     }
     if request.method == 'GET':
         return render(request, "comp/comp_csv_upload.html", data)
-    if request.method == 'POST':
 
+    if request.method == 'POST':
         submit_answer_list = []
         submit_problem_list = []
-        try:
 
+        try:
             submit_answer = request.FILES["csv_file"]
             # csv 파일이 맞는지 검사하는 validation
             if not submit_answer.name.endswith('.csv'):
-                messages.error(request, 'CSV파일이 아닙ㅂ니다.')
+                messages.error(request, 'CSV파일이 아닙니다.')
                 return redirect("comp:user_upload_csv")
-            # 파일이 너무 큰지 검사하는 과정
-            if submit_answer.multiple_chunks():
-                messages.error(request, "파일이 너무 큽니다")
-                return redirect("comp:user_upload_csv")
+
+            # # 파일이 너무 큰지 검사하는 과정
+            # if submit_answer.multiple_chunks():
+            #     messages.error(request, "파일이 너무 큽니다")
+            #     return redirect("comp:user_upload_csv")
 
             submit_answer_data = submit_answer.read().decode("utf-8")
             lines = submit_answer_data.split("\n")[:-1]
@@ -623,7 +638,7 @@ def user_upload_csv(request, pk):
         return render(request, "comp/comp_csv_result.html", {
             'accuracy': accuracy,
             'user': request.user,
-            'file_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by('created_at'),
+            'answer_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by('created_at'),
             'pk': pk
         })
 
@@ -631,6 +646,7 @@ def user_upload_csv(request, pk):
 def show_csv_result(request, pk):
     return render(request, "comp/comp_csv_result.html", {
         'answer_list': Answer.objects.filter(comp=Comp.objects.get(pk=pk)).order_by('created_at'),
+        "pk": pk,
     })
 
 
@@ -640,28 +656,6 @@ def show_csv_result(request, pk):
 # + comp의 answer의 rank로 필터를 걸어서 해당 user 가져온다
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
-
-# def comp_submit_answer(request, pk):
-#     if request.method == 'POST':
-#
-#         if 1:  # valid 파악
-#             answer = Answer()
-#             # answer.accuracy=
-#             # answer.rank=
-#             answer.user = request.user
-#             answer.comp = Comp.objects.get(pk=pk)
-#             answer.file = request.FILES.get('')
-#             answer.save()
-#
-#         return redirect(reverse('comp_answerlist', kwargs={'pk': pk}))
-#     return render(request, 'comp/comp_submit_answer.html', )
-#
-#
-# def comp_answerlist(request, pk):
-#     ctx = {
-#         'answer_list': Answer.objects.filter(user=request.user)
-#     }
-#     return render(request, 'comp/comp_answerlist.html', ctx)
 
 def comp_explanation(request):
     return render(request, 'comp/explanation.html')

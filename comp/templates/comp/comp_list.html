@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra-head %}
-    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?ver">
+    <link rel="stylesheet" href="{% static 'comp/comp_list.css' %}?6">
 {% endblock %}
 
 
@@ -69,24 +69,25 @@
                         </div>
 
                         {% for key, percent in comp_deadline_dict.items %}
-                            <div class="deadline">
-                                <div class="list-percent">
-                                    <div class="list-bar"></div>
-                                    {% if key == comp.pk %}
-                                    <div>
-                                        <span id="percent-value">{{ percent }}</span><span id="percent-sign">%</span>
+                            {% if key == comp.pk %}
+                                <div class="deadline">
+                                    <div class="list-percent">
+                                        <div class="list-bar"></div>
+                                        <div>
+                                            <span class="percent-value">{{ percent }}</span><span class="percent-sign">%</span>
+                                            <div class="deadline-text">{{ comp.deadline }} 마감</div>
+                                        </div>
                                     </div>
-                                    {% endif %}
                                 </div>
-                                <script>
-                                    const percentValue = parseFloat(document.querySelector("#percent-value").innerText);
-                                    const percentBar = document.querySelector(".list-bar");
-
-                                    percentBar.style = `width : ${percentValue}%`;
-                                </script>
-                                <div class="deadline-text">{{ comp.deadline }} 마감</div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
+
+                            <script>
+                                var percentValue = parseFloat(document.querySelector(".percent-value").innerText);
+                                var percentBar = document.querySelector(".list-bar");
+                                percentBar.style = `width : ${percentValue}%`;
+                                console.log(percentValue);
+                            </script>
                     </div>
                 </div>
 

@@ -1,46 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .percent {
-            /* deletable */
-            margin-top: 100px;
-            margin-left: 100px;
-            /* -------- */
+{% extends 'comp/base.html' %}
+{% load static %}
 
-            width: 300px;
-            height: 30px;
-            border: 1px solid black;
-        }
+
 
         .bar {
-            height: 30px;
-            background-color: black;
-
-        }
-        .fas {color: hotpink}
-        .fa-star{color:yellow}
-        i {cursor:pointer}
-    </style>
-
-
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
-        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-</head>
-<body>
-<div>
-    {{ comp.title }}
-    {{ comp.context }}
-    {{ comp.user.nickname }}
-    {{ comp.team_number }}
-    {{ comp.prize }}
-</div>
-
-{% block content %}
+{# ===============CSS link======================#}
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_detail.css' %}?23">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_overview.css' %}?23">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_data.css' %}?23">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_code_list.css' %}?23">
 {% endblock %}
 
-</body>
-</html>
+
+{#=================header-nav===================#}
+{% block main-content %}
+    <div class="comp-header">
+        <div class="comp-header-left">
+            <div class="comp-header-top">
+                <div class="comp-header-status">진행중</div>
+                <div>|</div>
+                <div class="comp-header-user">{{ comp.user.username }}</div>
+            </div>
+
+            <div class="comp-header-text">
+                <div class="comp-header-title">{{ comp.title }}</div>
+                <div class="comp-header-context">{{ comp.context }}</div>
+            </div>
+
+            <div class="comp-header-icons">
+                <div class="comp-header-icon-unit">
+                    <div class="comp-header-icon-wrap">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comp-header-icon-text">{{ comp.team_number }}팀 참여 중</div>
+                </div>
+                <div class="comp-header-icon-unit">
+                    <div class="comp-header-icon-wrap">
+                        <i class="fas fa-won-sign"></i>
+                    </div>
+                    <div class="comp-header-icon-text">상금 {{ comp.prize }}만원</div>
+                </div>
+                <div class="comp-header-icon-unit">
+                    <div class="comp-header-icon-wrap">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <div class="comp-header-icon-text">{{ comp.deadline }} 마감</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comp-header-right">
+            <a href="">
+                <div class="comp-header-button">참여하기</div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

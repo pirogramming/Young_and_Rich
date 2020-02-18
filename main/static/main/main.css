@@ -130,6 +130,10 @@ html, body {
     width: 100%; height: 540px;
     display: flex;
     justify-content: center;
+    /*background-image: url("00_main_banner.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*background-position: center right;*/
 }
 
 #main-text {
@@ -140,7 +144,7 @@ html, body {
     font-family: S-CoreDream-9Black, sans-serif;
     font-size: 36px;
     color: white;
-    margin-top: 200px;
+    margin-top: 150px;
 }
 
 .main-title span {
