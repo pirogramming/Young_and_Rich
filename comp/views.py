@@ -2,7 +2,7 @@ import csv
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
@@ -20,6 +20,7 @@ from comp.utils import *
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
+    star_list=[]
 
     if q:
         qs = Comp.objects.filter(title__icontains=q)
@@ -37,8 +38,10 @@ def comp_list(request):
             percent = round(interval / total, 2) * 100
         except:
             percent = 100
-
         comp_deadline_dict[comp.pk] = percent
+
+        # if :
+        #     star_list.append()
     print(comp_deadline_dict)
 
 
@@ -384,6 +387,7 @@ def comp_ranking(request, pk):
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     codepost_list = CodePost.objects.filter(comp=comp)
+    post_likelist=[]
 
     q = request.GET.get("q", "")  # 검색
     if q:
@@ -396,11 +400,15 @@ def comp_detail_code_list(request, pk):
         comment = CodeComment.objects.filter(codepost=codepost)
         comment_dict[codepost.id] = len(comment)
 
+        if codepost.like.filter(id=request.user.id).exists():
+            post_likelist.append(codepost.id)
+
     ctx = {
         "comp": comp,
         "code_list": codepost_list,
         "codepost_number": codepost_number,
         "comment_dict": comment_dict,
+        "post_likelist": post_likelist,
     }
     return render(request, "comp/comp_detail_code_list.html", ctx)
 
@@ -408,6 +416,16 @@ def comp_detail_code_list(request, pk):
 def comp_detail_code_detail(request, pk, pk2):
     comp = Comp.objects.get(pk=pk)
     codepost = CodePost.objects.get(pk=pk2)
+
+    comment_likelist=[]
+
+    if codepost.like.filter(id=request.user.id).exists():
+        is_liked=1
+    else:
+        is_liked=0
+
+
+
 
     list = CodeComment.objects.filter(codepost=codepost)
     comment_list = []
@@ -417,6 +435,9 @@ def comp_detail_code_detail(request, pk, pk2):
             comment_list.append(comment)
         else:
             commcomment_list.append(comment)
+
+        if comment.like.filter(id=request.user.id).exists():
+            comment_likelist.append(comment.id)
 
     count_comment = len(comment_list) + len(commcomment_list)
     is_post_user = 1
@@ -431,6 +452,8 @@ def comp_detail_code_detail(request, pk, pk2):
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
+        "is_liked":is_liked,
+        "comment_likelist":comment_likelist,
     }
     return render(request, "comp/comp_detail_code_detail.html", ctx)
 
@@ -723,3 +746,20 @@ def like_upload(request):
     }
 
     return JsonResponse(ctx)
+
+
+@login_required
+@require_POST
+def upload_star(request):
+    request.user로그인확인
+    pk = request.POST.get('pk', None)
+
+    target = get_object_or_404(Comp, pk=pk)
+
+    if target.star.filter(id=request.user.id).exists():
+        target.star.remove(request.user)
+
+    else:
+        target.star.add(request.user)
+
+    return HttpResponse()

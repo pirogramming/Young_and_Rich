@@ -44,6 +44,14 @@
         <div class="post-bottom">
             {{ codepost.context|linebreaks }}
         </div>
+        <div>
+            {% if is_liked %}
+                <i class="fas fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
+            {% else %}
+                <i class="far fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
+            {% endif %}
+            <div id="cdp-likecount-{{ codepost.id }}">추천 {{ codepost.like.count }}개</div>
+        </div>
     </div>
 
 
