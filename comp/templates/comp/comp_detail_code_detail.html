@@ -49,7 +49,7 @@
                             </form>
                         {% endif %}
 
-                        <form action="{% url 'comp:comp_code_comcomment_create' comp.pk codepost.pk comment.pk %}">
+                        <form action="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
                             <input type="submit" value="대댓글 남기기">
                         </form>
                         <div>{{ comment.context }}</div>

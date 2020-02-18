@@ -443,7 +443,7 @@ def comp_detail_code_post_create(request, pk):
         ctx = {
             "form": form,
         }
-        return render(request, "comp/comp_detail_community_post_create.html", ctx)
+        return render(request, "comp/comp_detail_code_post_create.html", ctx)
 
 
 def comp_detail_code_post_update(request, pk, pk2):
@@ -461,7 +461,7 @@ def comp_detail_code_post_update(request, pk, pk2):
         ctx = {
             "form": form,
         }
-        return render(request, "comp/comp_detail_community_post_create.html", ctx)
+        return render(request, "comp/comp_detail_code_post_create.html", ctx)
 
 
 def comp_detail_code_post_delete(request, pk, pk2):
@@ -487,7 +487,7 @@ def comp_detail_code_comment_create(request, pk, pk2):
         if form.is_valid():
             codecomment = form.save(commit=False)
             codecomment.user = request.user
-            codecomment.compost = codepost
+            codecomment.codepost = codepost
             codecomment.save()
             return redirect("comp:comp_code_detail", pk, pk2)
     else:
@@ -519,14 +519,14 @@ def comp_detail_code_comment_update(request, pk, pk2, pk3):
 
 def comp_detail_code_comment_delete(request, pk, pk2, pk3):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
     codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
 
     if request.method == "POST":
         codecomment.delete()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", pk, pk2)
+    return redirect("comp:comp_code_detail", pk, pk2)
 
 
 # ----------------대댓글--------------------
@@ -534,8 +534,8 @@ def comp_detail_code_comment_delete(request, pk, pk2, pk3):
 
 def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
-    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
+    codecomment = CodeComment.objects.filter(codepost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
 
     if request.method == "POST":
         form = CodeCommentForm(request.POST)
@@ -556,15 +556,15 @@ def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
 
 def comp_detail_code_commcomment_delete(request, pk, pk2, pk3, pk4):
     comp = Comp.objects.get(pk=pk)
-    codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
+    codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
     codecomment = CodeComment.objects.filter(codepost=codepost).get(pk=pk3)
     codecommcomment = CodeComment.objects.filter(codecomment=codecomment).get(pk=pk4)
 
     if request.method == "POST":
         codecommcomment.delete()
-        return redirect("comp:comp_community_detail", pk, pk2)
+        return redirect("comp:comp_code_detail", pk, pk2)
 
-    return redirect("comp:comp_community_detail", pk, pk2)
+    return redirect("comp:comp_code_detail", pk, pk2)
 
 
 # ----------------답안제출 및 채점--------------------
