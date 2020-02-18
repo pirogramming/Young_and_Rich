@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm
+from comp.forms import ComPostForm, ComCommentForm, CompForm, FileFieldForm, CodePostForm, CodeCommentForm
 from comp.models import Comp, ComPost, ComComment, CodePost, CodeComment, Comp_File, Answer  # Answer
 
 from datetime import date
@@ -186,7 +186,6 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
         is_liked=1
     else:
         is_liked=0
-
 
     list = ComComment.objects.filter(compost=compost)
     comment_list = []
@@ -375,7 +374,7 @@ def comp_ranking(request, pk):
 
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
-    codepost = CodePost.objects.filter(comp=comp)
+    codepost_list = CodePost.objects.filter(comp=comp)
 
     q = request.GET.get("q", "")  # 검색
     if q:
@@ -383,9 +382,14 @@ def comp_detail_code_list(request, pk):
 
     codepost_number = len(codepost_list)
 
+    comment_dict = {}
+    for codepost in codepost_list:
+        comment = CodeComment.objects.filter(codepost=codepost)
+        comment_dict[codepost.id] = len(comment)
+
     ctx = {
         "comp": comp,
-        "code_list": codepost,
+        "code_list": codepost_list,
         "codepost_number": codepost_number,
         "comment_dict": comment_dict,
     }
@@ -427,13 +431,13 @@ def comp_detail_code_detail(request, pk, pk2):
 
 def comp_detail_code_post_create(request, pk):
     if request.method == "POST":
-        form = ComPostForm(request.POST)
+        form = CodePostForm(request.POST)
         if form.is_valid():
-            compost = form.save(commit=False)
-            compost.user = request.user
-            compost.comp = Comp.objects.get(pk=pk)
-            compost.save()
-            return redirect("comp:comp_community_detail", pk, compost.pk)
+            codepost = form.save(commit=False)
+            codepost.user = request.user
+            codepost.comp = Comp.objects.get(pk=pk)
+            codepost.save()
+            return redirect("comp:comp_code_detail", pk, codepost.pk)
     else:
         form = ComPostForm()
         ctx = {
@@ -447,13 +451,13 @@ def comp_detail_code_post_update(request, pk, pk2):
     codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
-        form = ComPostForm(request.POST, instance=codepost)
+        form = CodePostForm(request.POST, instance=codepost)
         if form.is_valid():
             form.save()
         return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
-        form = ComPostForm(instance=codepost)
+        form = CodePostForm(instance=codepost)
         ctx = {
             "form": form,
         }
@@ -479,12 +483,12 @@ def comp_detail_code_comment_create(request, pk, pk2):
     codepost = CodePost.objects.filter(comp=comp).get(pk=pk2)
 
     if request.method == "POST":
-        form = ComCommentForm(request.POST)
+        form = CodeCommentForm(request.POST)
         if form.is_valid():
-            comcomment = form.save(commit=False)
-            comcomment.user = request.user
-            comcomment.compost = codepost
-            comcomment.save()
+            codecomment = form.save(commit=False)
+            codecomment.user = request.user
+            codecomment.compost = codepost
+            codecomment.save()
             return redirect("comp:comp_code_detail", pk, pk2)
     else:
         form = ComCommentForm()
@@ -500,13 +504,13 @@ def comp_detail_code_comment_update(request, pk, pk2, pk3):
     codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
 
     if request.method == "POST":
-        form = ComCommentForm(request.POST, instance=codecomment)
+        form = CodeCommentForm(request.POST, instance=codecomment)
         if form.is_valid():
             form.save()
         return redirect("comp:comp_community_detail", pk, pk2)
 
     else:
-        form = ComCommentForm(instance=codecomment)
+        form = CodeCommentForm(instance=codecomment)
         ctx = {
             "form": form,
         }
@@ -531,19 +535,19 @@ def comp_detail_code_comment_delete(request, pk, pk2, pk3):
 def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
     comp = Comp.objects.get(pk=pk)
     codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
-    codecomment = ComComment.objects.filter(compost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
+    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)  # 대댓글 남길 댓글
 
     if request.method == "POST":
-        form = ComCommentForm(request.POST)
+        form = CodeCommentForm(request.POST)
         if form.is_valid():
-            comcommcomment = form.save(commit=False)
-            comcommcomment.user = request.user
-            comcommcomment.compost = codepost
-            comcommcomment.commcomment = codecomment
-            comcommcomment.save()
-            return redirect("comp:comp_community_detail", pk, codepost.pk)
+            codecommcomment = form.save(commit=False)
+            codecommcomment.user = request.user
+            codecommcomment.codepost = codepost
+            codecommcomment.commcomment = codecomment
+            codecommcomment.save()
+            return redirect("comp:comp_code_detail", pk, codepost.pk)
     else:
-        form = ComCommentForm()
+        form = CodeCommentForm()
         ctx = {
             "form": form,
         }
@@ -553,8 +557,8 @@ def comp_detail_code_commcomment_create(request, pk, pk2, pk3):
 def comp_detail_code_commcomment_delete(request, pk, pk2, pk3, pk4):
     comp = Comp.objects.get(pk=pk)
     codepost = ComPost.objects.filter(comp=comp).get(pk=pk2)
-    codecomment = ComComment.objects.filter(codepost=codepost).get(pk=pk3)
-    codecommcomment = ComComment.objects.filter(commcomment=codecomment).get(pk=pk4)
+    codecomment = CodeComment.objects.filter(codepost=codepost).get(pk=pk3)
+    codecommcomment = CodeComment.objects.filter(codecomment=codecomment).get(pk=pk4)
 
     if request.method == "POST":
         codecommcomment.delete()
