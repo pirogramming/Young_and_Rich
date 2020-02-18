@@ -1,4 +1,3 @@
-from comp.models import *
 from core.models import *
 
 
@@ -25,5 +24,4 @@ def count_prize():
     all_prize = 0
     for i in c:
         all_prize += i.prize
-
     return all_prize

@@ -30,27 +30,19 @@
 
             <div class="post-top-right">
             {% if is_post_user == 0 %}
-                <a href="{% url 'comp:comp_code_update' comp.pk compost.pk %}">
-                    <div class="post-update">수정</div>
-                </a>
-                <a href="{% url 'comp:comp_code_delete' comp.pk compost.pk %}">
-                    <div class="post-delete">삭제</div>
-                </a>
+                <form action="{% url 'comp:comp_code_update' comp.pk codepost.pk %}">
+                    <input class="post-update" value="수정" type="submit">
+                </form>
+                <form action="{% url 'comp:comp_code_delete' comp.pk codepost.pk %}" method="post">
+                    {% csrf_token %}
+                    <input class="post-delete" value="삭제" type="submit">
+                </form>
             {% endif %}
             </div>
         </div>
 
         <div class="post-bottom">
-            {{ compost.context|linebreaks }}
-        </div>
-
-        <div class="good">
-            {% if is_liked %}
-                <i class="fas fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
-            {% else %}
-                <i class="far fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
-            {% endif %}
-            <div id="cop-likecount-{{ compost.id }}">추천 {{ compost.like.count }}개</div>
+            {{ codepost.context|linebreaks }}
         </div>
     </div>
 
@@ -61,7 +53,7 @@
         <div class="comment-nav">
             <div class="count_comment">총 {{ count_comment }}개의 댓글</div>
 
-            <a href="{% url 'comp:comp_community_comment_create' comp.pk compost.pk %}" class="create-code">
+            <a href="{% url 'comp:comp_code_comment_create' comp.pk codepost.pk %}" class="create-code">
                 <i class="fas fa-pen"></i>
             </a>
         </div>
@@ -77,11 +69,10 @@
                                 <div class="comment-user">{{ comment.user }}</div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
-                                <div>|</div>
                             </div>
 
                             <div class="comment-unit-nav-right">
-                                <a href="{% url 'comp:comp_community_commcomment_create' comp.pk compost.pk comment.pk %}">
+                                <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
                                     <div>답글쓰기</div>
                                 </a>
                             </div>
@@ -89,14 +80,6 @@
 
                         <div class="comment-text">{{ comment.context|linebreaks }}</div>
 
-                        <div class="good">
-                            {% if comment.id in comment_likelist %}
-                                <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                            {% else %}
-                                <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                            {% endif %}
-                            <div id="cop-likecount-{{ comment.id }}">추천 {{comment.like.count }}개</div>
-                        </div>
 
                         {#------------여기부터 답글---------------#}
 
@@ -110,19 +93,9 @@
                                             <div class="comment-user">{{ commcomment.user }}</div>
                                             <div>|</div>
                                             <div>{{ commcomment.created_at }}</div>
-                                            <div>|</div>
                                         </div>
 
                                         <div class="comment-text">{{ commcomment.context }}</div>
-
-                                        <div class="good">
-                                            {% if comment.id in comment_likelist %}
-                                                <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                                            {% else %}
-                                                <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                                            {% endif %}
-                                            <div id="cop-likecount-{{ comment.id }}">추천 {{comment.like.count }}개</div>
-                                        </div>
                                     </div>
                                 </div>
                             {% endif %}
@@ -132,94 +105,4 @@
             {% endfor %}
         </div>
     </div>
-{% endblock %}
-
-
-
-
-
-
-
-<div class="post-wrap">
-    <div>{{ codepost.user.profile_set.image.url }}</div>
-    <div>
-        <div>{{ codepost.title }}</div>
-        <div>{{ codepost.context }}</div>
-        <div>{{ codepost.updated_at }}</div>
-        
-        {% if is_post_user == 0 %}
-            <form action="{% url 'comp:comp_code_update' comp.pk codepost.pk %}">
-                <input type="submit" value="수정">
-            </form>
-            <form action="{% url 'comp:comp_code_delete' comp.pk codepost.pk %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="삭제">
-            </form>
-        {% endif %}
-    </div>
-</div>
-
-<div>
-    <div>댓글 ({{ count_comment }})</div>
-    <form action="{% url 'comp:comp_code_comment_create' comp.pk codepost.pk %}">
-        <input type="submit" value="댓글 남기기">
-    </form>
-    
-    <div class="comment-wrap">
-        {% for comment in comment_list %}
-            <div class="comment">
-                <img src="{{ comment.user.profile_set.image.url }}" alt="">
-                <div>
-                    <div>
-                        <div>
-                            <div>{{ comment.user.username }}</div>
-                            <div>{{ comment.updated_at }}</div>
-                            <div>답변</div>
-                        </div>
-                        
-                        {% if is_post_user == 0 %}
-                            <form action="{% url 'comp:comp_code_comment_update' comp.pk codepost.pk comment.pk %}">
-                                <input type="submit" value="수정">
-                            </form>
-                            <form action="{% url 'comp:comp_code_comment_delete' comp.pk codepost.pk comment.pk %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="삭제">
-                            </form>
-                        {% endif %}
-
-                        <form action="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
-                            <input type="submit" value="대댓글 남기기">
-                        </form>
-                        <div>{{ comment.context }}</div>
-                        <div>---------------------------</div>
-                    </div>
-                    
-                    <div class="commcomment-wrap">
-                        {% for commcomment in commcomment_list %}
-                            {% if commcomment.commcomment == comment %}
-                                <div class="comment">
-                                    <img src="{{ commcomment.user.profile_set.image.url }}" alt="">
-                                    <div>
-                                        <div>{{ commcomment.user.username }}</div>
-                                        <div>{{ commcomment.updated_at }}</div>
-                                        <div>답변</div>
-                                    </div>
-
-                                    {% if is_post_user == 0 %}
-                                        <form action="{% url 'comp:comp_code_commcomment_delete' comp.pk codepost.pk codecomment.pk comment.pk commcomment.pk %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="submit" value="삭제">
-                                        </form>
-                                    {% endif %}
-                                    <div>{{ commcomment.context }}</div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div>====================================</div>
-        {% endfor %}
-    </div>
-</div>
 {% endblock %}

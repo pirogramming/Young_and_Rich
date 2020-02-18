@@ -30,12 +30,13 @@
 
             <div class="post-top-right">
             {% if is_post_user == 0 %}
-                <a href="{% url 'comp:comp_community_post_update' comp.pk compost.pk %}">
-                    <div class="post-update">수정</div>
-                </a>
-                <a href="{% url 'comp:comp_community_post_delete' comp.pk compost.pk %}">
-                    <div class="post-delete">삭제</div>
-                </a>
+                <form action="{% url 'comp:comp_community_post_update' comp.pk compost.pk %}">
+                    <input class="post-update" value="수정" type="submit">
+                </form>
+                <form action="{% url 'comp:comp_community_post_delete' comp.pk compost.pk %}" method="post">
+                    {% csrf_token %}
+                    <input class="post-delete" value="삭제" type="submit">
+                </form>
             {% endif %}
             </div>
         </div>
@@ -77,7 +78,6 @@
                                 <div class="comment-user">{{ comment.user }}</div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
-                                <div>|</div>
                             </div>
 
                             <div class="comment-unit-nav-right">
@@ -118,7 +118,6 @@
                                             <div class="comment-user">{{ commcomment.user }}</div>
                                             <div>|</div>
                                             <div>{{ commcomment.created_at }}</div>
-                                            <div>|</div>
                                         </div>
 
                                         <div class="comment-text">{{ commcomment.context }}</div>
