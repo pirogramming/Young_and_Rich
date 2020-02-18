@@ -1,5 +1,5 @@
 {% extends "comp/comp_detail.html" %}
-{% load static %}
+{% load staticfiles %}
 
 {% block content %}
     <div class="comp-detail-nav-wrap">
@@ -50,15 +50,18 @@
                 </div>
             {% endif %}
 
-            {% if code.id in code_likelist %}
-                <i class="fas fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
-            {% else %}
-                <i class="far fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
-            {% endif %}
+            <div>
+                <span id="cdp-likecount-{{ code.id }}">{{ code.like.count }}</span>
+                {% if code.id in code_likelist %}
+                    <i class="fas fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
+                {% else %}
+                    <i class="far fa-thumbs-up like" name="cdp-like-{{ code.id }}"></i>
+                {% endif %}
 
-            <span id="cdp-likecount-{{ code.id }}">{{ code.like.count }}</span>
+            </div>
         {% endfor %}
     </div>
+<script type="text/javascript" src="{% static 'comp/like.js' %}"/>
 
     <script>
       //좋아요 손가락
@@ -92,11 +95,12 @@
           },
 
 
-          error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
-            window.location.replace("/accounts/login/")
-              //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-              },
-        })
-      })
-    </script>
+      error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
+        window.location.replace("/accounts/login/")
+          //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          },
+    })
+  })
+</script>
+
 {% endblock %}

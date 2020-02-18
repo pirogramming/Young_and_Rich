@@ -58,7 +58,10 @@ def comp_detail_overview(request, pk):
     dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
+    try:
+        percent = round(interval / total, 2) * 100
+    except:
+        percent = 100
     data = {
         "comp": comp,
         "percent": percent,
@@ -74,7 +77,10 @@ def comp_detail_overview_evaluation(request, pk):
     dead_date = comp.deadline
     total = (dead_date - created_date).days
     interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
+    try:
+        percent = round(interval / total, 2) * 100
+    except:
+        percent = 100
     print(percent)
 
     data = {
@@ -701,9 +707,10 @@ def create_comp(request):
     return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
 
 
-
+@login_required
 @require_POST
 def like_upload(request):
+
     pk = request.POST.get('pk', None)
     liketype=request.POST.get('liketype',None)
     request.user#로그인여부확인
