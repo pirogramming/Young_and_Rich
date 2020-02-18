@@ -52,6 +52,8 @@
 
 .post-top-right {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .post-top-right input {
@@ -62,11 +64,19 @@
     width: 50px; height: 30px;
     margin-left: 5px;
     padding: 0;
-    border-radius: 3px;
     background-color: white;
+    border-radius: 3px;
     text-align: center;
     line-height: 30px;
     transition-duration: 0.3s;
+}
+
+.comment-unit-nav-right input {
+    background-color: #f7f7f7;
+}
+
+.comment-unit-nav-right .post-delete {
+    margin-right: 15px;
 }
 
 .post-update {
@@ -119,6 +129,10 @@
 .good i {
     color: #707070;
     font-size: 14px;
+}
+
+.good div:last-child {
+    margin: 0;
 }
 
 

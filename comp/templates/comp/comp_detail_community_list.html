@@ -20,9 +20,12 @@
             <input type="text" name="q" value="{{ q }}" class="text">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
+
+        {% if user.authenticated %}
         <a href="{% url 'comp:comp_community_post_create' comp.pk %}" class="create-code">
             <i class="fas fa-pen"></i>
         </a>
+        {% endif %}
     </div>
 
     <div class="code-list">

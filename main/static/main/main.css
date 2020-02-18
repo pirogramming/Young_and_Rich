@@ -46,6 +46,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /*=========================CSS==========================*/
 
@@ -76,6 +83,18 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-content: center;
+}
+
+#main-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-title {
+    font-family: "NIXGONM-Vb", sans-serif;
+    font-size: 20px;
+    color: #b6d5e1;
+    margin-top: 10px;
 }
 
 #main-right {
@@ -122,6 +141,9 @@ html, body {
     background-color: #7385a3;
 }
 
+.nav-profile {
+    margin-right: 10px;
+}
 
 
 /*==================MAIN BANNER===================*/

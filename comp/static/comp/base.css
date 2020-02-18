@@ -44,6 +44,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /*==================CSS======================*/
 
@@ -72,10 +79,11 @@ html, body {
 }
 
 #name a {
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    color: #b6d5e1;
+    font-family: "NIXGONM-Vb", sans-serif;
     text-decoration: none;
+    font-size: 20px;
+    color: #b6d5e1;
+    margin-top: 10px;
 }
 
 #base-right {
@@ -119,6 +127,10 @@ html, body {
 
 .nav-login a:hover {
     background-color: #454545;
+}
+
+.nav-profile {
+    margin-right: 10px;
 }
 
 /*=============================FOOTER=============================*/
