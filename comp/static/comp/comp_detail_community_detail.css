@@ -93,12 +93,32 @@
 
 .post-bottom p {
     box-sizing: border-box;
-    margin: 20px 0 0;
+    margin: 20px 0;
     font-family: S-CoreDream-3Light, sans-serif;
     font-size: 14px;
     line-height: 25px;
     text-align: justify;
     color: #333333;
+}
+
+.good {
+    padding-top: 10px;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.good div {
+    font-family: S-CoreDream-5Medium, sans-serif;
+    font-size: 13px;
+    color: #707070;
+    margin-left: 3px;
+}
+
+.good i {
+    color: #707070;
+    font-size: 14px;
 }
 
 
@@ -123,25 +143,6 @@
     color: #808080;
 }
 
-.comment-nav a {
-    text-decoration: none;
-    font-family: S-CoreDream-7ExtraBold, sans-serif;
-    font-size: 14px;
-    color: #e2eff1;
-}
-
-.create-comment {
-    width: 80px; height: 35px;
-    text-align: center;
-    line-height: 35px;
-    background-color: #333333;
-    border-radius: 3px;
-    transition-duration: 0.5s;
-}
-
-.create-comment:hover {
-    background-color: #101010;
-}
 
 /*---------------댓글 내용--------------*/
 
