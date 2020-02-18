@@ -1,24 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>유저 네임은 : {{ user.username }}</h1>
-<h2>유저 랭킹은 : {{ user.profile.rank }}</h2>
-<h3>유저 이미지는 </h3>
-<img src="{{ user.profile.image.url }}" alt="no image">
-<h4>금메달 수는?{{ user.profile.count_gold }}</h4>
-<h4>금메달 어디꺼? 그냥골드리스트{{ user.profile.gold_list }}</h4>
-<h4>금메달 겟 어디꺼? 겟골드리스트{{ user.profile.get_gold_list }}</h4>
-<h4>은메달 수는?{{ user.profile.count_silver }}</h4>
-<h4>동메달 수는?{{ user.profile.count_bronze }}</h4>
-<h3>
-즐겨찾기는?
-    {% for star in stars %}
-        {{ star.title }}
-    {% endfor %}
-</h3>
-</body>
-</html>
+{% extends 'comp/base.html' %}
+{% block main-content %}
+    {% if not user.profile.phone_number %}
+        <h1>프로필을등록해라!</h1>
+        <a href="{% url "profile_edit" %}">프로필등록!!!!!</a>
+    {% else %}
+        <h1>유저 네임은 : {{ user.username }}</h1>
+        <h2>유저 랭킹은 : {{ user.profile.rank }}</h2>
+        <h3>유저 이미지는 </h3>
+        <img src="{{ user.profile.image.url }}" alt="no image">
+        <h4>금메달 수는?{{ user.profile.count_gold }}</h4>
+        <h4>금메달 어디꺼? 그냥골드리스트{{ user.profile.gold_list }}</h4>
+        <h4>금메달 겟 어디꺼? 겟골드리스트{{ user.profile.get_gold_list }}</h4>
+        <h4>은메달 수는?{{ user.profile.count_silver }}</h4>
+        <h4>동메달 수는?{{ user.profile.count_bronze }}</h4>
+        <h3>
+            즐겨찾기는?
+            {% for star in stars %}
+                {{ star.title }}
+            {% endfor %}
+        </h3>
+        <h4>전화번호는? {{ user.profile.phone_number }}</h4>
+        <h4>속한 조직은? {{ user.profile.organization }}</h4>
+        <h4>프로필 수정하기?? <a href="{% url "profile_edit" %}">수정!!!</a></h4>
+    {% endif %}
+
+
+{% endblock %}
