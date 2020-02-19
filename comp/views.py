@@ -20,7 +20,7 @@ from comp.utils import *
 def comp_list(request):
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
-    star_list=[]
+    star_list = []
 
     if q:
         qs = Comp.objects.filter(title__icontains=q)
@@ -43,8 +43,6 @@ def comp_list(request):
         # if :
         #     star_list.append()
     print(comp_deadline_dict)
-
-
 
     ctx = {
         "comp_list": qs,
@@ -91,7 +89,7 @@ def comp_detail_overview_evaluation(request, pk):
 
     data = {
         "comp": comp,
-        "percent":percent,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
@@ -147,7 +145,7 @@ def comp_detail_community_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     qs = ComPost.objects.filter(comp=comp)
     q = request.GET.get("q", "")
-    post_likelist=[]
+    post_likelist = []
     if q:
         qs = qs.filter(title__icontains=q)
 
@@ -156,13 +154,13 @@ def comp_detail_community_list(request, pk):
         comment = ComComment.objects.filter(compost=compost)
         comment_dict[compost.id] = len(comment)
 
-        if compost.like.filter(id = request.user.id).exists():
+        if compost.like.filter(id=request.user.id).exists():
             post_likelist.append(compost.id)
 
     qs_number = len(qs)
 
     ctx = {
-        "post_likelist":post_likelist,
+        "post_likelist": post_likelist,
         "comp": comp,
         "compost_list": qs,
         "q": q,
@@ -172,39 +170,22 @@ def comp_detail_community_list(request, pk):
     return render(request, "comp/comp_detail_community_list.html", ctx)
 
 
-def progressbar(request, pk):
-    comp = get_object_or_404(Comp, pk=pk)
-    today = date.today()
-
-    created_date = comp.created_at
-    dead_date = comp.deadline
-    total = (dead_date - created_date).days
-    interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
-
-    context = {
-        'comp': comp,
-        'percent': percent
-    }
-    return render(request, 'comp/progressbar.html', context)
-
-
 def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 == post 번호
     comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.get(pk=pk2)
-    comment_likelist=[]
+    comment_likelist = []
 
     if compost.like.filter(id=request.user.id).exists():
-        is_liked=1
+        is_liked = 1
     else:
-        is_liked=0
+        is_liked = 0
 
     list = ComComment.objects.filter(compost=compost)
     comment_list = []
     commcomment_list = []
     for comment in list:
 
-        if comment.like.filter(id = request.user.id).exists():
+        if comment.like.filter(id=request.user.id).exists():
             comment_likelist.append(comment.id)
 
         if not comment.commcomment:
@@ -225,7 +206,7 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
-        "is_liked":is_liked,
+        "is_liked": is_liked,
         "comment_likelist": comment_likelist,
     }
     return render(request, "comp/comp_detail_community_detail.html", ctx)
@@ -387,7 +368,7 @@ def comp_ranking(request, pk):
 def comp_detail_code_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     codepost_list = CodePost.objects.filter(comp=comp)
-    post_likelist=[]
+    post_likelist = []
 
     q = request.GET.get("q", "")  # 검색
     if q:
@@ -417,15 +398,12 @@ def comp_detail_code_detail(request, pk, pk2):
     comp = Comp.objects.get(pk=pk)
     codepost = CodePost.objects.get(pk=pk2)
 
-    comment_likelist=[]
+    comment_likelist = []
 
     if codepost.like.filter(id=request.user.id).exists():
-        is_liked=1
+        is_liked = 1
     else:
-        is_liked=0
-
-
-
+        is_liked = 0
 
     list = CodeComment.objects.filter(codepost=codepost)
     comment_list = []
@@ -452,8 +430,8 @@ def comp_detail_code_detail(request, pk, pk2):
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
-        "is_liked":is_liked,
-        "comment_likelist":comment_likelist,
+        "is_liked": is_liked,
+        "comment_likelist": comment_likelist,
     }
     return render(request, "comp/comp_detail_code_detail.html", ctx)
 
@@ -674,7 +652,8 @@ def user_upload_csv(request, pk):
         return render(request, "comp/comp_csv_result.html", {
             'accuracy': accuracy,
             'user': request.user,
-            'answer_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by('created_at'),
+            'answer_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by(
+                'created_at'),
             'pk': pk
         })
 
@@ -693,47 +672,44 @@ def show_csv_result(request, pk):
 # + 그 후, 해당 유저의 메달 리스트에 추가
 
 
-def create_comp(request):
-    if request.method == 'POST':
-        fileform = FileFieldForm(request.POST, request.FILES)
-        compform = CompForm(request.POST, request.FILES)
-
-        if fileform.is_valid() and compform.is_valid():
-            files = request.FILES.getlist('file_field')
-
-            comp = compform.save
-            comp.user = request.user
-            comp.save
-
-            for f in files:
-                file = Comp_File()
-                file.file = f
-                file.comp = comp
-                file.save()
-            return HttpResponseRedirect('')
-    else:
-        fileform = FileFieldForm
-        compform = CompForm
-    return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
+# def create_comp(request):
+#     if request.method == 'POST':
+#         fileform = FileFieldForm(request.POST, request.FILES)
+#         compform = CompForm(request.POST, request.FILES)
+#
+#         if fileform.is_valid() and compform.is_valid():
+#             files = request.FILES.getlist('file_field')
+#
+#             comp = compform.save
+#             comp.user = request.user
+#             comp.save
+#
+#             for f in files:
+#                 file = Comp_File()
+#                 file.file = f
+#                 file.comp = comp
+#                 file.save()
+#             return HttpResponseRedirect('')
+#     else:
+#         fileform = FileFieldForm
+#         compform = CompForm
+#     return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
 
 
 @login_required
 @require_POST
 def like_upload(request):
-
     pk = request.POST.get('pk', None)
-    liketype=request.POST.get('liketype',None)
-    request.user#로그인여부확인
-    if liketype=='cop':
+    liketype = request.POST.get('liketype', None)
+    request.user  # 로그인여부확인
+    if liketype == 'cop':
         target = get_object_or_404(ComPost, pk=pk)
-    elif liketype=='coc':
+    elif liketype == 'coc':
         target = get_object_or_404(ComComment, pk=pk)
-    elif liketype=='cdp':
+    elif liketype == 'cdp':
         target = get_object_or_404(CodePost, pk=pk)
-    elif liketype=='cdc':
+    elif liketype == 'cdc':
         target = get_object_or_404(CodeComment, pk=pk)
-
-
 
     if target.like.filter(id=request.user.id).exists():
         target.like.remove(request.user)
