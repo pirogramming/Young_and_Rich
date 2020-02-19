@@ -1,23 +1,50 @@
 {% load i18n %}
+{% load static %}
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'core/signup.css' %}?">
+</head>
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<body>
 
-<div class="signup-wrap">
-    <div class="">
-        <div class="">
+<div class="login-wrap">
+    <div class="login-logo">
+        <div class="login-logo-top">
+            <div class="img"><img src="" alt=""></div>
+            <div class="login-name">데이타덕</div>
+        </div>
+        <div class="login-logo-bottom">
+            적당히 어쩌구 멋있는 말 주르륵 좌르륵
+        </div>
+    </div>
+
+    <div class="login-box">
+        <div class="login-title-wrap">
+            <div class="login-title">회원가입</div>
+        </div>
+
+        <div class="panel-body">
             <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
+
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                 {% endif %}
-                <button type="submit">{% trans "가입하기" %} &raquo;</button>
+
+                <div class="login-button-wrap">
+                    <input class="login-button" type="submit" value="회원가입">
+                </div>
             </form>
         </div>
     </div>
 </div>
 
+</body>
+</html>

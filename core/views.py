@@ -30,6 +30,7 @@ def sign_in(request):
     else:
         return render(request, 'account/login.html')
 
+
 @login_required
 def profile(request):
     stars = request.user.profile.star.all()
@@ -50,8 +51,6 @@ class ProfileUpdateView(UpdateView, LoginRequiredMixin):
 
     def get_object(self):
         return self.request.user.profile
-
-
 
 
 profile_edit = ProfileUpdateView.as_view()
