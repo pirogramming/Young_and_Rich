@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{% static 'main/main.css' %}?ver1">
+    <link rel="stylesheet" href="{% static 'main/main.css' %}?ver2">
     <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
 </head>
 
@@ -13,20 +13,22 @@
 <div id="main-main-banner">
     <div id="main-nav-wrap">
         <div id="main-nav">
-            <div id="main-left"></div>
+            <div id="main-left">
+                <div class="nav-title">데이타덕</div>
+            </div>
 
             <div id="main-right">
                 <div class="nav-list">
                     <div><a href="{% url 'comp:comp_list' %}">공모전</a></div>
                     <div><a href="">토론방</a></div>
                     <div><a href="">랭킹</a></div>
-                    <div><a href="{% url 'comp:explanation_page' %}">사용설명서</a></div>
+                    <div><a href="{% url 'main:main' %}">사용설명서</a></div>
                     <div><a href="">공지</a></div>
                 </div>
 
                 <div class="nav-login">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'profile' %}">프로필 보기</a>
+                        <a href="{% url 'profile' %}" class="nav-profile">프로필</a>
                         <a href="{% url 'account_logout' %}?next={{ request.path }}">로그아웃</a>
                     {% else %}
                         <a href="{% url 'sign_in' %}?next={{ request.path }}">로그인</a>
@@ -48,7 +50,7 @@
             <div id="main-buttons">
                 {% if user.is_authenticated %}
                     <a href="{% url 'profile' %}">
-                        <div class="button-login">프로필 보기</div>
+                        <div class="button-login">프로필</div>
                     </a>
                     <a href="{% url 'account_logout' %}?next={{ request.path }}">
                         <div class="button-signup">로그아웃</div>
@@ -103,7 +105,7 @@
             쉽게 시작하는 방법 블라블라 대충 뭐 이런 거다 설명<br/>
             두 줄은 돼야 할 듯 말은 나중에 머리 돌아갈 때 정할 거다 지금은 말고
         </div>
-        <a href="{% url 'comp:explanation_page' %}">
+        <a href="{% url 'main:main' %}">
             <div class="explanation-button">바로가기</div>
         </a>
         <div class="explanation-img"><img src="" alt=""></div>
