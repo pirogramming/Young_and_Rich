@@ -123,6 +123,7 @@ html, body {
     font-family: S-CoreDream-7ExtraBold, sans-serif;
     font-size: 14px;
     text-decoration: none;
+    transition-duration: 0.3s;
 }
 
 .nav-login a:hover {

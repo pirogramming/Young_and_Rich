@@ -76,6 +76,25 @@
 .data-download-title {
     font-family: S-CoreDream-5Medium, sans-serif;
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding-top: 10px;
+}
+
+.data-list-unit {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.data-list-unit:hover {
+    text-decoration: underline;
+}
+
+.data-list-unit i {
+    color: #333333;
+    margin-right: 5px;
 }

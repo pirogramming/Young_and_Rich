@@ -20,11 +20,12 @@ def comp_answer_upload_to(instance, filename):
     extension = os.path.splitext(filename)[-1].lower()
     return 'comp_{}/{}'.format(instance.id, str(instance.id) + '_answer_sheet' + extension)
 
+
 def date_percent(comp):
-    total = (comp.deadline- comp.created_at).days
+    total = (comp.deadline - comp.created_at).days
     interval = (date.today() - comp.created_at).days
-    if interval <= 0 or total <= 0:
-        percent=100
+    if interval < 0 or total <= 0:
+        percent = 100
     else:
         percent = round(interval / total, 2) * 100
     return percent

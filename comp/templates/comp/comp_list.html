@@ -115,12 +115,10 @@
 
     <div>
         {% for star in stars %}
-                <a href="{% url "comp:comp_overview" star.id %}">{{ star.title }}</a>
-            {% endfor %}
+            <a href="{% url "comp:comp_overview" star.id %}">{{ star.title }}</a>
+        {% endfor %}
     </div>
 <script>
-
-
     var percentValue = parseFloat(document.querySelector(".percent-value").innerText);
     var percentBar = document.querySelector(".list-bar");
     percentBar.style = `width : ${percentValue}%`;

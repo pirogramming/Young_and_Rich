@@ -3,7 +3,8 @@
 
 
 {% block extra-head %}
-    <link rel="stylesheet" href="{% static 'core/profile.css' %}?7">
+    <link rel="stylesheet" href="{% static 'core/profile.css' %}?9">
+    <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 
@@ -53,21 +54,26 @@
                 <div class="profile-right">
                     <div class="medal-wrap">
                         <div class="table-name">메달</div>
+                        <div class="table-name-sub">각 공모전에서 획득한 메달과 배지입니다</div>
                         <div class="medal-table">
                             <div class="medal-table-col">
                                 <div class="col-unit gold">
+                                    <i class="fas fa-medal"></i>
                                     <div class="col-text">금메달</div>
                                     <div class="col-num">1</div>
                                 </div>
                                 <div class="col-unit silver">
+                                    <i class="fas fa-medal"></i>
                                     <div class="col-text">은메달</div>
                                     <div class="col-num">2</div>
                                 </div>
                                 <div class="col-unit bronze">
+                                    <i class="fas fa-medal"></i>
                                     <div class="col-text">동메달</div>
                                     <div class="col-num">1</div>
                                 </div>
                                 <div class="col-unit badge">
+                                    <i class="fas fa-certificate"></i>
                                     <div class="col-text">배지</div>
                                     <div class="col-num">4</div>
                                 </div>
@@ -84,9 +90,11 @@
 
                     <div class="star-wrap">
                         <div class="table-name">공모전 즐겨찾기</div>
+
                         <div class="star-table">
                             {% for star in stars %}
                                 <div class="star-unit">
+                                    <i class="far fa-window-maximize"></i>
                                     <a href="{% url 'comp:comp_overview' star.pk %}">{{ star.title }}</a>
                                 </div>
                             {% endfor %}
