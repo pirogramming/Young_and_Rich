@@ -26,18 +26,14 @@ def sign_in(request):
             # request.user = user
             return redirect(request.POST.get('next') or 'profile')  # change to main page
         else:
-            return render(request, 'account/login.html', {'error': 'username or password is incorrect'})
+            return render(request, 'account/login.html', {'error': '비밀번호가 일치하지 않습니다'})
     else:
         return render(request, 'account/login.html')
 
 
 @login_required
 def profile(request):
-
     stars = Comp.objects.filter(star=request.user)
-
-
-
     data = {
         'stars': stars
     }

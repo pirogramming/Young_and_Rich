@@ -218,13 +218,20 @@
 }
 
 .medal-wrap {
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 .table-name {
     font-family: S-CoreDream-7ExtraBold, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: #333333;
+    margin-bottom: 5px;
+}
+
+.table-name-sub {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    color: #707070;
     margin-bottom: 5px;
 }
 
@@ -232,10 +239,12 @@
     height: 400px;
     border-radius: 3px;
     border: 1px solid #eeeeee;
+    box-shadow: 1px 1px 2px #eeeeee;
+
 }
 
 .medal-table-col {
-    height: 80px;
+    height: 85px;
     background-color: #fbfbfb;
     display: flex;
 }
@@ -252,7 +261,6 @@
 
 .col-text {
     font-family: S-CoreDream-7ExtraBold, sans-serif;
-    margin-bottom: 3px;
 }
 
 .col-num {
@@ -265,9 +273,21 @@
     border-right: 1px solid #eeeeee;
 }
 
+.gold i {
+    color: #feb72b;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
 .silver {
     color: #a2caec;
     border-right: 1px solid #eeeeee;
+}
+
+.silver i {
+    color: #a2caec;
+    font-size: 18px;
+    margin-bottom: 3px;
 }
 
 .bronze {
@@ -275,6 +295,53 @@
     border-right: 1px solid #eeeeee;
 }
 
+.bronze i {
+    color: #ee8572;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
 .badge {
     color: #333333;
+}
+
+.badge i {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+
+
+/*==============즐겨찾기=================*/
+
+.star-table {
+    height: 300px;
+    border-radius: 3px;
+    border: 1px solid #eeeeee;
+    box-shadow: 1px 1px 2px #eeeeee;
+    overflow-y: scroll;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+.star-unit {
+    display: flex;
+    align-items: center;
+}
+
+.star-unit i {
+    margin-right: 5px;
+    color: #333333;
+}
+
+.star-unit a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 14px;
+    font-family: S-CoreDream-4Regular, sans-serif;
+}
+
+.star-unit a:hover {
+    text-decoration: underline;
 }

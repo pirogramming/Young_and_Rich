@@ -21,21 +21,22 @@
             <div class="data-download">
                 <div class="data-unit">
                     <div class="data-download-title">파일 목록</div>
-                    <div>
-                    <ul>
+                    <div class="data-list">
                         {% for file in comp_filelist %}
-                            <li><a href="{{ file.file.url }}"download>{{ file.file }}</a></li>
+                            <a href="{{ file.file.url }}"download class="data-list-unit">
+                                <i class="fas fa-table"></i>
+                                <div>{{ file.file }}</div>
+                            </a>
                         {% endfor %}
-                    </ul>
                     </div>
                 </div>
                 <div class="data-unit">
                     <div class="data-download-title">파일 상세</div>
-                    <div>파일명, 크기, 데이터 개수 들어와야 함</div>
+                    <div></div>
                 </div>
                 <div class="data-unit">
                     <div class="data-download-title">컬럼</div>
-                    <div>컬럼명 주르륵</div>
+                    <div></div>
                 </div>
             </div>
         </div>
