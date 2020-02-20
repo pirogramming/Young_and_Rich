@@ -8,7 +8,7 @@ def count_user():
 
 
 def count_company():
-    return len(Profile.objects.filter(is_id=1))
+    return Company.objects.all().count()
 
 
 def count_competition():

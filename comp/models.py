@@ -55,6 +55,7 @@ class Comp(models.Model):
         if self.continue_complete == 0:  # 완료인 대회인지 판별
             if (date.today() - self.deadline).days >= 0:
                 self.continue_complete = 1
+                self.save()
 
 
 # 결투장 data file 업로드-----
@@ -123,3 +124,7 @@ class Answer(models.Model):
     accuracy = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to=user_answer_upload_to, null=True)
+
+    choice_list = ((0, 0), (1, 1))
+
+    is_selected = models.IntegerField(default=0, choices=choice_list)  # 0 == 미선택, 1 == 선택

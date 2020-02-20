@@ -355,7 +355,7 @@ def comp_detail_community_commcomment_delete(request, pk, pk2, pk3, pk4):
 
 def comp_ranking(request, pk):
     comp = Comp.objects.get(pk=pk)
-    answers = comp.answer.order_by('rank')
+    answers = comp.answer.filter(is_selected=1).order_by('-accuracy')
     context = {
         "answers": answers
     }
