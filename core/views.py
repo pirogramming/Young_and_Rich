@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
 from .forms import ProfileForm
-from .models import Profile, Comp
+from .models import Profile
 
 
 # Create your views here.
@@ -33,15 +33,22 @@ def sign_in(request):
 
 @login_required
 def profile(request):
-
-    stars = Comp.objects.filter(star=request.user)
-
-
+    stars = request.user.profile.star.all()
 
     data = {
         'stars': stars
     }
     return render(request, 'account/profile.html', data)
+
+
+def profile_view(request, username):
+    user = User.objects.get(username=username)
+    stars = user.profile.star.all()
+    data = {
+        'stars': stars,
+        'user': user
+    }
+    return render(request, 'account/profile_view.html', data)
 
 
 # LoginRequiredMixin : @login_required 의 클래스 기반 뷰 버전이다. 저걸 넣으면 @login_required 랑 같은 기능함.

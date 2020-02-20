@@ -605,8 +605,8 @@ def user_upload_csv(request, pk):
                 submit_problem_list.append(fields[0].rstrip('\r'))
                 submit_answer_list.append(fields[1].rstrip('\r'))
 
-            with open('answer_sheet.csv', 'r', encoding='UTF-8') as answer_sheet_file:
-                # 여기서 오픈할 파일 경로를 정해주면 돼여! 이건 기업이 제출한거에 따라 달렸지
+            with open(Comp.objects.get(pk=pk).comp_answer.url[1:], 'r', encoding='UTF-8') as answer_sheet_file:
+                # open 함수에 [1:] 넣은 이유는 저 url 은 /media/ 로 시작을 하는 반면, open으로 읽을 때에는 맨 앞의 / 를 인식하지 않아서!
                 readers = csv.reader(answer_sheet_file)
                 reader = list(readers)
                 answer_list = list(map(lambda x: x[1], reader))
