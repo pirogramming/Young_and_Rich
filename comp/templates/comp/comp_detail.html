@@ -3,11 +3,11 @@
 
 {# ===============CSS link======================#}
 {% block extra-head %}
-    <link rel="stylesheet" href="{% static 'comp/comp_detail.css' %}?34">
-    <link rel="stylesheet" href="{% static 'comp/comp_detail_overview.css' %}?34">
-    <link rel="stylesheet" href="{% static 'comp/comp_detail_data.css' %}?34">
-    <link rel="stylesheet" href="{% static 'comp/comp_detail_code_list.css' %}?37">
-    <link rel="stylesheet" href="{% static 'comp/comp_detail_community_detail.css' %}?39">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_overview.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_data.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_community_detail.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_code_list.css' %}?41">
 {% endblock %}
 
 
@@ -44,22 +44,20 @@
                         <i class="fas fa-calendar-week"></i>
                     </div>
                     <div class="comp-header-icon-text">{{ comp.deadline }} 마감</div>
-
-                    <div>
-                        {% if is_star %}
-                            <i class="fas fa-star", name="compstar-{{ comp.pk }}"></i>
-                        {% else %}
-                            <i class="far fa-star", name="compstar-{{ comp.pk }}"></i>
-                        {% endif %}
-
-                    </div>
-
                 </div>
             </div>
         </div>
 
         <div class="comp-header-right">
-            <a href="">
+            <div class="stars">
+                {% if is_star %}
+                    <i class="fas fa-star" name="compstar-{{ comp.pk }}"></i>
+                {% else %}
+                    <i class="far fa-star" name="compstar-{{ comp.pk }}"></i>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'comp:user_upload_csv' comp.pk %}">
                 <div class="comp-header-button">참여하기</div>
             </a>
         </div>

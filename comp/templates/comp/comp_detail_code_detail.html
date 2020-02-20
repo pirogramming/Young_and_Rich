@@ -46,7 +46,7 @@
         </div>
 
         <div class="good">
-            {% if codepost.id in like_list %}
+            {% if is_liked %}
                 <i class="fas fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
             {% else %}
                 <i class="far fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
@@ -64,9 +64,11 @@
         <div class="comment-nav">
             <div class="count_comment">총 {{ count_comment }}개의 댓글</div>
 
+            {%  if user.is_authenticated %}
             <a href="{% url 'comp:comp_code_comment_create' comp.pk codepost.pk %}" class="create-code">
                 <i class="fas fa-pen"></i>
             </a>
+            {% endif %}
         </div>
 
         <div class="comment">
@@ -93,9 +95,11 @@
                                     </form>
                                 {% endif %}
 
+                                {% if user.is_authenticated %}
                                 <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
                                     <div>답글쓰기</div>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
 

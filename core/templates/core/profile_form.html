@@ -1,10 +1,31 @@
 {% extends 'comp/base.html' %}
+{% load static %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'core/profile_form.css' %}?2">
+{% endblock %}
+
+
 {% block main-content %}
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit">
-</form>
+<div class="profile-form-wrap">
+    <div class="form-left">
+        <div class="logo">
+            <div class="logo-image"><img src="" alt=""></div>
+            <div>데이타덕</div>
+        </div>
+        <div class="logo-text">
+            프로필을 등록하고 데이타덕을 시작하세요
+        </div>
+    </div>
+
+    <div class="form-right">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="button-wrap">
+                <input type="submit" value="저장하기" class="save-button">
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

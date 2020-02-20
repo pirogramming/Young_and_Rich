@@ -78,13 +78,24 @@
 }
 
 
-/*============참여하기=================*/
+/*=================스크랩================*/
 
 .comp-header-right {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
 }
+
+.comp-header-right i {
+    color: #b6d5e1;
+    font-size: 18px;
+}
+
+
+
+
+/*============참여하기=================*/
 
 .comp-header-right a {
     text-decoration: none;

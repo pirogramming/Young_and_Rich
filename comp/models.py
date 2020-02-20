@@ -48,9 +48,8 @@ class Comp(models.Model):
     not_is_main = models.IntegerField(default=1, choices=choice_list)  # 0 == in class, 1 == main
     continue_complete = models.IntegerField(default=0, choices=choice_list)  # 0 == 대회 진행 중, 1 == 대회 완료
 
-
     def is_star(self, request):
-        if self.star.filter(id = request.user.id).exists():
+        if self.star.filter(id=request.user.id).exists():
             return 1
         else:
             return 0

@@ -18,6 +18,7 @@ def phone_number_validator(value):
         raise ValidationError('{}는 올바른 전화번호의 형식이 아닐세!'.format(value))
     '''
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to=user_profile_image_path, blank=True)
@@ -96,8 +97,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
-
-
 
 
 @receiver(post_save, sender=User)
