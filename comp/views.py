@@ -20,6 +20,7 @@ from comp.utils import *
 
 
 def comp_list(request):
+
     qs = Comp.objects.all()
     q = request.GET.get("q", "")
     star_list=[]
@@ -29,17 +30,10 @@ def comp_list(request):
 
     qs_number = len(qs)
 
-    today = date.today()
+
     comp_deadline_dict = {}
     for comp in qs:
-        created_date = comp.updated_at
-        dead_date = comp.deadline
-        total = (dead_date - created_date).days
-        interval = (today - created_date).days
-        try:
-            percent = round(interval / total, 2) * 100
-        except:
-            percent = 100
+        percent = date_percent(comp)
         comp_deadline_dict[comp.pk] = percent
 
         if comp.star.filter(id=request.user.id).exists():
@@ -61,16 +55,7 @@ def comp_list(request):
 
 def comp_detail_overview(request, pk):
     comp = Comp.objects.get(pk=pk)
-    today = date.today()
-
-    created_date = comp.created_at
-    dead_date = comp.deadline
-    total = (dead_date - created_date).days
-    interval = (today - created_date).days
-    try:
-        percent = round(interval / total, 2) * 100
-    except:
-        percent = 100
+    percent = date_percent(comp)
     data = {
         "comp": comp,
         "percent": percent,
@@ -81,17 +66,7 @@ def comp_detail_overview(request, pk):
 
 def comp_detail_overview_evaluation(request, pk):
     comp = Comp.objects.get(pk=pk)
-    today = date.today()
-
-    created_date = comp.created_at
-    dead_date = comp.deadline
-    total = (dead_date - created_date).days
-    interval = (today - created_date).days
-    try:
-        percent = round(interval / total, 2) * 100
-    except:
-        percent = 100
-    print(percent)
+    percent = date_percent(comp)
 
     data = {
         "comp": comp,
@@ -103,14 +78,8 @@ def comp_detail_overview_evaluation(request, pk):
 
 def comp_detail_overview_timeline(request, pk):
     comp = Comp.objects.get(pk=pk)
-    today = date.today()
+    percent = date_percent(comp)
 
-    created_date = comp.created_at
-    dead_date = comp.deadline
-    total = (dead_date - created_date).days
-    interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
-    print(percent)
 
     data = {
         "comp": comp,
@@ -122,14 +91,8 @@ def comp_detail_overview_timeline(request, pk):
 
 def comp_detail_overview_prizes(request, pk):
     comp = Comp.objects.get(pk=pk)
-    today = date.today()
+    percent= date_percent(comp)
 
-    created_date = comp.created_at
-    dead_date = comp.deadline
-    total = (dead_date - created_date).days
-    interval = (today - created_date).days
-    percent = round(interval / total, 2) * 100
-    print(percent)
 
     data = {
         "comp": comp,
@@ -141,9 +104,11 @@ def comp_detail_overview_prizes(request, pk):
 
 def comp_detail_data(request, pk):
     comp = Comp.objects.get(pk=pk)
+    comp_filelist=Comp_File.objects.filter(comp=comp)
     ctx = {
         "comp": comp,
         "is_star": comp.is_star(request),
+        "comp_filelist":comp_filelist,
     }
     return render(request, "comp/comp_detail_data.html", ctx)
 
@@ -774,7 +739,6 @@ def like_upload(request):
     return JsonResponse(ctx)
 
 
-@login_required
 @require_POST
 def star_upload(request):
     print('r')

@@ -112,7 +112,7 @@
     </div>
 </div>
 
-<div id="main-number">
+<div id="main-number" class="teaser">
     <div class="number-unit number-user">
         <div class="number">432</div> <!--view에서 넘겨줘라-->
         <div class="number-text">회원</div>
@@ -194,4 +194,25 @@
     </div>
 </div>
 </body>
+<script>
+    var isVisible = false;
+
+$(window).on('scroll',function() {
+    if (checkVisible($('#tester'))&&!isVisible) {
+        alert("Visible!!!");
+        isVisible=true;
+    }
+});
+
+function checkVisible( elm, eval ) {
+    eval = eval || "object visible";
+    var viewportHeight = $(window).height(), // Viewport Height
+        scrolltop = $(window).scrollTop(), // Scroll Top
+        y = $(elm).offset().top,
+        elementHeight = $(elm).height();
+
+    if (eval == "object visible") return ((y < (viewportHeight + scrolltop)) && (y > (scrolltop - elementHeight)));
+    if (eval == "above") return ((y < (viewportHeight + scrolltop)));
+}
+</script>
 </html>

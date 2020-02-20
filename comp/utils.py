@@ -1,4 +1,5 @@
 import os
+from datetime import date
 from uuid import uuid4
 from comp.models import *
 
@@ -14,4 +15,11 @@ def user_answer_upload_to(instance, filename):
     extension = os.path.splitext(filename)[-1].lower()  # 확장자 추출하고, 소문자로 변환
     return 'user_{}/{}/{}'.format(instance.user.id, filename, uuid_name[:2] + extension)
 
-
+def date_percent(comp):
+    total = (comp.deadline- comp.created_at).days
+    interval = (date.today() - comp.created_at).days
+    if interval <= 0 or total <= 0:
+        percent=100
+    else:
+        percent = round(interval / total, 2) * 100
+    return percent

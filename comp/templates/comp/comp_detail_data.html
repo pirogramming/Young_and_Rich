@@ -21,7 +21,13 @@
             <div class="data-download">
                 <div class="data-unit">
                     <div class="data-download-title">파일 목록</div>
-                    <div>여기 파일 들어와야 함</div>
+                    <div>
+                    <ul>
+                        {% for file in comp_filelist %}
+                            <li><a href="{{ file.file.url }}"download>{{ file.file }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    </div>
                 </div>
                 <div class="data-unit">
                     <div class="data-download-title">파일 상세</div>

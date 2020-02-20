@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
 from .forms import ProfileForm
-from .models import Profile
+from .models import Profile, Comp
 
 
 # Create your views here.
@@ -32,7 +32,10 @@ def sign_in(request):
 
 @login_required
 def profile(request):
-    stars = request.user.profile.star.all()
+
+    stars = Comp.objects.filter(star=request.user)
+
+
 
     data = {
         'stars': stars
