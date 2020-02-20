@@ -106,7 +106,7 @@
                         <div class="comment-text">{{ comment.context|linebreaks }}</div>
 
                         <div class="good">
-                            {% if comment.id in like_list %}
+                            {% if comment.id in comment_likelist %}
                                 <i class="fas fa-thumbs-up like" name="cdc-like-{{ comment.id }}"></i>
                             {% else %}
                                 <i class="far fa-thumbs-up like" name="cdc-like-{{ comment.id }}"></i>
@@ -143,7 +143,7 @@
                                         <div class="comment-text">{{ commcomment.context }}</div>
 
                                         <div class="good">
-                                            {% if commcomment.id in commcomment_likelist %}
+                                            {% if commcomment.id in comment_likelist %}
                                                 <i class="fas fa-thumbs-up like" name="cdc-like-{{ commcomment.id }}"></i>
                                             {% else %}
                                                 <i class="far fa-thumbs-up like" name="cdc-like-{{ commcomment.id }}"></i>

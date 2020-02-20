@@ -420,6 +420,7 @@ def comp_detail_code_detail(request, pk, pk2):
         "is_liked": is_liked,
         "comment_likelist": comment_likelist,
         "is_star": comp.is_star(request),
+
     }
     return render(request, "comp/comp_detail_code_detail.html", ctx)
 
