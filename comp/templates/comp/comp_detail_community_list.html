@@ -33,13 +33,13 @@
             {% if post.comp == comp %}
                 <div class="code-unit">
                     <div class="code-unit-left">
-                        <div class="code-img">{{ post.user.profile_set.image }}</div>
+                        <div class="code-img"><a href="{% url 'profile_view' post.user %}">{{ post.user.profile_set.image }}</a></div>
                         <div class="code-text">
                             <div class="code-title">
                                 <a href="{% url 'comp:comp_community_detail' comp.pk post.pk %}">{{ post.title }}</a>
                             </div>
                             <div class="code-sub">
-                                <div>{{ post.user }}</div>
+                                <div><a href="{% url 'profile_view' post.user %}">{{ post.user }}</a></div>
                                 <div>|</div>
                                 <div>{{ post.updated_at }}</div>
                                 <div>|</div>

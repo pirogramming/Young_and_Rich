@@ -13,7 +13,12 @@ def user_answer_upload_to(instance, filename):
     # 유저가 올린 답안은은 MEDIA/user_<id>/<파일명> 에 저장될거야. 유저가 올린 파일명을 랜덤으로 바꿔서!
     uuid_name = uuid4().hex
     extension = os.path.splitext(filename)[-1].lower()  # 확장자 추출하고, 소문자로 변환
-    return 'user_{}/{}/{}'.format(instance.user.id, filename, uuid_name[:2] + extension)
+    return 'comp_{}/user_{}/{}'.format(instance.comp, instance.user, uuid_name[:2] + filename)
+
+def comp_answer_upload_to(instance, filename):
+    # 대회의 정답은 MEDIA/comp_<대회명>/<파일명> 에 저장될거야. 유저가 올린 파일명을 랜덤으로 바꿔서!
+    extension = os.path.splitext(filename)[-1].lower()
+    return 'comp_{}/{}'.format(instance.id, str(instance.id) + '_answer_sheet' + extension)
 
 def date_percent(comp):
     total = (comp.deadline- comp.created_at).days

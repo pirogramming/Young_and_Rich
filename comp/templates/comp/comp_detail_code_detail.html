@@ -19,8 +19,8 @@
             <div class="post-top-left">
                 <div class="post-title">{{ codepost.title }}</div>
                 <div class="post-sub">
-                    <div class="post-user-profile">{{ codepost.user.profile_set.image.url }}</div>
-                    <div>{{ codepost.user }}</div>
+                    <div class="post-user-profile"><a href="{% url 'profile_view' codepost.user %}">{{ codepost.user.profile_set.image.url }}</a></div>
+                    <div><a href="{% url 'profile_view' codepost.user %}">{{ codepost.user }}</a></div>
                     <div>|</div>
                     <div>{{ codepost.updated_at }}</div>
                     <div>|</div>
@@ -74,12 +74,12 @@
         <div class="comment">
             {% for comment in comment_list %}
                 <div class="comment-unit">
-                    <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}" alt=""></div>
+                    <div class="comment-profile"><a href="{% url 'profile_view' comment.user %}"><img src="{{ comment.user.profile_set.image.url }}" alt=""></a></div>
 
                     <div class="comment-main">
                         <div class="comment-unit-nav">
                             <div class="comment-unit-nav-left">
-                                <div class="comment-user">{{ comment.user }}</div>
+                                <div class="comment-user"><a href="{% url 'profile_view' comment.user %}">{{ comment.user }}</a></div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
                             </div>
@@ -122,12 +122,12 @@
                         {% for commcomment in commcomment_list  %}
                             {% if commcomment.commcomment == comment %}
                                 <div class="commcomment-wrap">
-                                    <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}" alt=""></div>
+                                    <div class="comment-profile"><a href="{% url 'profile_view' comment.user %}"><img src="{{ comment.user.profile_set.image.url }}" alt=""></a></div>
 
                                     <div class="commcomment-main">
                                         <div class="post-top-right">
                                             <div class="comment-unit-nav-left">
-                                                <div class="comment-user">{{ commcomment.user }}</div>
+                                                <div class="comment-user"><a href="{% url 'profile_view' commcomment.user %}"></a>{{ commcomment.user }}</div>
                                                 <div>|</div>
                                                 <div>{{ commcomment.created_at }}</div>
                                             </div>

@@ -11,7 +11,7 @@ from datetime import date
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from comp.utils import user_answer_upload_to
+from comp.utils import user_answer_upload_to, comp_answer_upload_to
 
 
 class Company(models.Model):
@@ -29,7 +29,7 @@ class Comp(models.Model):
     profile_thumb = models.ImageField(null=True, blank=True)
     back_thumb = models.ImageField(null=True, blank=True)
     prize = models.IntegerField()
-    comp_answer = models.FileField()
+    comp_answer = models.FileField(blank=True, upload_to=comp_answer_upload_to)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
