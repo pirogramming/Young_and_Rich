@@ -38,6 +38,9 @@
                     <a href="{% url 'sign_in' %}?next={{ request.path }}">로그인</a>
                 {% endif %}
             </div>
+            <div class="nav-login">
+                <a href="">로그인</a>
+            </div>
         </div>
     </div>
 </div>
@@ -110,11 +113,11 @@
 
 
 <script>
-  //좋아요 손가락
-//fas: on  far:off
-    $('i.fa-thumbs-up').click(function(){
-  $(this).toggleClass("fas").toggleClass("far")
-})
+    //좋아요 손가락
+    //fas: on  far:off
+    $('i.fa-thumbs-up').click(function () {
+        $(this).toggleClass("fas").toggleClass("far")
+    })
 
 
   $('i.like').click(function(){
@@ -128,15 +131,44 @@
       data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}', 'liketype':liketype},
       dataType: "json",
 
-      success: function(response){
-        $("#"+liketype+"-likecount-"+pk).html(response.like);
-      },
+
+            error: function (request, status, error) { // 통신 실패시 - 로그인 페이지 리다이렉트
+                window.location.replace("/accounts/login/")
+                //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            },
+        })
+    })
+
+    //댓글
+    $('button.write').click(function () {
+        var context = $(this).prev().val();
+        var compost_pk = {{ compost.id }};
+        var comcomment_pk = $(this).prev().attr('name').substr(14);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'comp:comment_create_ajax' %}",
+            data: {
+                'context': context,
+                'compost_pk': compost_pk,
+                'comcomment_pk': comcomment_pk,
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            datatype: "json",
+
+            success: function (response) {
+                {#$("#damin").load(window.location.href);#}
+                location.reload()
+
+            },
 
 
-      error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
-        window.location.replace("/accounts/login/")
-          //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-          },
+            error: function (request, status, error) { // 통신 실패시
+                alert('댓글 작성에 실패하셨습니다');
+
+            },
+
+
+        })
     })
   })
 
@@ -159,6 +191,13 @@
         $(this).toggleClass("fas").toggleClass("far")
   })
 
+
+    $('a.reply').click(function () {
+        var starbucks = "#comcomment-wrap-" + $(this).attr('name').substr(6)
+        $(starbucks).toggleClass('comcomment_wrap_off')
+
+
+    })
 </script>
 
 </html>

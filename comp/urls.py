@@ -25,6 +25,8 @@ urlpatterns = [
 
     path("<int:pk>/community/<int:pk2>/create/", views.comp_detail_community_comment_create,
          name="comp_community_comment_create"),
+    path("community/ajax/", views.comment_create_ajax,
+         name="comment_create_ajax"),
     path("<int:pk>/community/<int:pk2>/<int:pk3>/update/", views.comp_detail_community_comment_update,
          name="comp_community_comment_update"),
     path("<int:pk>/community/<int:pk2>/<int:pk3>/delete/", views.comp_detail_community_comment_delete,

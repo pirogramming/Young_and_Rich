@@ -4,7 +4,6 @@
 /*}*/
 
 
-
 /*========================CSS=========================*/
 
 .post-wrap {
@@ -37,7 +36,8 @@
 }
 
 .post-user-profile {
-    width: 18px; height: 18px;
+    width: 18px;
+    height: 18px;
     border-radius: 2px;
     background-color: #707070;
 }
@@ -61,7 +61,8 @@
     font-family: S-CoreDream-5Medium, sans-serif;
     font-size: 14px;
 
-    width: 50px; height: 30px;
+    width: 50px;
+    height: 30px;
     margin-left: 5px;
     padding: 0;
     background-color: white;
@@ -136,7 +137,6 @@
 }
 
 
-
 /*===============================댓글============================*/
 
 
@@ -168,7 +168,8 @@
 }
 
 .comment-profile {
-    width: 50px; height: 50px;
+    width: 50px;
+    height: 50px;
     border-radius: 3px;
     background-color: #707070;
 }
@@ -234,3 +235,19 @@
     background-color: #fdfdfd;
 }
 
+
+
+.comcomment_wrap_off {
+    display: none;
+}
+
+.comcomment_text {
+    width: 1020px;
+    height: 84px;
+    margin-left: 64px;
+}
+
+.write {
+    display: flex;
+    margin-left: 1050px;
+}

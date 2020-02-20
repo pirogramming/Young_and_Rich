@@ -1,4 +1,5 @@
 import csv
+import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -734,3 +735,19 @@ def star_upload(request):
         target.star.add(request.user)
 
     return JsonResponse({})
+
+def comment_create_ajax(request):
+    compost_pk = request.POST.get('compost_pk', None)
+    comcomment_pk = request.POST.get('comcomment_pk', None)
+
+    newcomcomment = ComComment()
+    newcomcomment.compost = ComPost.objects.get(pk=compost_pk)
+    newcomcomment.commcomment = ComComment.objects.get(pk=comcomment_pk)
+    newcomcomment.user = request.user
+    newcomcomment.context = request.POST.get('context')
+    newcomcomment.save()
+
+    ctx = {
+        'context': newcomcomment.context,
+    }
+    return JsonResponse(ctx)
