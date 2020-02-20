@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 from .views import progressbar
 
-
 # from .utils import progressbar
 
 app_name = 'comp'
@@ -28,6 +27,8 @@ urlpatterns = [
 
     path("<int:pk>/community/<int:pk2>/create/", views.comp_detail_community_comment_create,
          name="comp_community_comment_create"),
+    path("community/ajax/", views.comment_create_ajax,
+         name="comment_create_ajax"),
     path("<int:pk>/community/<int:pk2>/<int:pk3>/update/", views.comp_detail_community_comment_update,
          name="comp_community_comment_update"),
     path("<int:pk>/community/<int:pk2>/<int:pk3>/delete/", views.comp_detail_community_comment_delete,
@@ -60,7 +61,6 @@ urlpatterns = [
 
     # rank
     path("<int:pk>/ranking/", views.comp_ranking, name="comp_ranking"),
-
 
     path("<int:pk>/submit/", views.user_upload_csv, name="user_upload_csv"),
     path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),

@@ -1,8 +1,9 @@
 import csv
+import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
@@ -40,8 +41,6 @@ def comp_list(request):
 
         comp_deadline_dict[comp.pk] = percent
     print(comp_deadline_dict)
-
-
 
     ctx = {
         "comp_list": qs,
@@ -88,7 +87,7 @@ def comp_detail_overview_evaluation(request, pk):
 
     data = {
         "comp": comp,
-        "percent":percent,
+        "percent": percent,
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
 
@@ -144,7 +143,7 @@ def comp_detail_community_list(request, pk):
     comp = Comp.objects.get(pk=pk)
     qs = ComPost.objects.filter(comp=comp)
     q = request.GET.get("q", "")
-    post_likelist=[]
+    post_likelist = []
     if q:
         qs = qs.filter(title__icontains=q)
 
@@ -153,13 +152,13 @@ def comp_detail_community_list(request, pk):
         comment = ComComment.objects.filter(compost=compost)
         comment_dict[compost.id] = len(comment)
 
-        if compost.like.filter(id = request.user.id).exists():
+        if compost.like.filter(id=request.user.id).exists():
             post_likelist.append(compost.id)
 
     qs_number = len(qs)
 
     ctx = {
-        "post_likelist":post_likelist,
+        "post_likelist": post_likelist,
         "comp": comp,
         "compost_list": qs,
         "q": q,
@@ -189,19 +188,19 @@ def progressbar(request, pk):
 def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 == post 번호
     comp = Comp.objects.get(pk=pk)
     compost = ComPost.objects.get(pk=pk2)
-    comment_likelist=[]
+    comment_likelist = []
 
     if compost.like.filter(id=request.user.id).exists():
-        is_liked=1
+        is_liked = 1
     else:
-        is_liked=0
+        is_liked = 0
 
     list = ComComment.objects.filter(compost=compost)
     comment_list = []
     commcomment_list = []
     for comment in list:
 
-        if comment.like.filter(id = request.user.id).exists():
+        if comment.like.filter(id=request.user.id).exists():
             comment_likelist.append(comment.id)
 
         if not comment.commcomment:
@@ -222,7 +221,7 @@ def comp_detail_community_detail(request, pk, pk2):  # pk == comp 번호, pk2 ==
         "commcomment_list": commcomment_list,
         "count_comment": count_comment,
         "is_post_user": is_post_user,
-        "is_liked":is_liked,
+        "is_liked": is_liked,
         "comment_likelist": comment_likelist,
     }
     return render(request, "comp/comp_detail_community_detail.html", ctx)
@@ -651,7 +650,8 @@ def user_upload_csv(request, pk):
         return render(request, "comp/comp_csv_result.html", {
             'accuracy': accuracy,
             'user': request.user,
-            'answer_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by('created_at'),
+            'answer_list': Answer.objects.filter(user=request.user, comp=Comp.objects.get(pk=pk)).order_by(
+                'created_at'),
             'pk': pk
         })
 
@@ -697,20 +697,17 @@ def create_comp(request):
 @login_required
 @require_POST
 def like_upload(request):
-
     pk = request.POST.get('pk', None)
-    liketype=request.POST.get('liketype',None)
-    request.user#로그인여부확인
-    if liketype=='cop':
+    liketype = request.POST.get('liketype', None)
+    request.user  # 로그인여부확인
+    if liketype == 'cop':
         target = get_object_or_404(ComPost, pk=pk)
-    elif liketype=='coc':
+    elif liketype == 'coc':
         target = get_object_or_404(ComComment, pk=pk)
-    elif liketype=='cdp':
+    elif liketype == 'cdp':
         target = get_object_or_404(CodePost, pk=pk)
-    elif liketype=='cdc':
+    elif liketype == 'cdc':
         target = get_object_or_404(CodeComment, pk=pk)
-
-
 
     if target.like.filter(id=request.user.id).exists():
         target.like.remove(request.user)
@@ -722,4 +719,21 @@ def like_upload(request):
         'like': target.like.count(),
     }
 
+    return JsonResponse(ctx)
+
+
+def comment_create_ajax(request):
+    compost_pk = request.POST.get('compost_pk', None)
+    comcomment_pk = request.POST.get('comcomment_pk', None)
+
+    newcomcomment = ComComment()
+    newcomcomment.compost = ComPost.objects.get(pk=compost_pk)
+    newcomcomment.commcomment = ComComment.objects.get(pk=comcomment_pk)
+    newcomcomment.user = request.user
+    newcomcomment.context = request.POST.get('context')
+    newcomcomment.save()
+
+    ctx = {
+        'context': newcomcomment.context,
+    }
     return JsonResponse(ctx)

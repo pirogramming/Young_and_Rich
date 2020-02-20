@@ -29,15 +29,15 @@
             </div>
 
             <div class="post-top-right">
-            {% if is_post_user == 0 %}
-                <form action="{% url 'comp:comp_community_post_update' comp.pk compost.pk %}">
-                    <input class="post-update" value="수정" type="submit">
-                </form>
-                <form action="{% url 'comp:comp_community_post_delete' comp.pk compost.pk %}" method="post">
-                    {% csrf_token %}
-                    <input class="post-delete" value="삭제" type="submit">
-                </form>
-            {% endif %}
+                {% if is_post_user == 0 %}
+                    <form action="{% url 'comp:comp_community_post_update' comp.pk compost.pk %}">
+                        <input class="post-update" value="수정" type="submit">
+                    </form>
+                    <form action="{% url 'comp:comp_community_post_delete' comp.pk compost.pk %}" method="post">
+                        {% csrf_token %}
+                        <input class="post-delete" value="삭제" type="submit">
+                    </form>
+                {% endif %}
             </div>
         </div>
 
@@ -56,7 +56,7 @@
     </div>
 
 
-{#================여기부터 코멘트====================#}
+    {#================여기부터 코멘트====================#}
 
     <div class="comment-wrap">
         <div class="comment-nav">
@@ -67,7 +67,7 @@
             </a>
         </div>
 
-        <div class="comment">
+        <div id="damin" class="comment">
             {% for comment in comment_list %}
                 <div class="comment-unit">
                     <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}" alt=""></div>
@@ -78,15 +78,19 @@
                                 <div class="comment-user">{{ comment.user }}</div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
+                                <div id="comcomment-wrap-{{ comment.id }}" class="comcomment_wrap_off">
+                                    <input type="text" name="input_comment-{{ comment.id }}" placeholder="댓글 입력">
+                                    <button class="write">작성</button>
+                                </div>
                             </div>
 
                             <div class="comment-unit-nav-right">
-                                <a href="{% url 'comp:comp_community_commcomment_create' comp.pk compost.pk comment.pk %}">
+                                <a class="reply" name="reply-{{ comment.id }}">
                                     <div>답글쓰기</div>
                                 </a>
                             </div>
                             <div>
-                                <span id="coc-likecount-{{ comment.id }}">{{comment.like.count }}</span>
+                                <span id="coc-likecount-{{ comment.id }}">{{ comment.like.count }}</span>
                                 {% if comment.id in comment_likelist %}
                                     <i class="fas fa-thumbs-up like" name="coc-like-{{ comment.id }}"></i>
                                 {% else %}
@@ -103,15 +107,16 @@
                             {% else %}
                                 <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
                             {% endif %}
-                            <div id="cop-likecount-{{ comment.id }}">추천 {{comment.like.count }}개</div>
+                            <div id="cop-likecount-{{ comment.id }}">추천 {{ comment.like.count }}개</div>
                         </div>
 
                         {#------------여기부터 답글---------------#}
 
-                        {% for commcomment in commcomment_list  %}
+                        {% for commcomment in commcomment_list %}
                             {% if commcomment.commcomment == comment %}
                                 <div class="commcomment-wrap">
-                                    <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}" alt=""></div>
+                                    <div class="comment-profile"><img src="{{ comment.user.profile_set.image.url }}"
+                                                                      alt=""></div>
 
                                     <div class="commcomment-main">
                                         <div class="comment-unit-nav-left">
@@ -122,12 +127,12 @@
 
                                         <div class="comment-text">{{ commcomment.context }}</div>
                                         <div>
-                                        <span id="cop-likecount-{{ comment.id }}">{{comment.like.count }}</span>
-                                        {% if comment.id in comment_likelist %}
-                                            <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                                        {% else %}
-                                            <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
-                                        {% endif %}
+                                            <span id="cop-likecount-{{ comment.id }}">{{ comment.like.count }}</span>
+                                            {% if comment.id in comment_likelist %}
+                                                <i class="fas fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                            {% else %}
+                                                <i class="far fa-thumbs-up like" name="cop-like-{{ comment.id }}"></i>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -138,4 +143,5 @@
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}
