@@ -145,22 +145,29 @@ html, body {
     box-shadow: none;
     border-radius: 0;
     height: 25px;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+
 }
 
 .form-group input:active {
     box-shadow: none;
 }
 
+.form-group p {
+    margin-top: 30px;
+}
+
 
 /*------------로그인 버튼--------------*/
 
-.login-button-wrap {
+.signup-button-wrap {
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
 }
 
-.login-button {
+.signup-button {
     border: none;
     border-radius: 100px;
     background-color: #e2eff1;
@@ -170,113 +177,7 @@ html, body {
     transition-duration: 0.3s;
 }
 
-.login-button:hover {
+.signup-button:hover {
     background-color: #d7e8eb;
 }
 
-
-/*-------------OR----------------*/
-
-.login-or {
-    margin: 20px 0;
-    display: flex;
-}
-
-.line {
-    width: 190px;
-    height: 10px;
-    border-bottom: 1px solid #dddddd;
-}
-
-.or {
-    width: 30px;
-    height: 20px;
-    font-family: S-CoreDream-3Light, sans-serif;
-    font-size: 12px;
-    color: #dddddd;
-    text-align: center;
-}
-
-
-
-/*-----------------소셜로그인--------------------*/
-
-.social-unit {
-    font-family: S-CoreDream-7ExtraBold, sans-serif;
-    font-size: 13px;
-}
-
-.social-unit div {
-    height: 40px;
-    margin-bottom: 10px;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 100px;
-    transition-duration: 0.3s;
-}
-
-.google, .kakao {
-    color: #333333;
-}
-
-.google:hover, .kakao:hover {
-    color: #333333;
-    text-decoration: none;
-}
-
-.google div {
-    background-color: #f7f7f7;
-}
-
-.google:hover div {
-    background-color: #eeeeee;
-}
-
-.kakao div {
-    background-color: #fbe300;
-}
-
-.kakao:hover div {
-    background-color: #eed700;
-}
-
-.naver {
-    color: white;
-}
-
-.naver:hover {
-    color: white;
-    text-decoration: none;
-}
-
-.naver div {
-    background-color: #00c73c;
-}
-
-.naver:hover div {
-    background-color: #00ab33;
-}
-
-
-/*------------------비밀번호 잊음?--------------------*/
-
-.login-forgot {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.login-forgot div {
-    margin-top: 3px;
-    color: #707070;
-}
-
-.login-forgot a {
-    font-family: S-CoreDream-3Light, sans-serif;
-    font-size: 12px;
-    color: #707070;
-}
-
-.login-forgot a:hover {
-    color: #333333;
-}

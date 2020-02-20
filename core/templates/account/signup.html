@@ -8,7 +8,7 @@
     <title>Title</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="{% static 'core/signup.css' %}?">
+    <link rel="stylesheet" href="{% static 'core/signup.css' %}?4">
 </head>
 
 <body>
@@ -30,16 +30,18 @@
         </div>
 
         <div class="panel-body">
-            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            <form id="signup_form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
 
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                 {% endif %}
 
-                <div class="login-button-wrap">
-                    <input class="login-button" type="submit" value="회원가입">
+                <div class="signup-button-wrap">
+                    <input class="signup-button" type="submit" value="회원가입">
                 </div>
             </form>
         </div>

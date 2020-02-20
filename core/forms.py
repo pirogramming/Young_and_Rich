@@ -20,33 +20,31 @@ class MyCustomSignupForm(SignupForm):
     def __init__(self, *args, **kwargs):
         super(MyCustomSignupForm, self).__init__(*args, **kwargs)
         self.label_suffix = ""
-        self.fields['username'].label = 'ㅇㅇ'
         self.fields['username'].widget.attrs.update({
             'class': 'form-control input-lg',
-            'placeholder': '아이디',
+            'placeholder': ''
         })
+        self.fields['email'].label = "이메일 (선택)"
         self.fields['email'].widget.attrs.update({
             'class': 'form-control input-lg',
-            'placeholder': '이메일'
+            'placeholder': ''
         })
         self.fields['password1'].widget.attrs.update({
             'class': 'form-control input-lg',
-            'placeholder': '비밀번호'
+            'placeholder': ''
         })
-
+        self.fields['password2'].label = "비밀번호 확인"
         self.fields['password2'].widget.attrs.update({
             'class': 'form-control input-lg',
-            'placeholder': '비밀번호 확인'
+            'placeholder': ''
         })
         self.fields['last_name'] = forms.CharField(max_length=20, label='성', widget=forms.TextInput(
             attrs={
                 'class': 'form-control input-lg',
-                'placeholder': '성'
             }))
-        self.fields['first_name'] = forms.CharField(max_length=20, widget=forms.TextInput(
+        self.fields['first_name'] = forms.CharField(max_length=20, label='이름', widget=forms.TextInput(
             attrs={
                 'class': 'form-control input-lg',
-                'placeholder': '이름'
             }))
     # 만약에 user 모델에서 뭔가 추가되어서 새로 폼에서 받으려면 이 아래에 추가하면 된다.
     # 지금은 그냥 기본으로 존재하는 first_name, last_name 밖에 없어서 이렇게 함.

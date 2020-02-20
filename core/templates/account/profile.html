@@ -1,28 +1,90 @@
 {% extends 'comp/base.html' %}
-{% block main-content %}
-    {% if not user.profile.phone_number %}
-        <h1>프로필을등록해라!</h1>
-        <a href="{% url "profile_edit" %}">프로필등록!!!!!</a>
-    {% else %}
-        <h1>유저 네임은 : {{ user.username }}</h1>
-        <h2>유저 랭킹은 : {{ user.profile.rank }}</h2>
-        <h3>유저 이미지는 </h3>
-        <img src="{{ user.profile.image.url }}" alt="no image">
-        <h4>금메달 수는?{{ user.profile.count_gold }}</h4>
-        <h4>금메달 어디꺼? 그냥골드리스트{{ user.profile.gold_list }}</h4>
-        <h4>금메달 겟 어디꺼? 겟골드리스트{{ user.profile.get_gold_list }}</h4>
-        <h4>은메달 수는?{{ user.profile.count_silver }}</h4>
-        <h4>동메달 수는?{{ user.profile.count_bronze }}</h4>
-        <h3>
-            즐겨찾기는?
-            {% for star in stars %}
-                {{ star.title }}
-            {% endfor %}
-        </h3>
-        <h4>전화번호는? {{ user.profile.phone_number }}</h4>
-        <h4>속한 조직은? {{ user.profile.organization }}</h4>
-        <h4>프로필 수정하기?? <a href="{% url "profile_edit" %}">수정!!!</a></h4>
-    {% endif %}
+{% load static %}
 
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'core/profile.css' %}?1">
+{% endblock %}
+
+
+{% block main-content %}
+    <div class="profile-wrap">
+        {% if not user.profile.phone_number %}
+            <div class="edit">프로필을 등록하고 데이타덕을 시작하세요</div>
+            <a href="{% url "profile_edit" %}" class="edit-button"><div>프로필 등록</div></a>
+
+        {% else %}
+            <div class="profile-left">
+                <div class="profile-img">
+                    <img src="{{ user.profile.image.url }}" alt="">
+                </div>
+
+                <div class="user-name-wrap">
+                    <div class="user-name">{{ user.username }}</div>
+                    <div class="ranking-wrap">
+                        <div>{{ user.profile.rank }}</div>
+                        <div>전체 랭킹</div>
+                    </div>
+                </div>
+
+                <div class="profile-text-wrap">
+                    <div class="text-unit">
+                        <i class="far fa-envelope"></i>
+                        <div>{{ user.profile.email }}</div>
+                    </div>
+                    <div class="text-unit">
+                        <i class="far fa-building"></i>
+                        <div>{{ user.profile.organization }}</div>
+                    </div>
+                </div>
+
+                <a href="{% url "profile_edit" %}"><div>프로필 수정</div></a>
+            </div>
+
+            <div class="profile-right">
+                <div class="medal-wrap">
+                    <div class="medal">메달</div>
+                    <div class="medal-table">
+                        <div class="medal-table-col">
+                            <div class="col-unit">
+                                <div>금메달</div>
+                                <div></div>
+                            </div>
+                            <div class="col-unit">
+                                <div>은메달</div>
+                                <div></div>
+                            </div>
+                            <div class="col-unit">
+                                <div>동메달</div>
+                                <div></div>
+                            </div>
+                            <div class="col-unit">
+                                <div>배지</div>
+                                <div></div>
+                            </div>
+                        </div>
+
+                        <div class="medal-table-content">
+                            <div class="content-unit"></div>
+                            <div class="content-unit"></div>
+                            <div class="content-unit"></div>
+                            <div class="content-unit"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="star-wrap">
+                    <div>공모전 즐겨찾기</div>
+                    <div class="star-table">
+                        {% for star in stars %}
+                            <div class="star-unit">
+                                <a href="{% url 'comp:comp_overview' star.pk %}">{{ star.title }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}
