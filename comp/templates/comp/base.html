@@ -150,7 +150,7 @@
       dataType: "json",
 
       error: function(request){ // 통신 실패시 - 로그인 페이지 리다이렉트
-        window.location.replace("/accounts/login/")
+        window.location.replace("{% url 'sign_in' %}?next={{ request.path }}")
           },
     })
         $(this).toggleClass("fas").toggleClass("far")

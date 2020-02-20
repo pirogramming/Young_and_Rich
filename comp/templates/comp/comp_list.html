@@ -114,6 +114,12 @@
         {% endfor %}
     </div>
 
+
+    <div>
+        {% for star in stars %}
+                <a href="{% url "comp:comp_overview" star.id %}">{{ star.title }}</a>
+            {% endfor %}
+    </div>
 <script>
 
 

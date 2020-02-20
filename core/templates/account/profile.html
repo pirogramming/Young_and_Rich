@@ -13,10 +13,9 @@
         <h4>금메달 겟 어디꺼? 겟골드리스트{{ user.profile.get_gold_list }}</h4>
         <h4>은메달 수는?{{ user.profile.count_silver }}</h4>
         <h4>동메달 수는?{{ user.profile.count_bronze }}</h4>
-        <h3>
-            즐겨찾기는?
+        <h3>즐겨찾기는?</h3>
             {% for star in stars %}
-                {{ star.title }}
+                <a href="{% url "comp:comp_overview" star.id %}">{{ star.title }}</a>
             {% endfor %}
         </h3>
         <h4>전화번호는? {{ user.profile.phone_number }}</h4>
