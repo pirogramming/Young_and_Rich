@@ -1,9 +1,6 @@
 from django.urls import path
 from . import views
-from .views import progressbar
 
-
-# from .utils import progressbar
 
 app_name = 'comp'
 
@@ -64,9 +61,8 @@ urlpatterns = [
 
     path("<int:pk>/submit/", views.user_upload_csv, name="user_upload_csv"),
     path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
-    path('<int:pk>/progressbar/', progressbar, name='progressbar'),
     path('like_upload/', views.like_upload, name="uploadlike"),
     path('star_upload/', views.star_upload, name="uploadstar"),
 
-    path('createcomp/', views.create_comp, name="create_comp"),
+    # path('createcomp/', views.create_comp, name="create_comp"),
 ]
