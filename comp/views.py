@@ -19,6 +19,8 @@ from comp.utils import *
 
 def comp_list(request):
     qs = Comp.objects.all()
+    qs_continue = Comp.objects.filter(continue_complete=0)
+    qs_complete = Comp.objects.filter(continue_complete=1)
     q = request.GET.get("q", "")
     star_list = []
 
@@ -46,6 +48,8 @@ def comp_list(request):
 
     ctx = {
         "comp_list": qs,
+        "continue_comp_list": qs_continue,
+        "complete_comp_list": qs_complete,
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
