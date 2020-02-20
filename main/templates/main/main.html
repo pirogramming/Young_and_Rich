@@ -7,6 +7,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'main/main.css' %}?ver2">
     <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -100,7 +101,7 @@
 
 <div id="main-explanation">
     <div id="explanation-text">
-        <div class="explanation-title">데이타덕 사용설명서</div>
+        <div class="explanation-title numbers_up">데이타덕 사용설명서</div>
         <div class="explanation-context">
             쉽게 시작하는 방법 블라블라 대충 뭐 이런 거다 설명<br/>
             두 줄은 돼야 할 듯 말은 나중에 머리 돌아갈 때 정할 거다 지금은 말고
@@ -112,25 +113,25 @@
     </div>
 </div>
 
-<div id="main-number" class="teaser">
+<div id="main-number" class="">
     <div class="number-unit number-user">
-        <div class="number">432</div> <!--view에서 넘겨줘라-->
+        <div class="number" id="count_user">432</div> <!--view에서 넘겨줘라-->
         <div class="number-text">회원</div>
     </div>
     <div class="number-unit number-corp">
-        <div class="number">28</div> <!--view에서 넘겨줘라-->
+        <div class="number" id="count_corp">28</div> <!--view에서 넘겨줘라-->
         <div class="number-text">기업</div>
     </div>
     <div class="number-unit number-data">
-        <div class="number">72</div> <!--view에서 넘겨줘라-->
+        <div class="number" id="count_data">72</div> <!--view에서 넘겨줘라-->
         <div class="number-text">데이터</div>
     </div>
     <div class="number-unit number-code">
-        <div class="number">1,493</div> <!--view에서 넘겨줘라-->
+        <div class="number" id="count_code">1,493</div> <!--view에서 넘겨줘라-->
         <div class="number-text">코드</div>
     </div>
     <div class="number-unit number-prize">
-        <div class="number">94,120</div> <!--view에서 넘겨줘라-->
+        <div class="number" id="count_prize">94,120</div> <!--view에서 넘겨줘라-->
         <div class="number-text">상금</div>
     </div>
 </div>
@@ -194,25 +195,64 @@
     </div>
 </div>
 </body>
-<script>
-    var isVisible = false;
 
-$(window).on('scroll',function() {
-    if (checkVisible($('#tester'))&&!isVisible) {
-        alert("Visible!!!");
-        isVisible=true;
+<script>
+
+
+
+
+function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
+
+
+
+function count_up_number(target_frame, target_number) {
+
+    {#this.target_frame = document.getElementById(target_frame);#}
+    var memberCountConTxt = target_number;
+    var target = '#' + target_frame;
+
+
+    $({val: 0}).animate({val: memberCountConTxt}, {
+        duration: 1000,
+        step: function () {
+            var num = numberWithCommas(Math.floor(this.val));
+            $(target).text(num);
+        },
+        complete: function () {
+            var num = numberWithCommas(Math.floor(this.val));
+            $(target).text(num);
+        }
+    });
     }
-});
 
 function checkVisible( elm, eval ) {
     eval = eval || "object visible";
     var viewportHeight = $(window).height(), // Viewport Height
         scrolltop = $(window).scrollTop(), // Scroll Top
-        y = $(elm).offset().top,
+        y = $(elm).offset().top;
         elementHeight = $(elm).height();
 
     if (eval == "object visible") return ((y < (viewportHeight + scrolltop)) && (y > (scrolltop - elementHeight)));
     if (eval == "above") return ((y < (viewportHeight + scrolltop)));
 }
+
+
+var isVisible = false;
+
+$(window).on('scroll',function() {
+    if (checkVisible($('#main-number'))&&!isVisible) {
+        count_up_number('count_user', 1300)
+        count_up_number('count_corp', 22400)
+        count_up_number('count_data', 500)
+        count_up_number('count_code', 1600)
+        count_up_number('count_prize', 222700)
+        isVisible=true;
+    }
+});
+
+
+
+
 </script>
 </html>
