@@ -47,6 +47,7 @@
                         <input class="form-control" name="password" type="password"/>
                     </div>
 
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
                     <div class="login-button-wrap">
                         <input class="login-button" type="submit" value="로그인">
                     </div>
