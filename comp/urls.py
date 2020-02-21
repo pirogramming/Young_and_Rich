@@ -64,6 +64,7 @@ urlpatterns = [
     path("<int:pk>/answerlist/", views.show_csv_result, name="show_csv_result"),
     path('like_upload/', views.like_upload, name="uploadlike"),
     path('star_upload/', views.star_upload, name="uploadstar"),
+    path('answer_checkbox_upload/', views.answer_checkbox_upload, name="upload_answercheckbox")
 
     # path('createcomp/', views.create_comp, name="create_comp"),
 ]

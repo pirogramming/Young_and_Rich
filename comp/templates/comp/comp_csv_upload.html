@@ -1,35 +1,60 @@
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% extends 'comp/base.html' %}
+{% load static %}
 
-<form action="{% url 'comp:user_upload_csv' pk %}" method="POST" enctype="multipart/form-data"
-      class="form-horizontal">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
-        <div class="col-md-8">
-            <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+
+{% block extra-head %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'comp/comp_csv_upload.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="form-wrap">
+        <div class="form-text-wrap">
+            <div class="form-logo">
+                <div class="logo"><img src="" alt=""></div>
+                <div class="logo-text">데이타덕</div>
+            </div>
+            <div class="form-text">
+                제출할 답안 파일을 업로드하세요
+            </div>
         </div>
+
+        <form action="{% url 'comp:user_upload_csv' pk %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-small-text">
+                <i class="fas fa-folder-open"></i>
+                <div class="small-text">파일 업로드</div>
+            </div>
+
+            <div class="file-upload-form">
+                <input type="file" name="csv_file" id="csv_file" required="True">
+            </div>
+
+            <div class="form-group">
+                <button class="form-button">제출하기</button>
+            </div>
+        </form>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
-    <div class="form-group">
-        <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
-            <button class="btn btn-primary"><span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload
-            </button>
-        </div>
-    </div>
-</form>
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+
+{% endblock %}
