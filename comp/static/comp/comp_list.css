@@ -116,6 +116,34 @@
     color: #808080;
 }
 
+.comp-code-nav {
+    width: 1200px;
+    margin: 15px auto 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comp-code-nav form {
+    width: 210px; height: 30px;
+    border: 1px solid #eeeeee;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+}
+
+.comp-code-nav .text {
+    width: 170px; height: 25px;
+    padding-left: 10px;
+    border: none;
+}
+
+.comp-code-nav button {
+    background-color: white;
+    border: none;
+    color: #333333;
+    font-size: 16px;
+}
+
 
 /*==============COMP-LIST==============*/
 
@@ -219,6 +247,7 @@
     font-family: S-CoreDream-7ExtraBold, sans-serif;
     color: #333333;
     font-size: 16px;
+    transition-duration: 0.3s;
 }
 
 .comp-unit-button:hover {

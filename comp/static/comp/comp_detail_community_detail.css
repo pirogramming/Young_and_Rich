@@ -177,7 +177,7 @@
 .comment-main {
     background-color: #f7f7f7;
     width: 1130px;
-    padding: 20px;
+    padding: 20px 30px;
     box-sizing: border-box;
 }
 
@@ -229,12 +229,18 @@
 }
 
 .commcomment-main {
-    width: 1020px;
+    width: 1000px;
     padding: 20px;
     box-sizing: border-box;
     background-color: #fdfdfd;
 }
 
+/*------------답글쓰기 클릭--------------*/
+
+
+.reply div {
+    margin-top: 10px;
+}
 
 
 .comcomment_wrap_off {
@@ -242,12 +248,12 @@
 }
 
 .comcomment_text {
-    width: 1020px;
-    height: 84px;
+    width: 1000px;
+    height: 100px;
     margin-left: 64px;
 }
 
 .write {
     display: flex;
-    margin-left: 1050px;
+    margin-left: 1040px;
 }
