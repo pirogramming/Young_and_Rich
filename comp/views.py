@@ -18,10 +18,7 @@ from comp.utils import *
 # comp code 추가시 comp.team_number +1
 
 
-
-
 def comp_list(request):
-
     qs = Comp.objects.all()
     qs_continue = Comp.objects.filter(continue_complete=0)
     qs_complete = Comp.objects.filter(continue_complete=1)
@@ -32,7 +29,6 @@ def comp_list(request):
         qs = Comp.objects.filter(title__icontains=q)
 
     qs_number = len(qs)
-
 
     comp_deadline_dict = {}
     for comp in qs:
@@ -49,7 +45,7 @@ def comp_list(request):
         "q": q,
         "comp_number": qs_number,
         "comp_deadline_dict": comp_deadline_dict,
-        "star_list":star_list
+        "star_list": star_list
 
     }
     return render(request, "comp/comp_list.html", ctx)
@@ -72,7 +68,7 @@ def comp_detail_overview_evaluation(request, pk):
 
     data = {
         "comp": comp,
-        "percent":percent,
+        "percent": percent,
         "is_star": comp.is_star(request),
     }
     return render(request, "comp/comp_detail_overview_evaluation.html", data)
@@ -81,7 +77,6 @@ def comp_detail_overview_evaluation(request, pk):
 def comp_detail_overview_timeline(request, pk):
     comp = Comp.objects.get(pk=pk)
     percent = date_percent(comp)
-
 
     data = {
         "comp": comp,
@@ -93,8 +88,7 @@ def comp_detail_overview_timeline(request, pk):
 
 def comp_detail_overview_prizes(request, pk):
     comp = Comp.objects.get(pk=pk)
-    percent= date_percent(comp)
-
+    percent = date_percent(comp)
 
     data = {
         "comp": comp,
@@ -106,11 +100,11 @@ def comp_detail_overview_prizes(request, pk):
 
 def comp_detail_data(request, pk):
     comp = Comp.objects.get(pk=pk)
-    comp_filelist=Comp_File.objects.filter(comp=comp)
+    comp_filelist = Comp_File.objects.filter(comp=comp)
     ctx = {
         "comp": comp,
         "is_star": comp.is_star(request),
-        "comp_filelist":comp_filelist,
+        "comp_filelist": comp_filelist,
     }
     return render(request, "comp/comp_detail_data.html", ctx)
 
@@ -430,7 +424,7 @@ def comp_detail_code_detail(request, pk, pk2):
 
 
 def comp_detail_code_post_create(request, pk):
-    comp=Comp.objects.get(pk=pk)
+    comp = Comp.objects.get(pk=pk)
     if request.method == "POST":
         form = CodePostForm(request.POST)
         if form.is_valid():
@@ -692,7 +686,6 @@ def show_csv_result(request, pk):
 #     return render(request, 'comp/create_comp.html', {'fileform': fileform, 'compform': compform})
 
 
-@login_required
 @require_POST
 def like_upload(request):
     pk = request.POST.get('pk', None)
@@ -724,7 +717,7 @@ def like_upload(request):
 def star_upload(request):
     print('r')
 
-    request.user # 로그인확인
+    request.user  # 로그인확인
     pk = request.POST.get('pk', None)
 
     target = get_object_or_404(Comp, pk=pk)
@@ -735,6 +728,7 @@ def star_upload(request):
         target.star.add(request.user)
 
     return JsonResponse({})
+
 
 def comment_create_ajax(request):
     compost_pk = request.POST.get('compost_pk', None)
