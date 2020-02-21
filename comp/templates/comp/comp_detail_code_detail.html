@@ -19,7 +19,9 @@
             <div class="post-top-left">
                 <div class="post-title">{{ codepost.title }}</div>
                 <div class="post-sub">
-                    <div class="post-user-profile"><a href="{% url 'profile_view' codepost.user %}">{{ codepost.user.profile_set.image.url }}</a></div>
+                    <div class="post-user-profile"><a
+                            href="{% url 'profile_view' codepost.user %}">{{ codepost.user.profile_set.image.url }}</a>
+                    </div>
                     <div><a href="{% url 'profile_view' codepost.user %}">{{ codepost.user }}</a></div>
                     <div>|</div>
                     <div>{{ codepost.updated_at }}</div>
@@ -29,15 +31,15 @@
             </div>
 
             <div class="post-top-right">
-            {% if is_post_user == 0 %}
-                <form action="{% url 'comp:comp_code_update' comp.pk codepost.pk %}">
-                    <input class="post-update" value="수정" type="submit">
-                </form>
-                <form action="{% url 'comp:comp_code_delete' comp.pk codepost.pk %}" method="post">
-                    {% csrf_token %}
-                    <input class="post-delete" value="삭제" type="submit">
-                </form>
-            {% endif %}
+                {% if is_post_user == 0 %}
+                    <form action="{% url 'comp:comp_code_update' comp.pk codepost.pk %}">
+                        <input class="post-update" value="수정" type="submit">
+                    </form>
+                    <form action="{% url 'comp:comp_code_delete' comp.pk codepost.pk %}" method="post">
+                        {% csrf_token %}
+                        <input class="post-delete" value="삭제" type="submit">
+                    </form>
+                {% endif %}
             </div>
         </div>
 
@@ -58,28 +60,30 @@
     </div>
 
 
-{#================여기부터 코멘트====================#}
+    {#================여기부터 코멘트====================#}
 
     <div class="comment-wrap">
         <div class="comment-nav">
             <div class="count_comment">총 {{ count_comment }}개의 댓글</div>
 
-            {%  if user.is_authenticated %}
-            <a href="{% url 'comp:comp_code_comment_create' comp.pk codepost.pk %}" class="create-code">
-                <i class="fas fa-pen"></i>
-            </a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'comp:comp_code_comment_create' comp.pk codepost.pk %}" class="create-code">
+                    <i class="fas fa-pen"></i>
+                </a>
             {% endif %}
         </div>
 
         <div class="comment">
             {% for comment in comment_list %}
                 <div class="comment-unit">
-                    <div class="comment-profile"><a href="{% url 'profile_view' comment.user %}"><img src="{{ comment.user.profile_set.image.url }}" alt=""></a></div>
+                    <div class="comment-profile"><a href="{% url 'profile_view' comment.user %}"><img
+                            src="{{ comment.user.profile_set.image.url }}" alt=""></a></div>
 
                     <div class="comment-main">
                         <div class="comment-unit-nav">
                             <div class="comment-unit-nav-left">
-                                <div class="comment-user"><a href="{% url 'profile_view' comment.user %}">{{ comment.user }}</a></div>
+                                <div class="comment-user"><a
+                                        href="{% url 'profile_view' comment.user %}">{{ comment.user }}</a></div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
                             </div>
@@ -89,16 +93,17 @@
                                     <form action="{% url 'comp:comp_code_comment_update' comp.pk codepost.pk comment.pk %}">
                                         <input class="post-update" value="수정" type="submit">
                                     </form>
-                                    <form action="{% url 'comp:comp_code_comment_delete' comp.pk codepost.pk comment.pk %}" method="post">
+                                    <form action="{% url 'comp:comp_code_comment_delete' comp.pk codepost.pk comment.pk %}"
+                                          method="post">
                                         {% csrf_token %}
                                         <input class="post-delete" value="삭제" type="submit">
                                     </form>
                                 {% endif %}
 
                                 {% if user.is_authenticated %}
-                                <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
-                                    <div>답글쓰기</div>
-                                </a>
+                                    <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
+                                        <div>답글쓰기</div>
+                                    </a>
                                 {% endif %}
                             </div>
                         </div>
@@ -119,21 +124,25 @@
 
                         {#------------여기부터 답글---------------#}
 
-                        {% for commcomment in commcomment_list  %}
+                        {% for commcomment in commcomment_list %}
                             {% if commcomment.commcomment == comment %}
                                 <div class="commcomment-wrap">
-                                    <div class="comment-profile"><a href="{% url 'profile_view' comment.user %}"><img src="{{ comment.user.profile_set.image.url }}" alt=""></a></div>
+                                    <div class="comment-profile"><a href="{% url 'profile_view' comment.user %}"><img
+                                            src="{{ comment.user.profile_set.image.url }}" alt=""></a></div>
 
                                     <div class="commcomment-main">
                                         <div class="post-top-right">
                                             <div class="comment-unit-nav-left">
-                                                <div class="comment-user"><a href="{% url 'profile_view' commcomment.user %}"></a>{{ commcomment.user }}</div>
+                                                <div class="comment-user"><a
+                                                        href="{% url 'profile_view' commcomment.user %}"></a>{{ commcomment.user }}
+                                                </div>
                                                 <div>|</div>
                                                 <div>{{ commcomment.created_at }}</div>
                                             </div>
 
                                             {% if is_post_user == 0 %}
-                                                <form action="{% url 'comp:comp_code_commcomment_delete' comp.pk codepost.pk comment.pk commcomment.pk %}" method="post">
+                                                <form action="{% url 'comp:comp_code_commcomment_delete' comp.pk codepost.pk comment.pk commcomment.pk %}"
+                                                      method="post">
                                                     {% csrf_token %}
                                                     <input class="post-delete" value="삭제" type="submit">
                                                 </form>
@@ -144,9 +153,11 @@
 
                                         <div class="good">
                                             {% if commcomment.id in comment_likelist %}
-                                                <i class="fas fa-thumbs-up like" name="cdc-like-{{ commcomment.id }}"></i>
+                                                <i class="fas fa-thumbs-up like"
+                                                   name="cdc-like-{{ commcomment.id }}"></i>
                                             {% else %}
-                                                <i class="far fa-thumbs-up like" name="cdc-like-{{ commcomment.id }}"></i>
+                                                <i class="far fa-thumbs-up like"
+                                                   name="cdc-like-{{ commcomment.id }}"></i>
                                             {% endif %}
                                             <div>추천</div>
                                             <div id="cdc-likecount-{{ commcomment.id }}">{{ commcomment.like.count }}</div>
@@ -156,9 +167,60 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
+                        <div class="comment-unit-nav" style="margin: 10px;">
+                            <div class="comment-unit-nav-left"></div>
+                            <div class="comment-unit-nav-right">
+                                {% if user.is_authenticated %}
+                                    <a class="reply" name="reply-{{ comment.id }}" style="cursor: pointer;">
+                                        <div>답글쓰기</div>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div id="comcomment-wrap-{{ comment.id }}" class="comcomment_wrap_off">
+                            <input type="text" class="comcomment_text" name="input_comment-{{ comment.id }}"
+                                   placeholder="댓글 입력">
+                            <button class="write">작성</button>
+                        </div>
+
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+
+    <script>
+        $('button.write').click(function () {
+            var context = $(this).prev().val();
+            var codepost_pk = {{ codepost.id }};
+            var codecomment_pk = $(this).prev().attr('name').substr(14);
+            if (context !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'comp:codecomment_create_ajax' %}",
+                    data: {
+                        'context': context,
+                        'codepost_pk': codepost_pk,
+                        'codecomment_pk': codecomment_pk,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    datatype: "json",
+
+                    success: function (response) {
+                        {#$("#damin").load(window.location.href);#}
+                        location.reload();
+
+                    },
+
+                    error: function (request, status, error) { // 통신 실패시
+                        alert('댓글 작성에 실패하셨습니다');
+
+                    },
+                })
+            } else {
+                alert('내용을 입력해주세요');
+            }
+        })
+    </script>
 {% endblock %}

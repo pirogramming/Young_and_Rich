@@ -745,3 +745,20 @@ def comment_create_ajax(request):
         'context': newcomcomment.context,
     }
     return JsonResponse(ctx)
+
+
+def codecomment_create_ajax(request):
+    codepost_pk = request.POST.get('codepost_pk', None)
+    codecomment_pk = request.POST.get('codecomment_pk', None)
+
+    newcodecomment = CodeComment()
+    newcodecomment.codepost = CodePost.objects.get(pk=codepost_pk)
+    newcodecomment.commcomment = CodeComment.objects.get(pk=codecomment_pk)
+    newcodecomment.user = request.user
+    newcodecomment.context = request.POST.get('context')
+    newcodecomment.save()
+
+    ctx = {
+        'context': newcodecomment.context,
+    }
+    return JsonResponse(ctx)
