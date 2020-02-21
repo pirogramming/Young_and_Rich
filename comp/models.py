@@ -1,4 +1,5 @@
 import json
+import operator
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -46,7 +47,7 @@ class Comp(models.Model):
     choice_list = ((0, 0), (1, 1))
 
     not_is_main = models.IntegerField(default=1, choices=choice_list)  # 0 == in class, 1 == main
-    continue_complete = models.IntegerField(default=0, choices=choice_list)  # 0 == 대회 진행 중, 1 == 대회 완료
+    continue_complete = models.IntegerField(default=-1)  # -1 == 대회 진행 중, 0 <= 대회 완료 (대회 완료 시, 참가자 수)
 
     def is_star(self, request):
         if self.star.filter(id=request.user.id).exists():
@@ -58,10 +59,25 @@ class Comp(models.Model):
         return self.title
 
     def update_continue_complete(self):
-        if self.continue_complete == 0:  # 완료인 대회인지 판별
-            if (date.today() - self.deadline).days >= 0:
-                self.continue_complete = 1
-                self.save()
+        if self.continue_complete == -1:  # 완료인 대회인지 판별
+            if (date.today() - self.deadline).days > 0:
+                ordered_answer = self.answer.filter(is_selected=1).order_by('user_id', '-accuracy')
+                answerdict = dict()
+                try:
+                    order_user_id = ordered_answer[0].user_id
+                    answerdict[order_user_id] = ordered_answer[0].accuracy
+                except IndexError:
+                    pass
+                else:
+                    for i in range(ordered_answer.count() - 1):
+                        if ordered_answer[i].user_id != ordered_answer[i + 1].user_id:
+                            answerdict[ordered_answer[i + 1].user_id] = ordered_answer[i + 1].accuracy
+                    self.continue_complete = len(answerdict)
+                    sorted_answerdict = sorted(answerdict.items(), key=operator.itemgetter(1))
+                    self.save()
+
+            for item in sorted_answerdict:
+                User.objects.get(id=item[0]).profile.append_comp_rank(self.id, sorted_answerdict.index(item) + 1)
 
 
 # 결투장 data file 업로드-----
@@ -133,4 +149,4 @@ class Answer(models.Model):
 
     choice_list = ((0, 0), (1, 1))
 
-    is_selected = models.IntegerField(default=0, choices=choice_list)  # 0 == 미선택, 1 == 선택
+    is_selected = models.IntegerField(default=1, choices=choice_list)  # 0 == 미선택, 1 == 선택

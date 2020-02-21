@@ -745,3 +745,46 @@ def comment_create_ajax(request):
         'context': newcomcomment.context,
     }
     return JsonResponse(ctx)
+
+
+@require_POST
+def answer_checkbox_upload(request):
+    request.user
+
+    pk=request.POST.get('pk',None)
+    print(pk)
+    target = get_object_or_404(Answer, pk=pk)
+
+    if target.is_selected == 1:
+        target.is_selected = 0
+    else:
+        target.is_selected = 1
+    target.save()
+    return JsonResponse({'is_selected': target.is_selected})
+
+
+def comp_ranking(request, pk):
+    comp = Comp.objects.get(pk=pk)
+    answer_lst = comp.answer.filter(is_selected=1).order_by('user_id', '-accuracy')
+    answerdict = dict()
+    sorted_answerdict = dict()
+    try:
+        answerdict[answer_lst[0].user_id] = answer_lst[0].accuracy
+    except IndexError:
+        pass
+
+    else:
+        for i in range(answer_lst.count() - 1):
+            if answer_lst[i].user_id != answer_lst[i + 1].user_id:
+                answerdict[answer_lst[i + 1].user_id] = answer_lst[i + 1].accuracy
+        sorted_answerlst = sorted(answerdict.items(), key=operator.itemgetter(1))
+
+        for j in sorted_answerlst:
+            sorted_answerdict[j[0]] = j[1]
+
+    context = {
+        "answers": sorted_answerdict,
+        "is_star": comp.is_star(request),
+        "comp": comp,
+    }
+    return render(request, 'comp/comp_ranking.html', context)

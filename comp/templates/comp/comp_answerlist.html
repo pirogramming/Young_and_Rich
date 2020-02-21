@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'comp/base.html' %}
 
-{% for answer in answer_list %}
-    <div>
-        {{answer.file}}
-    </div>
-    <div>
-    {{ answer.create_at }}
-    {{ answer.accuracy }}
-    </div>
-{% endfor %}
+{% block content %}
 
-</body>
-</html>
+    {% for answer in answer_list %}
+        <div>
+            {{answer.file}}
+        </div>
+        <div>
+        {{ answer.create_at }}
+        {{ answer.accuracy }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

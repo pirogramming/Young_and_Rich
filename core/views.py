@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
 from .forms import ProfileForm
-from .models import Profile
+from .models import Profile, Comp
 
 
 # Create your views here.
