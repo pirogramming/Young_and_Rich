@@ -12,13 +12,13 @@ class ComPostForm(forms.ModelForm):
     title = forms.CharField(label='제목', widget=forms.TextInput(
         attrs={
             'class': 'form-control input-lg',
-            'placeholder': '제목 여기!'
+            'placeholder': ''
         }))
 
     context = forms.CharField(label='내용', widget=forms.Textarea(
         attrs={
             'class': 'form-control input-lg',
-            'placeholder': '내용 여기!'
+            'placeholder': ''
         }))
 
 

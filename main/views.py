@@ -8,9 +8,9 @@ def main(request):
 
 
 def notice_list(request):
-    notice_list= Notice.objects.all()
-    ctx={
-        'notice_list':notice_list,
+    notice_list = Notice.objects.all()
+    ctx = {
+        'notice_list': notice_list,
     }
     return render(request,'main/notice_list.html',ctx)
 

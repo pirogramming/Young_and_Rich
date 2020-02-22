@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'S-CoreDream-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-8Heavy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-7ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-4Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*========================*/
+
+#compost-form {
+    width: 1200px;
+    margin: 60px auto;
+}
+
+#compost-form p {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#compost-form label {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    color: #333333;
+    margin-right: 10px;
+}
+
+#id_title {
+    width: 500px;
+    height: 30px;
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
+}
+
+#id_context, #id_context_code {
+    width: 500px;
+    height: 200px;
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
+}
+
+.button {
+    width: 120px;
+    height: 40px;
+    background-color: #e2eff1;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+    border-radius: 100px;
+    border: none;
+    font-size: 16px;
+}

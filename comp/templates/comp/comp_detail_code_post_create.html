@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'comp/base.html' %}
+{% load static %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_code_post_create.css' %}">
+{% endblock %}
+
+
+{% block content %}
     <div id="compost-form">
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">저장</button>
+            <button type="submit" class="button">저장</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
