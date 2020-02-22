@@ -102,6 +102,7 @@
 .post-delete {
     border: 1px solid #df7861;
     color: #df7861;
+    background-color: #fdfdfd;
 }
 
 .post-delete:hover {
@@ -266,9 +267,30 @@
     width: 1000px;
     height: 100px;
     margin-left: 64px;
+    border: 0;
 }
 
 .write {
-    display: flex;
-    margin-left: 1040px;
+    margin-left: 1010px;
+    font-family: S-CoreDream-5Medium, sans-serif;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border: 1px solid white;
+    width: 50px;
+    height: 30px;
+    border-radius: 3px;
+    line-height: 30px;
+    transition-duration: 0.3s;
+    margin-top: 10px;
+
+}
+
+.write:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+input::placeholder {
+    color: black;
+    font-size: 15px;
 }
