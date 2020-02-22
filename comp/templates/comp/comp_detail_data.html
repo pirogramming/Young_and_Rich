@@ -1,17 +1,44 @@
 {% extends "comp/comp_detail.html" %}
+{% load static %}
 
 {% block content %}
-<div class="">
-    <ul style="list-style: none">
-        <a href="/comp/{{ comp.id }}/overview/"><li>개요</li></a>
-        <li style="color: blue">데이터</li>
-        <li>코드</li>
-        <li>게시판</li>
-        <li>순위</li>
-    </ul>
-</div>
+    <div class="comp-detail-nav">
+        <div><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
+        <div class="comp-detail-checked"><a href="{% url 'comp:comp_data' comp.pk %}">데이터</a></div>
+        <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
+        <div><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
+        <div><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
+    </div>
 
-<div>
-    <div>{{ comp.data_context }}</div>
-</div>
+    <div class="data-wrap">
+        <div class="data-description">
+            <div class="data-title">데이터 설명</div>
+            <div class="data-context">{{ comp.data_context|linebreaks }}</div>
+        </div>
+
+        <div class="data-download-wrap">
+            <div class="data-down-title">데이터 다운로드</div>
+            <div class="data-download">
+                <div class="data-unit">
+                    <div class="data-download-title">파일 목록</div>
+                    <div class="data-list">
+                        {% for file in comp_filelist %}
+                            <a href="{{ file.file.url }}"download class="data-list-unit">
+                                <i class="fas fa-table"></i>
+                                <div>{{ file.file }}</div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="data-unit">
+                    <div class="data-download-title">파일 상세</div>
+                    <div></div>
+                </div>
+                <div class="data-unit">
+                    <div class="data-download-title">컬럼</div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

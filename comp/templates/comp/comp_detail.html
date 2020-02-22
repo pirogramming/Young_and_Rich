@@ -1,20 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>
-    {{ comp.title }}
-    {{ comp.context }}
-    {{ comp.user.nickname }}
-    {{ comp.team_number }}
-    {{ comp.prize }}
-</div>
+{% extends 'comp/base.html' %}
+{% load static %}
 
-{% block content %}
+{# ===============CSS link======================#}
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_detail.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_overview.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_data.css' %}?42">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_community_detail.css' %}?43">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_code_list.css' %}?44">
+    <link rel="stylesheet" href="{% static 'comp/comp_ranking.css' %}?1">
 {% endblock %}
 
-</body>
-</html>
+
+{#=================header-nav===================#}
+{% block main-content %}
+    <div class="comp-header">
+        <div class="comp-header-left">
+            <div class="comp-header-top">
+                <div class="comp-header-status">진행중</div>
+                <div>|</div>
+                <div class="comp-header-user">{{ comp.user.username }}</div>
+            </div>
+
+            <div class="comp-header-text">
+                <div class="comp-header-title">{{ comp.title }}</div>
+                <div class="comp-header-context">{{ comp.context }}</div>
+            </div>
+
+            <div class="comp-header-icons">
+                <div class="comp-header-icon-unit">
+                    <div class="comp-header-icon-wrap">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comp-header-icon-text">{{ comp.team_number }}팀 참여 중</div>
+                </div>
+                <div class="comp-header-icon-unit">
+                    <div class="comp-header-icon-wrap">
+                        <i class="fas fa-won-sign"></i>
+                    </div>
+                    <div class="comp-header-icon-text">상금 {{ comp.prize }}만원</div>
+                </div>
+                <div class="comp-header-icon-unit">
+                    <div class="comp-header-icon-wrap">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <div class="comp-header-icon-text">{{ comp.deadline }} 마감</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comp-header-right">
+            <div class="stars">
+                {% if is_star %}
+                    <i class="fas fa-star" name="compstar-{{ comp.pk }}"></i>
+                {% else %}
+                    <i class="far fa-star" name="compstar-{{ comp.pk }}"></i>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'comp:user_upload_csv' comp.pk %}">
+                <div class="comp-header-button">참여하기</div>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+
+

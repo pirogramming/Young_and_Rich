@@ -1,0 +1,76 @@
+{% extends 'comp/base.html' %}
+{% load static %}
+
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'core/profile.css' %}?7">
+{% endblock %}
+
+
+{% block main-content %}
+    <div class="profile-wrap">
+        <div class="real-profile-wrap">
+            <div class="profile-left">
+                <div class="profile-img-wrap">
+                    <div class="profile-img">
+                        <img src="{{ user.profile.image.url }}" alt="">
+                    </div>
+                </div>
+
+                <div class="user-name-wrap">
+                    <div class="user-name">{{ user.last_name }}{{ user.first_name }}</div>
+                    <div class="ranking-wrap">
+                        <div>{{ user.profile.rank }}</div>
+                        <div>전체 랭킹</div>
+                    </div>
+                </div>
+
+                <div class="profile-text-wrap">
+                    <div class="text-unit">
+                        <div class="profile-icon"><i class="far fa-envelope"></i></div>
+                        <div class="profile-icon-text">{{ user.profile.email }}csh0sns@naver.com</div>
+                    </div>
+                    <div class="text-unit">
+                        <div class="profile-icon"><i class="far fa-building"></i></div>
+                        <div class="profile-icon-text">{{ user.profile.organization }}</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="profile-right">
+                <div class="medal-wrap">
+                    <div class="table-name">메달</div>
+                    <div class="medal-table">
+                        <div class="medal-table-col">
+                            <div class="col-unit gold">
+                                <div class="col-text">금메달</div>
+                                <div class="col-num">1</div>
+                            </div>
+                            <div class="col-unit silver">
+                                <div class="col-text">은메달</div>
+                                <div class="col-num">2</div>
+                            </div>
+                            <div class="col-unit bronze">
+                                <div class="col-text">동메달</div>
+                                <div class="col-num">1</div>
+                            </div>
+                            <div class="col-unit badge">
+                                <div class="col-text">배지</div>
+                                <div class="col-num">4</div>
+                            </div>
+                        </div>
+
+                        <div class="medal-table-content">
+                            <div class="content-unit"></div>
+                            <div class="content-unit"></div>
+                            <div class="content-unit"></div>
+                            <div class="content-unit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,193 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+
+/*======================CSS===================*/
+
+.comp-detail-nav-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.comp-detail-nav-with-button {
+    display: flex;
+}
+
+.comp-detail-nav-with-button div {
+    margin-right: 50px;
+}
+
+.comp-detail-nav-with-button div:nth-child(1) {
+    margin-left: 10px;
+}
+
+.comp-detail-nav-with-button a {
+    font-family: S-CoreDream-4Regular, sans-serif;
+    font-size: 15px;
+    text-decoration: none;
+    color: #707070;
+}
+
+.comp-detail-nav-with-button a:hover {
+    color: #333333;
+}
+
+.comp-detail-checked {
+    border-bottom: 5px solid #b6d5e1;
+}
+
+.comp-detail-checked a {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+}
+
+.comp-code-count {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    margin: 0 3px 5px;
+    color: #808080;
+}
+
+
+
+/*===================code nav==================*/
+
+.comp-code-nav {
+    width: 1200px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+/*----------작성하기 버튼--------------*/
+
+.create-code {
+    text-decoration: none;
+    color: #333333;
+    transition-duration: 0.3s;
+}
+
+.create-code i {
+    width: 40px; height: 40px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 100px;
+    box-shadow: 1px 1px 3px #cccccc;
+}
+
+.create-code:hover {
+    color: #b6d5e1;
+}
+
+
+/*----------검색------------*/
+
+.comp-code-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comp-code-nav form {
+    width: 210px; height: 30px;
+    border: 1px solid #eeeeee;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+}
+
+.comp-code-nav .text {
+    width: 170px; height: 25px;
+    padding-left: 10px;
+    border: none;
+}
+
+.comp-code-nav button {
+    background-color: white;
+    border: none;
+    color: #333333;
+    font-size: 16px;
+}
+
+
+
+
+/*======================CODE-LIST====================*/
+
+.code-list {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.code-unit {
+    width: 1200px;
+    border: 1px solid #eeeeee;
+    box-sizing: border-box;
+    padding: 10px 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: 1px 1px 3px #eeeeee;
+}
+
+.code-unit-left {
+    display: flex;
+}
+
+.code-img {
+    width: 80px; height: 80px;
+    margin-right: 10px;
+    background-color: #f7f7f7;
+}
+
+.code-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.code-title a {
+    text-decoration: none;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 18px;
+    color: #333333;
+}
+
+.code-sub {
+    display: flex;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 12px;
+    margin-top: 10px;
+    color: #333333;
+}
+
+.code-sub div {
+    margin-right: 5px;
+}
+
+.post-user {
+    text-decoration: none;
+    color: #333333;
+}
+
+.post-user:hover {
+    text-decoration: underline;
+}
+
+.list-good {
+    padding-top: 0;
+}
+
+.list-good div:last-child {
+    margin-left: 5px;
+}

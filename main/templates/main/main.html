@@ -1,0 +1,273 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'main/main.css' %}?ver6">
+    <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+<div id="main-main-banner">
+    <div id="main-nav-wrap">
+        <div id="main-nav">
+            <div id="main-left">
+                <div class="logo-image"><img src="" alt=""></div>
+                <div class="nav-title">데이타덕</div>
+            </div>
+
+            <div id="main-right">
+                <div class="nav-list">
+                    <div><a href="{% url 'comp:comp_list' %}">공모전</a></div>
+                    <div><a href="">토론방</a></div>
+                    <div><a href="">랭킹</a></div>
+                    <div><a href="{% url 'main:main' %}">사용설명서</a></div>
+                    <div><a href="{% url 'main:notice_list' %}">공지</a></div>
+                </div>
+
+                <div class="nav-login">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="nav-profile">프로필</a>
+                        <a href="{% url 'account_logout' %}?next={{ request.path }}">로그아웃</a>
+                    {% else %}
+                        <a href="{% url 'sign_in' %}?next={{ request.path }}">로그인</a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="main-text-wrap">
+        <div id="main-text">
+            <div class="main-title">데이타덕 <span>Data Duck</span></div>
+            <div class="main-sub">
+                데이터 덕('Data 덕')은 데이터 덕후들을 위한 사이트입니다<br/>
+                데이터 덕('Data 德')을 볼 수 있는 당신의 빛나는 미래<br/>
+                데이터 덕('Data Duck')을 타고 시작해 볼까요?
+
+            </div>
+
+            <div id="main-buttons">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">
+                        <div class="button-login">프로필</div>
+                    </a>
+                    <a href="{% url 'account_logout' %}?next={{ request.path }}">
+                        <div class="button-signup">로그아웃</div>
+                    </a>
+                {% else %}
+                    <a href="{% url 'sign_in' %}?next={{ request.path }}">
+                        <div class="button-login">로그인</div>
+                    </a>
+                    <a href="{% url 'account_signup' %}">
+                        <div class="button-signup">회원가입</div>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-starter">
+    <div id="starter-title">데이타덕 시작하기</div>
+    <div id="starter-list">
+        <a href="{% url 'comp:comp_list' %}">
+            <div class="starter-unit starter-comp">
+                <img src="../../../media/ranking.png" alt="">
+                <div class="starter-text">공모전</div>
+            </div>
+        </a>
+        <a href="">
+            <div class="starter-unit starter-code">
+                <img src="../../../media/code.png" alt="">
+                <div class="starter-text">코드</div>
+            </div>
+        </a>
+        <a href="">
+            <div class="starter-unit starter-community">
+                <img src="../../../media/community.png" alt="">
+                <div class="starter-text">토론방</div>
+            </div>
+        </a>
+        <a href="">
+            <div class="starter-unit starter-ranking">
+                <img src="../../../media/competition.png" alt="">
+                <div class="starter-text">랭킹</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div id="main-explanation">
+    <div id="explanation-text">
+        <div class="explanation-title numbers_up">데이타덕 사용설명서</div>
+        <div class="explanation-context">
+            Data duck (데이터덕 -> 데덕)
+            데이터 오리, 데이터 덕을 보는, 데이터 덕후들의 사이트</br>
+            데이터 사이언티스트들과 머신러닝을 배우고 싶어하는 사람들의 온라인 커뮤니티</br>
+
+            사용자들은 이 사이트를 통해 혼자서 웹기반의 data-science 모델을 찾아보고, 검색해볼 수 있다.</br>
+            다른 data scientist들과, 머신러닝을 배우는 engineer들과도 커뮤니티를 통해 협업(교육의효과) 또는 경쟁(동기부여)을 할 수 있다.</br>
+
+            2020년에 사이트 운영을 시작해서 현재까지 무료로 운영되고 있고, 단순히 교육목적에 국한되는 것이 아니라, </br>
+            기업에게 직접 데이터를 받아와서 공모전 형식의 결투장을 운영하고 있다.</br>
+
+            한국의 캐글을 표방, 궁극적으로는 한국에서의 machine learning의 활성화를 위해 나선 최수현과 아이들.</br>
+
+            집에서 machine learning을 쉽게 시작할 수 있게 만들어주는 사이트입니다</br>
+
+            지금 시작하고 싶으세요? 그렇다면 결투장을 찾으세요!</br>
+        </div>
+        <a href="{% url 'main:main' %}">
+            <div class="explanation-button">바로가기</div>
+        </a>
+        <div class="explanation-img"><img src="" alt=""></div>
+    </div>
+</div>
+
+<div id="main-number" class="">
+    <div class="number-unit number-user">
+        <div class="number" id="count_user">432</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">회원</div>
+    </div>
+    <div class="number-unit number-corp">
+        <div class="number" id="count_corp">28</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">기업</div>
+    </div>
+    <div class="number-unit number-data">
+        <div class="number" id="count_data">72</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">데이터</div>
+    </div>
+    <div class="number-unit number-code">
+        <div class="number" id="count_code">1,493</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">코드</div>
+    </div>
+    <div class="number-unit number-prize">
+        <div class="number" id="count_prize">94,120</div> <!--view에서 넘겨줘라-->
+        <div class="number-text">상금</div>
+    </div>
+</div>
+
+<div id="main-footer-wrap">
+    <div id="main-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <div class="corp-name">
+                    <div class="footer-title">데이터덕</div>
+                    <div class="footer-call">문의 02-612-0746</div>
+                </div>
+
+                <div class="corp-overview">
+                    <div class="corp-context">
+                        서울특별시 관악구 관악로 1 서울대학교 <br/>
+                        경영대학 58동 218호 <br/>
+                    </div>
+                    <div class="footer-icons">
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="footer-list">
+                    <div class="footer-list-title">개발자 알아보기</div>
+                    <div>'Ddo Ddo' 최수현</div>
+                    <div>'Cha Bog' 이재복</div>
+                    <div>'Honey' 이병헌</div>
+                    <div>'Adamin' 김다민</div>
+                    <div>'Sseung JJang' 정승재</div>
+                </div>
+                <div class="footer-list">
+                    <div class="footer-list-title">서포터즈</div>
+                    <div>애플(&copy;Apple)</div>
+                    <div>삼성(&copy;SamSung)</div>
+                    <div>구글(&copy;GooGle)</div>
+                </div>
+                <div class="footer-list">
+                    <div class="footer-list-title">Contact us</div>
+                    <div>Instagram</div>
+                    <div>Facebook</div>
+                    <div>Contact</div>
+                    <div>Donation</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright &copy;2020 Young and Rich
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+
+
+
+function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
+
+
+
+function count_up_number(target_frame, target_number) {
+
+    {#this.target_frame = document.getElementById(target_frame);#}
+    var memberCountConTxt = target_number;
+    var target = '#' + target_frame;
+
+
+    $({val: 0}).animate({val: memberCountConTxt}, {
+        duration: 1000,
+        step: function () {
+            var num = numberWithCommas(Math.floor(this.val));
+            $(target).text(num);
+        },
+        complete: function () {
+            var num = numberWithCommas(Math.floor(this.val));
+            $(target).text(num);
+        }
+    });
+    }
+
+function checkVisible( elm, eval ) {
+    eval = eval || "object visible";
+    var viewportHeight = $(window).height(), // Viewport Height
+        scrolltop = $(window).scrollTop(), // Scroll Top
+        y = $(elm).offset().top;
+        elementHeight = $(elm).height();
+
+    if (eval == "object visible") return ((y < (viewportHeight + scrolltop)) && (y > (scrolltop - elementHeight)));
+    if (eval == "above") return ((y < (viewportHeight + scrolltop)));
+}
+
+
+var isVisible = false;
+
+$(window).on('scroll',function() {
+    if (checkVisible($('#main-number'))&&!isVisible) {
+        count_up_number('count_user', 1300)
+        count_up_number('count_corp', 22400)
+        count_up_number('count_data', 500)
+        count_up_number('count_code', 1600)
+        count_up_number('count_prize', 222700)
+        isVisible=true;
+    }
+});
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,70 @@
+{% extends 'comp/base.html' %}
+
+{% load filename %}
+{% load static %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_csv_result.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="result-wrap">
+        <div class="result-title">{{ user }}님이 제출하신 답변의 정확도는 <span>{{ accuracy }}</span>입니다.</div>
+        <div class="result-past-wrap">
+            <div class="result-sub">{{ user }}님의 과거 기록</div>
+
+            <div class="past-list">
+                {% for answer in answer_list %}
+                    <div class="past-unit">
+                        <div class="text-wrap">
+                            {% if answer.is_selected %}
+                                <i id="answercheck-{{ answer.id }}" class="far fa-check-square answercheck"></i>
+                            {% else %}
+                                <i id="answercheck-{{ answer.id }}" class="far fa-square answercheck"></i>
+                            {% endif %}
+
+                            <div class="text">
+                                <div>제출시간 : {{ answer.created_at }}</div>
+                                <div>정확도 : {{ answer.accuracy }}</div>
+                            </div>
+                        </div>
+                        <a href="{{ answer.file.url }}" class="download"><div>다운로드</div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    $('i.answercheck').click(function(){
+        var pk = $(this).attr('id').substr(12)
+        $(this).removeClass().addClass('fas fa-spinner fa-spin')
+
+    $.ajax({
+     type: "POST",
+      url: "{% url 'comp:upload_answercheckbox' %}",
+      data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+      dataType: "json",
+
+      success: function(response){
+        setTimeout(function() {
+            if (response.is_selected === 1){
+                $('#answercheck-'+pk).removeClass().addClass('far fa-check-square answercheck')
+            }
+            else{
+                $('#answercheck-'+pk).removeClass().addClass('far fa-square answercheck')
+            }
+            console.log
+        }, 200);
+      },
+
+      error: function(request){ // 통신 실패시 - 로그인 페이지 리다이렉트
+        window.location.replace("{% url 'sign_in' %}?next={{ request.path }}")
+          },
+        })
+    })
+
+    </script>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .percent {
+            /* deletable */
+            margin-top : 100px;
+            margin-left : 100px;
+            /* -------- */
+
+            width : 300px;
+            height : 30px;
+            border : 1px solid black;
+        }
+        .bar {
+            height : 30px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="percent">
+        <div class="bar"></div>
+        <div>
+            <!-- try changing percent value -->
+            <span id="percent-value">{{ percent }}</span>%
+        </div>
+    </div>
+    <script>
+        const percentValue = parseFloat(document.querySelector("#percent-value").innerText);
+        const percentBar = document.querySelector(".bar");
+
+        percentBar.style = `width : ${percentValue}%`;
+    </script>
+</body>
+</html>

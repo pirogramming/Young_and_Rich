@@ -1,0 +1,45 @@
+{% extends "comp/comp_detail.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="comp-detail-nav">
+        <div class="comp-detail-checked"><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
+        <div><a href="{% url 'comp:comp_data' comp.pk %}">데이터</a></div>
+        <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
+        <div><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
+        <div><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
+    </div>
+
+    <div class="percent-wrap">
+        <div class="percent">
+            <div class="bar"></div>
+            <div>
+                <!-- try changing percent value -->
+                <span id="percent-value">{{ percent }}</span><span>%</span>
+                <div class="percent-text">{{ comp.deadline }}</div>
+            </div>
+        </div>
+        <script>
+            const percentValue = parseFloat(document.querySelector("#percent-value").innerText);
+            const percentBar = document.querySelector(".bar");
+
+            percentBar.style = `width : ${percentValue}%`;
+        </script>
+    </div>
+
+    <div class="overview-wrap">
+        <div class="overview">
+            <div class="left-bar">
+                    <div class="menu">메뉴</div>
+                    <div><a href="{% url 'comp:comp_overview' comp.pk %}">설명</a></div>
+                    <div><a href="{% url 'comp:comp_timeline' comp.pk %}">마감기한</a></div>
+                    <div class="overview-checked"><a href="{% url 'comp:comp_prizes' comp.pk %}">상금</a></div>
+                    <div><a href="{% url 'comp:comp_evaluation' comp.pk %}">평가기준</a></div>
+            </div>
+            <div class="right">
+                <div class="right-title">상금</div>
+                <div class="right-context">{{ comp.prize_context|linebreaks }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

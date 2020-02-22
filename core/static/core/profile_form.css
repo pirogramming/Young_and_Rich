@@ -1,0 +1,162 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+@font-face {
+    font-family: 'S-CoreDream-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-8Heavy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-7ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-4Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*===============================================*/
+
+.profile-form-wrap {
+    width: 1200px;
+    font-family: S-CoreDream-5Medium, sans-serif;
+    font-size: 14px;
+    color: #707070;
+
+    display: flex;
+    justify-content: space-between;
+    margin: 80px auto;
+}
+
+.form-left {
+    width: 850px;
+    border-right: 1px solid #eeeeee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.logo-image {
+    width: 25px; height: 25px;
+    margin-right: 5px;
+}
+
+.logo-image img {
+    width: 25px; height: 25px;
+}
+
+.logo div {
+    font-family: NIXGONM-Vb, sans-serif;
+    font-size: 16px;
+    color: #b6d5e1;
+}
+
+.logo-text {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 20px;
+    color: #333333;
+}
+
+
+
+
+/*===========입력 폼==================*/
+
+
+.profile-form-wrap p {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 35px;
+}
+
+.profile-form-wrap a {
+    text-decoration: none;
+    color: #b6d5e1;
+}
+
+.profile-form-wrap a:hover {
+    text-decoration: underline;
+}
+
+.profile-form-wrap label {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    color: #333333;
+}
+
+.profile-form-wrap br {
+    display: none;
+}
+
+
+/*---------입력 창-----------*/
+
+#id_phone_number, #id_organization, #id_nickname {
+    width: 300px; height: 20px;
+    border: none;
+    border-bottom: 2px solid #e2eff1;
+}
+
+.button-wrap {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-button {
+    width: 120px; height: 40px;
+    background-color: #e2eff1;
+    color: #333333;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 100px;
+    transition-duration: 0.3s;
+}
+
+.save-button:hover {
+    cursor: pointer;
+    background-color: #d7e8eb;
+}

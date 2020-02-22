@@ -1,0 +1,402 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+@font-face {
+    font-family: 'S-CoreDream-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-8Heavy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-7ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-4Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/*=====================================================*/
+
+
+.profile-wrap {
+    width: 1200px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit {
+    font-family: S-CoreDream-9Black, sans-serif;
+    font-size: 24px;
+    margin: 200px 0 20px;
+}
+
+.edit-button {
+    text-decoration: none;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 20px;
+    color: #333333;
+}
+
+.edit-button div {
+    margin-bottom: 140px;
+    width: 160px; height: 50px;
+    background-color: #e2eff1;
+    border-radius: 100px;
+
+    text-align: center;
+    line-height: 50px;
+    transition-duration: 0.3s;
+}
+
+.edit-button div:hover {
+    background-color: #d7e8eb;
+}
+
+
+
+/*=====================진짜 프로필===========================*/
+
+.real-profile-wrap {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-left {
+    width: 300px;
+    padding: 20px 50px 20px 0;
+    box-sizing: border-box;
+    border-right: 1px solid #eeeeee;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-img-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.profile-img {
+    width: 200px; height: 200px;
+    border-radius: 100px;
+    background-color: #e2eff1;
+}
+
+.profile-img img {
+    width: 200px; height: 200px;
+    border-radius: 100px;
+}
+
+/*----------프로필 텍스트----------*/
+
+.user-name-wrap {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.user-name {
+    font-family: S-CoreDream-9Black, sans-serif;
+    font-size: 26px;
+    color: #333333;
+}
+
+.ranking-wrap div {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 22px;
+    color: #b6d5e1;
+    text-align: center;
+}
+
+.ranking-wrap div:nth-child(2) {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 10px;
+    margin-top: -3px;
+}
+
+.text-unit {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-icon {
+    width: 20px;
+    margin-right: 3px;
+    color: #707070;
+    font-size: 16px;
+}
+
+.profile-icon-text {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    color: #707070;
+}
+
+
+/*-------수정하기 버튼---------*/
+
+.button-wrap {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+
+.profile-edit-button {
+    font-size: 16px;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    text-decoration: none;
+    color: #333333;
+}
+
+.profile-edit-button div {
+    width: 140px; height: 40px;
+    background-color: #e2eff1;
+    border-radius: 100px;
+    line-height: 40px;
+    text-align: center;
+    transition-duration: 0.3s;
+}
+
+.profile-edit-button div:hover {
+    background-color: #d7e8eb;
+}
+
+
+
+/*===================오른쪽=======================*/
+
+.profile-right {
+    width: 900px;
+    padding: 20px 0 20px 50px;
+    box-sizing: border-box;
+}
+
+.medal-wrap {
+    margin-bottom: 35px;
+}
+
+.table-name {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.table-name-sub {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    color: #707070;
+    margin-bottom: 5px;
+}
+
+.medal-table {
+    height: 400px;
+    border-radius: 3px;
+    border: 1px solid #eeeeee;
+    box-shadow: 1px 1px 2px #eeeeee;
+
+}
+
+.medal-table-col {
+    height: 85px;
+    background-color: #fbfbfb;
+    display: flex;
+}
+
+.col-unit {
+    width: 213px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.col-text {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+}
+
+.col-num {
+    font-size: 16px;
+    font-family: S-CoreDream-5Medium, sans-serif;
+}
+
+.gold {
+    color: #feb72b;
+    border-right: 1px solid #eeeeee;
+}
+
+.gold i {
+    color: #feb72b;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.silver {
+    color: #a2caec;
+    border-right: 1px solid #eeeeee;
+}
+
+.silver i {
+    color: #a2caec;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.bronze {
+    color: #ee8572;
+    border-right: 1px solid #eeeeee;
+}
+
+.bronze i {
+    color: #ee8572;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.badge {
+    color: #333333;
+}
+
+.badge i {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+/*---------내용------------*/
+
+.medal-table-content {
+    height: 315px;
+    display: flex;
+}
+
+.table-content-unit {
+    width: 213px; height: 315px;
+    border-right: 1px solid #eeeeee;
+    box-sizing: border-box;
+}
+
+.table-content-unit:last-child {
+    border-right: none;
+}
+
+/*==================참여 중 공모전===================*/
+
+.comp-unit {
+    display: flex;
+    padding: 20px;
+    border: 1px solid #eeeeee;
+    box-shadow: 1px 1px 2px #eeeeee;
+    margin-bottom: 10px;
+}
+
+.comp-unit-title-wrap {
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.comp-unit-title {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.comp-unit-text-sub {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+}
+
+
+.comp-unit-sub {
+    display: flex;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 12px;
+    color: #333333;
+}
+
+.comp-unit-sub div {
+    margin-right: 3px;
+}
+
+
+
+/*==============즐겨찾기=================*/
+
+.star-table {
+    height: 300px;
+    border-radius: 3px;
+    border: 1px solid #eeeeee;
+    box-shadow: 1px 1px 2px #eeeeee;
+    overflow-y: scroll;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+.star-unit {
+    display: flex;
+    align-items: center;
+}
+
+.star-unit i {
+    margin-right: 5px;
+    color: #333333;
+}
+
+.star-unit a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 14px;
+    font-family: S-CoreDream-4Regular, sans-serif;
+}
+
+.star-unit a:hover {
+    text-decoration: underline;
+}

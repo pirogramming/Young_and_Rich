@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+</head>
+<body>
+    {% for codecomment in codecomments %}
+    <div>
+{#    {{ codecomment.user }}#}
+{#        {{ codecomment.context }}#}
+{#        {{ codecomment.created_at }}#}
+        <span id="cdc-likecount-{{ codecomment.id }}">{{ codecomment.like.count }}</span>
+        {% if codecomment.id in like_list %}
+            <i class="fas fa-thumbs-up like" name="cdc-like-{{ codecomment.id }}"></i>
+        {% else %}
+            <i class="far fa-thumbs-up like" name="cdc-like-{{ codecomment.id }}"></i>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+
+    {% for codepost in codeposts %}
+{#    <div>#}
+{#    {{ codepost.user }}#}
+{#        {{ codepost.context }}#}
+{#        {{ codepost.created_at }}#}
+        <span id="cdp-likecount-{{ codepost.id }}">{{ codepost.like.count }}</span>
+        {% if codepost.id in like_list %}
+            <i class="fas fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
+        {% else %}
+            <i class="far fa-thumbs-up like" name="cdp-like-{{ codepost.id }}"></i>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+
+
+    {% for compost in composts %}
+    <div>
+{#    {{ compost.user }}#}
+{#        {{ compost.context }}#}
+{#        {{ compost.created_at }}#}
+        <span id="cop-likecount-{{ compost.id }}">{{ compost.like.count }}</span>
+        {% if compost.id in like_list %}
+            <i class="fas fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
+        {% else %}
+            <i class="far fa-thumbs-up like" name="cop-like-{{ compost.id }}"></i>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+
+
+
+    {% for comcomment in composts %}
+    <div>
+{#    {{ comcomment.user }}#}
+{#        {{ comcomment.context }}#}
+{#        {{ comcomment.created_at }}#}
+        <span id="coc-likecount-{{ comcomment.id }}">{{comcomment.like.count }}</span>
+        {% if compost.id in like_list %}
+            <i class="fas fa-thumbs-up like" name="coc-like-{{ comcomment.id }}"></i>
+        {% else %}
+            <i class="far fa-thumbs-up like" name="coc-like-{{ comcomment.id }}"></i>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+
+    <script  src="like.js"></script>
+
+</body>
+</html>
+
+<!--
+if comment.like.filter(id = request.user.id).exists():
+    like_list.append(comment.id)
+-->

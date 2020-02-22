@@ -1,21 +1,52 @@
-{% extends "account/base.html" %}
-
 {% load i18n %}
+{% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'core/signup.css' %}?5">
+</head>
 
-{% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+<body>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<div class="login-wrap">
+    <div class="login-logo">
+        <div class="login-logo-top">
+            <div class="img"><img src="../../../media/00_logo.png" alt=""></div>
+            <div class="login-name">데이타덕</div>
+        </div>
+        <div class="login-logo-bottom">
+            적당히 어쩌구 멋있는 말 주르륵 좌르륵
+        </div>
+    </div>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+    <div class="login-box">
+        <div class="login-title-wrap">
+            <div class="login-title">회원가입</div>
+        </div>
 
-{% endblock %}
+        <div class="panel-body">
+            <form id="signup_form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+
+                <div class="signup-button-wrap">
+                    <input class="signup-button" type="submit" value="회원가입">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

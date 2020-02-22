@@ -1,0 +1,45 @@
+{% extends "comp/comp_detail.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="comp-detail-nav-wrap">
+        <div class="comp-detail-nav-with-button">
+            <div><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
+            <div><a href="{% url 'comp:comp_data' comp.pk %}">데이터</a></div>
+            <div><a href="{% url 'comp:comp_code_list' comp.pk %}">코드</a></div>
+            <div><a href="{% url 'comp:comp_community_list' comp.pk %}">커뮤니티</a></div>
+            <div class="comp-detail-checked"><a href="{% url 'comp:comp_ranking' comp.pk %}">랭킹</a></div>
+        </div>
+    </div>
+
+    <div class="ranking-wrap">
+
+        <div class="ranking-text">
+            공모전 종료 시 상위 10%에게는 금메달, 20%에게는 은메달, 40%에게는 동메달이 수여됩니다.<br/>
+            공모전의 모든 참가자들에게는 배지가 지급됩니다.
+        </div>
+
+        <div class="ranking-col">
+            <div class="rank">등수</div>
+            <div class="rank-user">사용자</div>
+            <div class="rank-ac">정확도</div>
+        </div>
+
+        {% for key, value in answers.items %}
+            <div class="ranking-unit">
+                <div class="rank">{{ forloop.counter }}</div>
+                {% for user in user_list %}
+                    {% if key == user.pk %}
+                        <a href="{% url 'profile_view' user %}" class="rank-user">
+                            <img src="{{ user.profile.image.url }}" alt="">
+                            <div>{{ user.profile.nickname }}</div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                <div class="rank-ac">{{ value }}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

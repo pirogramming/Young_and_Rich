@@ -1,0 +1,171 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'comp/base.css' %}?ver9">
+    <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    {% block extra-head %}
+    {% endblock %}
+</head>
+
+<body>
+<div id="base-nav-wrap">
+    <div id="base-nav">
+        <div id="base-left">
+            <div id="name"><a href="{% url 'main:main' %}">데이타덕</a></div>
+        </div>
+
+        <div id="base-right">
+            <div class="nav-list">
+                <div><a href="{% url 'comp:comp_list' %}">공모전</a></div>
+                <div><a href="">토론방</a></div>
+                <div><a href="">랭킹</a></div>
+                <div><a href="">사용설명서</a></div>
+                <div><a href="{% url 'main:notice_list' %}">공지</a></div>
+            </div>
+            <div class="nav-login">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-profile">프로필</a>
+                    <a href="{% url 'account_logout' %}?next={{ request.path }}">로그아웃</a>
+                {% else %}
+                    <a href="{% url 'sign_in' %}?next={{ request.path }}">로그인</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block main-content %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+<div id="main-footer-wrap">
+    <div id="main-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <div class="corp-name">
+                    <div class="footer-title">데이터덕</div>
+                    <div class="footer-call">문의 02-612-0746</div>
+                </div>
+
+                <div class="corp-overview">
+                    <div class="corp-context">
+                        서울특별시 관악구 관악로 1 서울대학교 <br/>
+                        경영대학 58동 218호 <br/>
+                    </div>
+                    <div class="footer-icons">
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="footer-icon-wrap">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="footer-list">
+                    <div class="footer-list-title">개발자 알아보기</div>
+                    <div>'Ddo Ddo' 최수현</div>
+                    <div>'Cha Bog' 이재복</div>
+                    <div>'Honey' 이병헌</div>
+                    <div>'Adamin' 김다민</div>
+                    <div>'Sseung JJang' 정승재</div>
+                </div>
+                <div class="footer-list">
+                    <div class="footer-list-title">서포터즈</div>
+                    <div>애플(&copy;Apple)</div>
+                    <div>삼성(&copy;SamSung)</div>
+                    <div>구글(&copy;GooGle)</div>
+                </div>
+                <div class="footer-list">
+                    <div class="footer-list-title">Contact us</div>
+                    <div>Instagram</div>
+                    <div>Facebook</div>
+                    <div>Contact</div>
+                    <div>Donation</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright &copy;2020 Young and Rich
+        </div>
+    </div>
+</div>
+</body>
+
+
+<script>
+$('i.fa-thumbs-up').click(function(){
+  $(this).toggleClass("fas").toggleClass("far")
+})
+
+
+  $('i.like').click(function(){
+      console.log('a')
+    var pk = $(this).attr('name').substr(9)
+    var liketype=$(this).attr('name').substr(0,3)
+      // cop:CodePost coc:CodeComment cdp:CodePost cdc:CodeComment
+      //ex) cop-3 cdc-30
+    $.ajax({
+     type: "POST",
+      url: "{% url 'comp:uploadlike' %}",
+      data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}', 'liketype':liketype},
+      dataType: "json",
+
+      success: function(response){
+        $("#"+liketype+"-likecount-"+pk).html(response.like);
+      },
+
+
+      error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
+        window.location.replace("/accounts/login/")
+          //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          },
+    })
+  })
+
+    //댓글
+
+
+
+
+    $('i.fa-star').click(function(){
+        var pk = $(this).attr('name').substr(9)
+
+    $.ajax({
+     type: "POST",
+      url: "{% url 'comp:uploadstar' %}",
+      data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+      dataType: "json",
+
+      error: function(request){ // 통신 실패시 - 로그인 페이지 리다이렉트
+        window.location.replace("{% url 'sign_in' %}?next={{ request.path }}")
+          },
+    })
+        $(this).toggleClass("fas").toggleClass("far")
+  })
+
+
+    $('a.reply').click(function () {
+        var starbucks = "#comcomment-wrap-" + $(this).attr('name').substr(6)
+        $(starbucks).toggleClass('comcomment_wrap_off')
+
+
+    })
+</script>
+
+</html>

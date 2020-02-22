@@ -1,0 +1,148 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+
+@font-face {
+    font-family: 'S-CoreDream-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-8Heavy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-7ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-4Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/*==================CSS======================*/
+
+
+.form-wrap {
+    width: 1200px; height: 500px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-text-wrap {
+    padding-right: 200px;
+    border-right: 1px solid #eeeeee;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-logo {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px; height: 40px;
+}
+
+.logo-text {
+    font-family: NIXGONM-Vb, sans-serif;
+    font-size: 20px;
+    color: #65799b;
+}
+
+.form-text {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 24px;
+    color: #333333;
+    margin: 0;
+}
+
+
+
+/*----------------제출 폼------------------*/
+
+.form-wrap form {
+    width: 400px;
+}
+
+
+.form-small-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.form-small-text i {
+    font-size: 22px;
+    margin-right: 3px;
+    color: #b6d5e1;
+}
+
+.small-text {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 16px;
+    color: #333333;
+}
+
+.file-upload-form input {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+
+.form-button {
+    width: 150px;
+    height: 40px;
+    background-color: #e2eff1;
+    border-radius: 100px;
+
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    color: #333333;
+    font-size: 16px;
+    border: none;
+    transition-duration: 0.3s;
+}
+
+.form-button:hover {
+    background-color: #d7e8eb;
+}

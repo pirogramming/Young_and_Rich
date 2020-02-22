@@ -1,39 +1,89 @@
 import json
+import operator
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
 
+from datetime import date
 
 # 결투장
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from comp.utils import user_answer_upload_to, comp_answer_upload_to
+
+
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    logo_thumb = models.ImageField()
+    address = models.CharField(max_length=255)
+    email = models.EmailField(verbose_name='email', max_length=255)
+    phone = models.CharField(max_length=225)
+
 
 class Comp(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # comp 업로드 한 기업
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)  # comp 업로드 한 기업
     title = models.CharField(max_length=255)
-    context = models.TextField(null=True, blank=True)
-
+    context = models.TextField()
     profile_thumb = models.ImageField(null=True, blank=True)
     back_thumb = models.ImageField(null=True, blank=True)
     prize = models.IntegerField()
+    comp_answer = models.FileField(blank=True, upload_to=comp_answer_upload_to)
 
-    created_at = models.DateField()
-    updated_at = models.DateField()
-    deadline = models.DateTimeField()
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    deadline = models.DateField()
 
-    evaluation = models.TextField(null=True, blank=True)
-    overview_context = models.TextField(null=True, blank=True)  # overview comp 설명
-    data_context = models.TextField(null=True, blank=True)  # data 설명
+    overview_context = models.TextField()  # overview comp 설명
+    timeline = models.TextField()  # 마감기한
+    prize_context = models.TextField()  # 상금 설명
+    evaluation = models.TextField()  # 평가기준
+    data_context = models.TextField()  # data 설명
     not_is_main = models.IntegerField(default=1)  # 0 == main, 1 == in class
-    team_number = models.IntegerField(default=0)  # 참여팀 수
+    star = models.ManyToManyField(User,  blank=True, related_name='comp_star')
+
+    choice_list = ((0, 0), (1, 1))
+
+    not_is_main = models.IntegerField(default=1, choices=choice_list)  # 0 == in class, 1 == main
+    continue_complete = models.IntegerField(default=-1)  # -1 == 대회 진행 중, 0 <= 대회 완료 (대회 완료 시, 참가자 수)
+
+    def is_star(self, request):
+        if self.star.filter(id=request.user.id).exists():
+            return 1
+        else:
+            return 0
+
+    def __str__(self):
+        return self.title
+
+    def update_continue_complete(self):
+        if self.continue_complete == -1:  # 완료인 대회인지 판별
+            if (date.today() - self.deadline).days > 0:
+                ordered_answer = self.answer.filter(is_selected=1).order_by('user_id', '-accuracy')
+                answerdict = dict()
+                try:
+                    order_user_id = ordered_answer[0].user_id
+                    answerdict[order_user_id] = ordered_answer[0].accuracy
+                except IndexError:
+                    pass
+                else:
+                    for i in range(ordered_answer.count() - 1):
+                        if ordered_answer[i].user_id != ordered_answer[i + 1].user_id:
+                            answerdict[ordered_answer[i + 1].user_id] = ordered_answer[i + 1].accuracy
+                    self.continue_complete = len(answerdict)
+                    sorted_answerdict = sorted(answerdict.items(), key=operator.itemgetter(1))
+                    self.save()
+
+            for item in sorted_answerdict:
+                User.objects.get(id=item[0]).profile.append_comp_rank(self.id, sorted_answerdict.index(item) + 1)
 
 
-# 결투장 data file 업로드
-class FileUp(models.Model):
-    file = models.FileField()
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)  # data 올리는 comp
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # data 올리는 기업
+# 결투장 data file 업로드-----
+class Comp_File(models.Model):
+    file = models.FileField(null=True)
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
 
 
 # 결투장 community Post
@@ -46,50 +96,59 @@ class ComPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    like = models.ManyToManyField(User, related_name='compost_likes', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
 
 # 결투장 community Comment
 class ComComment(models.Model):
-    com_post = models.ForeignKey(ComPost, on_delete=models.CASCADE)
+    compost = models.ForeignKey(ComPost, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # comment 쓴 개인
 
     context = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-class ComCommComment(models.Model):
-    comment = models.ForeignKey(ComComment, on_delete=models.SET_NULL, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
+    like = models.ManyToManyField(User, related_name='comcomment_likes', null=True, blank=True)
 
 
 # 결투장 code Post
 class CodePost(models.Model):
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # code 업로드 한 개인
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # code 업로드 한 개인
 
     title = models.CharField(max_length=255)
+    context_code = models.TextField(null=True, blank=True)
     context = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
+    like = models.ManyToManyField(User, related_name='codepost_likes', null=True, blank=True)
+
 
 
 # 결투장 code에 comment
 class CodeComment(models.Model):
-    code_post = models.ForeignKey(CodePost, on_delete=models.CASCADE)
+    codepost = models.ForeignKey(CodePost, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # code에 comment 단 개인
 
     context = models.TextField()
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    commcomment = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)  # 대댓글
+    like = models.ManyToManyField(User, related_name='codecomment_likes', null=True, blank=True)
 
 
 class Answer(models.Model):
-    comp = models.ForeignKey(Comp, on_delete=models.CASCADE)
-    accuracy = models.FloatField()
+    comp = models.ForeignKey(Comp, on_delete=models.CASCADE, related_name='answer')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    accuracy = models.FloatField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to=user_answer_upload_to, null=True)
 
+    choice_list = ((0, 0), (1, 1))
 
+    is_selected = models.IntegerField(default=1, choices=choice_list)  # 0 == 미선택, 1 == 선택

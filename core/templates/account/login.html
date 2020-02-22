@@ -1,63 +1,109 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% load static %}
 {% load i18n %}
 {% load account socialaccount %}
 {% get_providers as socialaccount_providers %}
 {% providers_media_js %}
 
-<!------ 아래부터 HTML 시작 ---------->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'core/login.css' %}?11">
+</head>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">로그인하기</h3>
+<body>
+
+<div class="login-wrap">
+    <div class="login-logo">
+        <div class="login-logo-top">
+            <div class="img"><img src="../../../media/00_logo.png" alt=""></div>
+            <div class="login-name">데이타덕</div>
+        </div>
+        <div class="login-logo-bottom">
+            적당히 어쩌구 멋있는 말 주르륵 좌르륵
+        </div>
+    </div>
+
+    <div class="login-box">
+        <div class="login-title-wrap">
+            <div class="login-title">로그인</div>
+        </div>
+
+        <div class="panel-body">
+            <form class="login" method="POST" action="">
+                {% csrf_token %}
+
+                <div class="login-input-form">
+                    <div class="form-group">
+                        <label for="{{ form.username.id_for_label }}">아이디</label>
+                        <input class="form-control" name="username" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.password.id_for_label }}">비밀번호</label>
+                        <input class="form-control" name="password" type="password"/>
+                    </div>
+
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    <div class="login-button-wrap">
+                        <input class="login-button" type="submit" value="로그인">
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <form class="login" method="POST" action="{% url 'core:sign_in' %}">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="{{ form.username.id_for_label }}">닉네임</label>
-                            <input class="form-control"
-                                   name="username" type="text"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="{{ form.password.id_for_label }}">패스워드</label>
-                            <input class="form-control" name="password" type="password"/>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input name="remember" type="checkbox" value="Remember Me"> 아이디 기억하기(미구현)
-                            </label>
-                        </div>
-                        <input class="btn btn-lg btn-success btn-block" type="submit" value="login">
-                        <hr/>
-                        <center><h4>OR</h4></center>
-                        <div>
-                            <a class="btn btn-success my-2 my-sm-0"
-                               href="{% provider_login_url 'google' method='oauth2' %}"
-                               role="button">구글로 로그인하기</a>
-                        </div>
-                        <div style="padding-top: 16px;">
-                            <a class="btn btn-success my-2 my-sm-0"
-                               href="{% provider_login_url 'kakao' method='oauth2' %}"
-                               role="button">카카오로 로그인하기</a>
-                        </div>
-                        <div style="padding-top: 16px;">
-                            <a class="btn btn-success my-2 my-sm-0"
-                               href="{% provider_login_url 'naver' method='oauth2' %}"
-                               role="button">네이버로 로그인하기</a>
-                        </div>
-                        <hr/>
-                        <div>
-                            <a class="button secondaryAction"
-                               href="{% url 'account_reset_password' %}">{% trans "비밀번호 잊음?" %}</a>
-                        </div>
-                    </form>
+
+                    {{ error }}
+
+                <div class="login-or">
+                    <div class="line"></div>
+                    <div class="or">OR</div>
+                    <div class="line"></div>
                 </div>
-            </div>
+
+                <div class="social-login">
+                    <a href="{% provider_login_url 'google' method='oauth2' %}" role="button" class="social-unit google">
+                        <div>구글로 로그인</div>
+                    </a>
+                    <a href="{% provider_login_url 'kakao' method='oauth2' %}" role="button" class="social-unit kakao">
+                        <div>카카오로 로그인</div>
+                    </a>
+                    <a href="{% provider_login_url 'naver' method='oauth2' %}" role="button" class="social-unit naver">
+                        <div>네이버로 로그인</div>
+                    </a>
+                </div>
+
+                <div class="login-forgot">
+                    <div>
+                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">
+                            {% trans "비밀번호 찾기" %}
+                        </a>
+                    </div>
+                    <div>|</div>
+                    <div>
+                        <a class="button secondaryAction" href="{% url 'account_signup' %}">
+                            {% trans "회원가입 바로가기" %}
+                        </a>
+                    </div>
+                    <div>|</div>
+                    <div>
+                        <a href="">이용약관</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+</body>
+</html>
+
+
+
+{# 아래는 각종 url 입니다! #}
+{#        {% if user.is_authenticated %}#}
+{#        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>#}
+{#        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>#}
+{#        {% else %}#}
+{#        <li><a href="{% url 'account_login' %}">Sign In</a></li>#}
+{#        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>#}
+{#        {% endif %}#}

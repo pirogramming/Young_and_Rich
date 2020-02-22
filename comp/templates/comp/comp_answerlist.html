@@ -1,0 +1,15 @@
+{% extends 'comp/base.html' %}
+
+{% block content %}
+
+    {% for answer in answer_list %}
+        <div>
+            {{answer.file}}
+        </div>
+        <div>
+        {{ answer.create_at }}
+        {{ answer.accuracy }}
+        </div>
+    {% endfor %}
+
+{% endblock %}
