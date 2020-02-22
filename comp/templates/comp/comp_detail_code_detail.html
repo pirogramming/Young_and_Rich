@@ -101,7 +101,7 @@
                                 {% endif %}
 
                                 {% if user.is_authenticated %}
-                                    <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}">
+                                    <a href="{% url 'comp:comp_code_commcomment_create' comp.pk codepost.pk comment.pk %}" style="display:none;">
                                         <div>답글쓰기</div>
                                     </a>
                                 {% endif %}
