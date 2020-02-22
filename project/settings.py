@@ -31,7 +31,9 @@ INSTALLED_APPS = [
     'core',
     'community',
     'comp',
+    'pygmentify',
     'allauth',
+
     # allauth 가 core 아래 있어야지 뷰가 템플릿을 이 순서대로 찾는다! core 위에 하면 allauth 내의 templates 폴더를 탐색함.
     'allauth.account',
     'allauth.socialaccount',

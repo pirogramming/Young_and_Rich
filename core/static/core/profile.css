@@ -311,6 +311,61 @@
     margin-bottom: 3px;
 }
 
+/*---------내용------------*/
+
+.medal-table-content {
+    height: 315px;
+    display: flex;
+}
+
+.table-content-unit {
+    width: 213px; height: 315px;
+    border-right: 1px solid #eeeeee;
+    box-sizing: border-box;
+}
+
+.table-content-unit:last-child {
+    border-right: none;
+}
+
+/*==================참여 중 공모전===================*/
+
+.comp-unit {
+    display: flex;
+    padding: 20px;
+    border: 1px solid #eeeeee;
+    box-shadow: 1px 1px 2px #eeeeee;
+    margin-bottom: 10px;
+}
+
+.comp-unit-title-wrap {
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.comp-unit-title {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.comp-unit-text-sub {
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+}
+
+
+.comp-unit-sub {
+    display: flex;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 12px;
+    color: #333333;
+}
+
+.comp-unit-sub div {
+    margin-right: 3px;
+}
+
 
 
 /*==============즐겨찾기=================*/

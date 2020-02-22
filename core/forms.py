@@ -63,7 +63,7 @@ class MyCustomSignupForm(SignupForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'phone_number', 'organization']
+        fields = ['image', 'phone_number', 'organization', 'nickname']
 
     phone_number = forms.CharField(max_length=11, label='핸드폰', widget=forms.TextInput(
         attrs={
@@ -73,6 +73,11 @@ class ProfileForm(forms.ModelForm):
     image = forms.ImageField(label='프로필 사진')
 
     organization = forms.CharField(max_length=50, label='소속', widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+        }))
+
+    nickname = forms.CharField(max_length=20, label='닉네임', widget=forms.TextInput(
         attrs={
             'class': 'form-control input-lg',
         }))

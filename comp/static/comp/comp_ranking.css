@@ -1,0 +1,86 @@
+/*div {*/
+/*    border: 1px solid #cccccc;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+.ranking-wrap {
+    width: 1200px;
+    margin: 30px auto 0;
+}
+
+.ranking-text {
+    padding-left: 8px;
+    border-left: 6px solid #b6d5e1;
+    font-family: S-CoreDream-3Light, sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #707070;
+    line-height: 22px;
+    box-sizing: border-box;
+}
+
+.ranking-col {
+    background-color: #f7f7f7;
+    display: flex;
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    height: 50px;
+    color: #333333;
+}
+
+.ranking-col div {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+
+.rank {
+    width: 200px;
+    border-right: 1px solid #eeeeee;
+    box-sizing: border-box;
+}
+
+.rank-user {
+    width: 800px;
+    border-right: 1px solid #eeeeee;
+    box-sizing: border-box;
+}
+
+.rank-ac {
+    width: 200px;
+}
+
+
+/*-----------내용---------------*/
+
+.ranking-unit {
+    height: 40px;
+    display: flex;
+    line-height: 40px;
+    text-align: center;
+
+    font-family: S-CoreDream-3Light, sans-serif;
+    color: #333333;
+    font-size: 14px;
+}
+
+.ranking-unit:last-child {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.ranking-unit .rank-user {
+    text-decoration: none;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ranking-unit img {
+    width: 28px;
+    height: 28px;
+    margin-right: 5px;
+}
+
+.ranking-unit .rank-user:hover {
+    text-decoration: underline;
+}

@@ -121,11 +121,13 @@ class CodePost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # code 업로드 한 개인
 
     title = models.CharField(max_length=255)
+    context_code = models.TextField(null=True, blank=True)
     context = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     recommend = models.IntegerField(null=True, blank=True)
     like = models.ManyToManyField(User, related_name='codepost_likes', null=True, blank=True)
+
 
 
 # 결투장 code에 comment

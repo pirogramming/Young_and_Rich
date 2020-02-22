@@ -12,22 +12,24 @@
     <div class="result-wrap">
         <div class="result-title">{{ user }}님이 제출하신 답변의 정확도는 <span>{{ accuracy }}</span>입니다.</div>
         <div class="result-past-wrap">
-            <div>{{ user }}님의 과거 기록</div>
+            <div class="result-sub">{{ user }}님의 과거 기록</div>
 
             <div class="past-list">
                 {% for answer in answer_list %}
                     <div class="past-unit">
-                        {% if answer.is_selected %}
-                            <i id="answercheck-{{ answer.id }}" class="far fa-check-square answercheck"></i>
-                        {% else %}
-                            <i id="answercheck-{{ answer.id }}" class="far fa-square answercheck"></i>
-                        {% endif %}
-
                         <div class="text-wrap">
-                            <div>제출시간 : {{ answer.created_at }}</div>
-                            <div>정확도 : {{ answer.accuracy }}</div>
-                            <a href="{{ answer.file.url }}" download>다운받기</a>
+                            {% if answer.is_selected %}
+                                <i id="answercheck-{{ answer.id }}" class="far fa-check-square answercheck"></i>
+                            {% else %}
+                                <i id="answercheck-{{ answer.id }}" class="far fa-square answercheck"></i>
+                            {% endif %}
+
+                            <div class="text">
+                                <div>제출시간 : {{ answer.created_at }}</div>
+                                <div>정확도 : {{ answer.accuracy }}</div>
+                            </div>
                         </div>
+                        <a href="{{ answer.file.url }}" class="download"><div>다운로드</div></a>
                     </div>
                 {% endfor %}
             </div>

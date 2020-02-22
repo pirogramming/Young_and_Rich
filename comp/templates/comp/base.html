@@ -28,7 +28,7 @@
                 <div><a href="">토론방</a></div>
                 <div><a href="">랭킹</a></div>
                 <div><a href="">사용설명서</a></div>
-                <div><a href="">공지</a></div>
+                <div><a href="{% url 'main:notice_list' %}">공지</a></div>
             </div>
             <div class="nav-login">
                 {% if user.is_authenticated %}

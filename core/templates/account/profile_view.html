@@ -35,8 +35,6 @@
                         <div class="profile-icon-text">{{ user.profile.organization }}</div>
                     </div>
                 </div>
-
-
             </div>
 
 
@@ -69,17 +67,6 @@
                             <div class="content-unit"></div>
                             <div class="content-unit"></div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="star-wrap">
-                    <div class="table-name">공모전 즐겨찾기</div>
-                    <div class="star-table">
-                        {% for star in stars %}
-                            <div class="star-unit">
-                                <a href="{% url 'comp:comp_overview' star.pk %}">{{ star.title }}</a>
-                            </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>

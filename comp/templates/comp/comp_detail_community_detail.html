@@ -20,7 +20,7 @@
                 <div class="post-title">{{ compost.title }}</div>
                 <div class="post-sub">
                     <div class="post-user-profile">{{ compost.user.profile_set.image.url }}</div>
-                    <div>{{ compost.user }}</div>
+                    <div><a href="{% url 'profile_view' compost.user %}" class="post-detail-user">{{ compost.user }}</a></div>
                     <div>|</div>
                     <div>{{ compost.updated_at }}</div>
                     <div>|</div>
@@ -79,7 +79,7 @@
                     <div class="comment-main">
                         <div class="comment-unit-nav">
                             <div class="comment-unit-nav-left">
-                                <div class="comment-user">{{ comment.user }}</div>
+                                <div><a href="{% url 'profile_view' comment.user %}" class="comment-user">{{ comment.user }}</a></div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
                             </div>
@@ -125,7 +125,7 @@
                                     <div class="commcomment-main">
                                         <div class="post-top-right">
                                             <div class="comment-unit-nav-left">
-                                                <div class="comment-user">{{ commcomment.user }}</div>
+                                                <div><a href="{% url 'profile_view' commcomment.user %}" class="comment-user">{{ commcomment.user }}</a></div>
                                                 <div>|</div>
                                                 <div>{{ commcomment.created_at }}</div>
                                             </div>

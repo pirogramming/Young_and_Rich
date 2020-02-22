@@ -56,7 +56,12 @@
 html, body {
     margin: 0; padding: 0;
     height: 100%;
-    background-color: #65799b;
+
+    background: #555273; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #555273 0%, #65799b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #555273 0%, #65799b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #555273 0%, #65799b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555273', endColorstr='#65799b', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
 
@@ -84,6 +89,10 @@ html, body {
     margin-right: 5px;
 }
 
+.login-logo-top img {
+    width: 40px; height: 40px;
+}
+
 .login-name {
     font-family: NIXGONM-Vb, sans-serif;
     font-size: 24px;
@@ -102,7 +111,7 @@ html, body {
 
 .login-box {
     width: 500px;
-    padding: 50px 70px;
+    padding: 30px 70px;
     box-sizing: border-box;
     border-radius: 3px;
     background-color: white;

@@ -50,6 +50,15 @@
     color: #707070;
 }
 
+.post-detail-user {
+    text-decoration: none;
+    color: #707070;
+}
+
+.post-detail-user:hover {
+    text-decoration: underline;
+}
+
 .post-top-right {
     display: flex;
     align-items: center;
@@ -200,6 +209,12 @@
 
 .comment-user {
     font-family: S-CoreDream-5Medium, sans-serif;
+    text-decoration: none;
+    color: #333333;
+}
+
+.comment-user:hover {
+    text-decoration: underline;
 }
 
 .comment-unit-nav-right a {

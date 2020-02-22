@@ -1,0 +1,75 @@
+{% extends 'comp/base.html' %}
+{% load static %}
+
+{# ===============CSS link======================#}
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'comp/comp_detail.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_overview.css' %}?41">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_data.css' %}?42">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_community_detail.css' %}?42">
+    <link rel="stylesheet" href="{% static 'comp/comp_detail_code_list.css' %}?41">
+
+    <style>
+        .post-top {
+            align-items: flex-start;
+        }
+
+        .form-wrap {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        input {
+            border: 1px solid #707070;
+            font-size: 14px;
+            font-family: S-CoreDream-7ExtraBold, sans-serif;
+            color: #333333;
+            background: white;
+            width: 60px;
+            height: 35px;
+            border-radius: 3px;
+            transition-duration: 0.3s;
+        }
+
+        input:hover {
+            background: #f7f7f7;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="post-wrap">
+        <div class="post-top">
+            <div class="post-top-left">
+                <div class="post-title">{{ notice.title }}</div>
+                <div class="post-sub">
+                    <div>관리자</div>
+                    <div>|</div>
+                    <div>{{ notice.updated_at }}</div>
+                </div>
+            </div>
+            <div class="post-top-right">
+                <div class="good">
+                    <i class="fas fa-eye"></i>
+                    <div style="margin-left: 5px">{{ notice.view_num }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-bottom">
+            {{ notice.context|linebreaks }}
+        </div>
+    <div>
+
+    <div class="form-wrap">
+        <form action="{% url 'main:notice_list' %}">
+            <input value="목록" type="submit">
+        </form>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

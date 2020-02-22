@@ -84,6 +84,10 @@
     margin-right: 5px;
 }
 
+.logo-image img {
+    width: 25px; height: 25px;
+}
+
 .logo div {
     font-family: NIXGONM-Vb, sans-serif;
     font-size: 16px;
@@ -130,7 +134,7 @@
 
 /*---------입력 창-----------*/
 
-#id_phone_number, #id_organization {
+#id_phone_number, #id_organization, #id_nickname {
     width: 300px; height: 20px;
     border: none;
     border-bottom: 2px solid #e2eff1;

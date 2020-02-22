@@ -40,7 +40,7 @@
                                 <a href="{% url 'comp:comp_code_detail' comp.pk code.pk %}">{{ code.title }}</a>
                             </div>
                             <div class="code-sub">
-                                <div>{{ code.user }}</div>
+                                <div><a href="{% url 'profile_view' code.user %}" class="post-user">{{ code.user }}</a></div>
                                 <div>|</div>
                                 <div>{{ code.updated_at }}</div>
                                 <div>|</div>

@@ -21,18 +21,40 @@ def phone_number_validator(value):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to=user_profile_image_path, blank=True)
+    image = models.ImageField(default='default.png', upload_to=user_profile_image_path, blank=True)
     total_rank = models.IntegerField(default=0)
     comp = models.ForeignKey(Comp, null=True, blank=True, on_delete=models.CASCADE, related_name='participate_profile')
     comp_rank = models.TextField(default="{}")
     phone_number = models.CharField(max_length=11, blank=True)
     organization = models.CharField(max_length=255, blank=True)
+    nickname = models.CharField(max_length=255, blank=True)
 
     def append_comp_rank(self, key, value):
         lst = json.loads(self.comp_rank)
         lst[key] = value
         self.comp_rank = json.dumps(lst)
         self.save()
+
+    def get_medal_list(self):
+        medal_dict = {'gold': 0, 'silver': 0, 'bronze': 0, 'badge': 0}
+        # 해당 프로필 유저의 10%되는 등수 가져오기
+        # comp_rank의 key와 id가 같은 Comp의 continue_complete로
+        # comp_rank의 value를 나눈 것에 따라 10%, 20%, 40%로 메달 부여
+        # 그리고 comp_rank의 길이에 따라 배지 부여
+        lst = json.loads(self.comp_rank)
+        if bool(lst):
+            for key, value in lst:
+                k = int(key)
+                comp = Comp.objects.filter(id=k)
+                part = value / comp.continue_complete
+                if part <= 0.1:
+                    medal_dict['gold'] += 1
+                elif 0.1 < part <= 0.2:
+                    medal_dict['silver'] += 1
+                elif 0.2 < part <= 0.4:
+                    medal_dict['bronze'] += 1
+            medal_dict['badge'] = len(lst)
+        return medal_dict
 
     # 밑에 추가 내장함수는 rank 산정 방식 기획 후 설정
 
@@ -87,6 +109,7 @@ class Profile(models.Model):
     # def count_badge(self):
     #     badge_list = self.get_badge_list()
     #     return len(badge_list)
+
 
     email = models.EmailField(null=True, blank=True, unique=True)
     star = models.ManyToManyField(Comp, blank=True)

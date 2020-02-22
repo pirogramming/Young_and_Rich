@@ -2,7 +2,10 @@
 
 
 {% block content %}
+{% load pygmentify_tags %}
+<link rel="stylesheet" href="{% pygmentify_css %}">
 
+    
     <div class="comp-detail-nav-wrap">
         <div class="comp-detail-nav-with-button">
             <div><a href="{% url 'comp:comp_overview' comp.pk %}">개요</a></div>
@@ -20,7 +23,7 @@
                 <div class="post-title">{{ codepost.title }}</div>
                 <div class="post-sub">
                     <div class="post-user-profile"><a href="{% url 'profile_view' codepost.user %}">{{ codepost.user.profile_set.image.url }}</a></div>
-                    <div><a href="{% url 'profile_view' codepost.user %}">{{ codepost.user }}</a></div>
+                    <div><a href="{% url 'profile_view' codepost.user %}" class="post-detail-user">{{ codepost.user }}</a></div>
                     <div>|</div>
                     <div>{{ codepost.updated_at }}</div>
                     <div>|</div>
@@ -41,9 +44,21 @@
             </div>
         </div>
 
+
         <div class="post-bottom">
-            {{ codepost.context|linebreaks }}
+            <div class="post-code">
+                {% pygmentify %}
+                    <pre class="python">
+                    {{ codepost.context_code }}
+                    </pre>
+                {% endpygmentify %}
+            </div>
+
+            <div class = "post-context">
+                {{ codepost.context|linebreaks }}
+            </div>
         </div>
+
 
         <div class="good">
             {% if is_liked %}
@@ -79,7 +94,7 @@
                     <div class="comment-main">
                         <div class="comment-unit-nav">
                             <div class="comment-unit-nav-left">
-                                <div class="comment-user"><a href="{% url 'profile_view' comment.user %}">{{ comment.user }}</a></div>
+                                <div><a href="{% url 'profile_view' comment.user %}" class="comment-user">{{ comment.user }}</a></div>
                                 <div>|</div>
                                 <div>{{ comment.created_at }}</div>
                             </div>
@@ -127,7 +142,7 @@
                                     <div class="commcomment-main">
                                         <div class="post-top-right">
                                             <div class="comment-unit-nav-left">
-                                                <div class="comment-user"><a href="{% url 'profile_view' commcomment.user %}"></a>{{ commcomment.user }}</div>
+                                                <div><a href="{% url 'profile_view' commcomment.user %}" class="comment-user"></a>{{ commcomment.user }}</div>
                                                 <div>|</div>
                                                 <div>{{ commcomment.created_at }}</div>
                                             </div>

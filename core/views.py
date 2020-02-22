@@ -9,7 +9,8 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
 from .forms import ProfileForm
-from .models import Profile, Comp
+from .models import Profile, Comp, Answer
+import json
 
 
 # Create your views here.
@@ -33,9 +34,37 @@ def sign_in(request):
 
 @login_required
 def profile(request):
+    # 이 유저가 참여한 comp
+    # comp_rank를 바탕으로 하는 메달들 수 계산하기
+    answer = Answer.objects.filter(user=request.user).order_by('-accuracy')
+    comp_lst = list()
+    comp_all = Comp.objects.all()
+
+    try:
+        comp = Comp.objects.filter(id=answer[0].comp.id).get(continue_complete=-1)
+        comp_lst.append(comp)
+
+    except:
+        pass
+
+    for i in range(len(answer) - 1):
+        try:
+            if answer[i].comp.id != answer[i + 1].comp.id:
+                comp = Comp.objects.filter(id=answer[i + 1].comp.id).get(continue_complete=-1)
+                comp_lst.append(comp)
+        except:
+            pass
+
+    medal_dict = request.user.profile.get_medal_list()
+    my_comp_ranking = json.loads(request.user.profile.comp_rank)
+
     stars = Comp.objects.filter(star=request.user)
     data = {
-        'stars': stars
+        'my_comp_ranking': my_comp_ranking,  # 참여한 comp의 ranking
+        'comp_list': comp_lst,  # 이 유저가 참여한 comp
+        'stars': stars,
+        'medal_dict': medal_dict,  # {'gold': 0,'silver': 0, 'bronze': 0, 'badge': 0} 형식
+        "comp_all": comp_all,
     }
     return render(request, 'account/profile.html', data)
 

@@ -175,6 +175,15 @@
     margin-right: 5px;
 }
 
+.post-user {
+    text-decoration: none;
+    color: #333333;
+}
+
+.post-user:hover {
+    text-decoration: underline;
+}
+
 .list-good {
     padding-top: 0;
 }

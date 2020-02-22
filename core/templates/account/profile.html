@@ -3,7 +3,7 @@
 
 
 {% block extra-head %}
-    <link rel="stylesheet" href="{% static 'core/profile.css' %}?9">
+    <link rel="stylesheet" href="{% static 'core/profile.css' %}?11">
     <script src="https://kit.fontawesome.com/5658349e28.js" crossorigin="anonymous"></script>
 {% endblock %}
 
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="user-name-wrap">
-                        <div class="user-name">{{ user.last_name }}{{ user.first_name}}</div>
+                        <div class="user-name">{{ user.profile.nickname }}</div>
                         <div class="ranking-wrap">
                             <div>{{ user.profile.rank }}</div>
                             <div>전체 랭킹</div>
@@ -35,7 +35,7 @@
                     <div class="profile-text-wrap">
                         <div class="text-unit">
                             <div class="profile-icon"><i class="far fa-envelope"></i></div>
-                            <div class="profile-icon-text">{{ user.profile.email }}csh0sns@naver.com</div>
+                            <div class="profile-icon-text">{{ user.email }}</div>
                         </div>
                         <div class="text-unit">
                             <div class="profile-icon"><i class="far fa-building"></i></div>
@@ -60,28 +60,68 @@
                                 <div class="col-unit gold">
                                     <i class="fas fa-medal"></i>
                                     <div class="col-text">금메달</div>
-                                    <div class="col-num">1</div>
+                                    <div class="col-num">{{ medal_dict.gold }}</div>
                                 </div>
                                 <div class="col-unit silver">
                                     <i class="fas fa-medal"></i>
                                     <div class="col-text">은메달</div>
-                                    <div class="col-num">2</div>
+                                    <div class="col-num">{{ medal_dict.silver }}</div>
                                 </div>
                                 <div class="col-unit bronze">
                                     <i class="fas fa-medal"></i>
                                     <div class="col-text">동메달</div>
-                                    <div class="col-num">1</div>
+                                    <div class="col-num">{{ medal_dict.bronze }}</div>
                                 </div>
                                 <div class="col-unit badge">
                                     <i class="fas fa-certificate"></i>
                                     <div class="col-text">배지</div>
-                                    <div class="col-num">4</div>
+                                    <div class="col-num">{{ medal_dict.badge }}</div>
                                 </div>
                             </div>
 
                             <div class="medal-table-content">
-                                <div class="table-content-unit"></div>
+                                <div class="table-content-unit">
+                                    <div class="comp-past-list">
+                                    {% for key, value in my_comp_ranking.items %}
+                                        {% for comp in comp_all %}
+                                            {% if comp.pk == key %}
+                                                <div class="comp-past-unit">
+                                                    <div class="comp-past-unit-title">{{ comp.title }}</div>
+                                                    <div class="comp-past-unit-rank">{{ value }}</div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="comp-wrap" style="margin-bottom: 35px">
+                        <div class="table-name">참여 중인 공모전</div>
+
+                        <div class="comp-table">
+                            {% for comp in comp_list %}
+                                <div class="comp-unit">
+                                    <div class="comp-unit-img">
+                                        <img src="" alt="">
+                                    </div>
+
+                                    <div class="comp-unit-text">
+                                        <div class="comp-unit-title-wrap">
+                                            <div class="comp-unit-title">{{ comp.title }}</div>
+                                            <div class="comp-unit-text-sub">{{ comp.context }}</div>
+                                        </div>
+
+                                        <div class="comp-unit-sub">
+                                            <div>4팀 참여중</div>
+                                            <div>|</div>
+                                            <div>상금 {{ comp.prize }}만원</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
 

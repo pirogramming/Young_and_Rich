@@ -434,7 +434,7 @@ def comp_detail_code_post_create(request, pk):
             codepost.save()
             return redirect("comp:comp_code_detail", pk, codepost.pk)
     else:
-        form = ComPostForm()
+        form = CodePostForm()
         ctx = {
             "form": form,
             "is_star": comp.is_star(request),
@@ -765,9 +765,11 @@ def answer_checkbox_upload(request):
 
 def comp_ranking(request, pk):
     comp = Comp.objects.get(pk=pk)
+    user = User.objects.all()
     answer_lst = comp.answer.filter(is_selected=1).order_by('user_id', '-accuracy')
     answerdict = dict()
     sorted_answerdict = dict()
+
     try:
         answerdict[answer_lst[0].user_id] = answer_lst[0].accuracy
     except IndexError:
@@ -786,5 +788,6 @@ def comp_ranking(request, pk):
         "answers": sorted_answerdict,
         "is_star": comp.is_star(request),
         "comp": comp,
+        "user_list": user,
     }
     return render(request, 'comp/comp_ranking.html', context)

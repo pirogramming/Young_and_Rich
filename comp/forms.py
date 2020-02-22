@@ -9,11 +9,42 @@ class ComPostForm(forms.ModelForm):
         model = ComPost
         fields = ("title", "context",)
 
+    title = forms.CharField(label='제목', widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '제목 여기!'
+        }))
+
+    context = forms.CharField(label='내용', widget=forms.Textarea(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '내용 여기!'
+        }))
+
 
 class CodePostForm(forms.ModelForm):
     class Meta:
         model = CodePost
-        fields = ("title", "context",)
+        fields = ("title", "context_code", "context")
+
+    title = forms.CharField(label='제목', widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': ''
+        }))
+
+    context_code = forms.CharField(label='코드', widget=forms.Textarea(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '코드를 작성하세요'
+        }))
+
+    context = forms.CharField(label='코드설명', widget=forms.Textarea(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': '코드 설명을 작성하세요'
+        }))
+
 
 
 class ComCommentForm(forms.ModelForm):

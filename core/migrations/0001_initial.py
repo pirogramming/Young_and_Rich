@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(blank=True, default='default.jpg', upload_to=comp.utils.user_profile_image_path)),
+                ('image', models.ImageField(blank=True, default='default.png', upload_to=comp.utils.user_profile_image_path)),
                 ('total_rank', models.IntegerField(default=0)),
                 ('comp_rank', models.TextField(default='{}')),
                 ('phone_number', models.CharField(blank=True, max_length=11)),
